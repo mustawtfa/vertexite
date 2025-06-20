@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veri Silme Talebi | Data Deletion Request</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png"> 
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 0 0 10px 0;
+            opacity: 0;
+            animation: slideIn 1s forwards 0.5s;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin: 10px 0 20px;
+            opacity: 0;
+            animation: slideIn 1s forwards 1s;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            color: #fff;
+            font-size: 1.2em;
+            border: 2px solid #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: slideIn 1s forwards 1.5s;
+        }
+
+        .button:hover {
+            background-color: #fff;
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        /* Animasyonlar */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="title">Veri Silme Talebi</h1>
+        <p id="description">
+            Hesabınızı veya kişisel verilerinizi silmek için aşağıdaki butona tıklayarak formu doldurunuz.
+        </p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdAGfUc74sRs2T4K4pMOd6fXrH2LURaYWyROlzQChtGzTfJrQ/viewform?usp=dialog" class="button" target="_blank" id="buttonText">Hesabımı veya Verilerimi Sil</a>
+    </div>
+
+    <script>
+        const userLang = navigator.language || navigator.userLanguage;
+
+        if (userLang.startsWith('tr')) {
+            document.getElementById("title").innerText = "Veri Silme Talebi";
+            document.getElementById("description").innerText = "Hesabınızı veya kişisel verilerinizi silmek için aşağıdaki butona tıklayarak formu doldurunuz.";
+            document.getElementById("buttonText").innerText = "Hesabımı veya Verilerimi Sil";
+        } else {
+            document.getElementById("title").innerText = "Data Deletion Request";
+            document.getElementById("description").innerText = "To delete your account or personal data, click the button below and fill out the form.";
+            document.getElementById("buttonText").innerText = "Delete My Account or Data";
+        }
+    </script>
+</body>
+</html>

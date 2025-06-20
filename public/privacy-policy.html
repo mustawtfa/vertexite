@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Cortex Gizlilik Politikası</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png"> 
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #000;
+        color: #fff;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 50px auto;
+        background: #121212;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        opacity: 0;
+        transform: translateY(-50px);
+        animation: fadeInDown 1s forwards;
+      }
+
+      h1,
+      h2 {
+        color: #ffffff;
+        margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(-20px);
+        animation: fadeInDown 0.5s forwards;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 2.5em;
+      }
+
+      h2 {
+        font-size: 1.8em;
+        margin-top: 30px;
+      }
+
+      p,
+      ul {
+        opacity: 0;
+        transform: translateY(-20px);
+        animation: fadeInUp 0.7s forwards;
+        animation-delay: 0.5s;
+      }
+
+      p {
+        margin: 15px 0;
+        font-size: 1em;
+      }
+
+      ul {
+        margin-left: 20px;
+      }
+
+      li {
+        margin-bottom: 10px;
+      }
+
+      a {
+        color: #00bfff;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      a:hover {
+        color: #1e90ff;
+        text-decoration: underline;
+      }
+
+      @keyframes fadeInDown {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Staggered Animations */
+      .container > * {
+        animation-delay: calc(0.3s + 0.2s * var(--i));
+      }
+
+      /* Responsive Design */
+      @media (max-width: 600px) {
+        .container {
+          padding: 20px;
+        }
+
+        h1 {
+          font-size: 2em;
+        }
+
+        h2 {
+          font-size: 1.5em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 style="--i: 1;">Cortex Gizlilik Politikası</h1>
+
+      <p style="--i: 2;">
+        Cortex olarak, gizliliğinize ve kişisel verilerinizin güvenliğine büyük önem veriyoruz. Bu gizlilik politikası, uygulamamızın kullanıcı gizliliğini nasıl koruduğunu ve hangi verilerin toplandığını veya işlendiğini detaylandırmaktadır.
+      </p>
+
+      <h2 style="--i: 3;">Veri Toplama</h2>
+      <p style="--i: 4;">
+        Cortex uygulaması, kullanıcılarından sadece aşağıdaki bilgileri toplar:
+      </p>
+      <ul style="--i: 5;">
+        <li>E-posta adresi</li>
+        <li>Şifre (uygulama içi şifre, e-posta hesabınızın şifresinden bağımsızdır)</li>
+        <li>Kullanıcı adı</li>
+      </ul>
+
+      <h2 style="--i: 6;">Veri Kullanımı</h2>
+      <p style="--i: 7;">
+        Topladığımız bilgiler sadece oturum açma işlemi için kullanılır. Kullanıcı adı, e-posta ve şifre bilgileriniz, hesabınıza güvenli bir şekilde erişim sağlamak amacıyla saklanır ve başka amaçlarla kullanılmaz.
+      </p>
+
+      <h2 style="--i: 8;">Veri Paylaşımı</h2>
+      <p style="--i: 9;">
+        Cortex, kullanıcı verilerini hiçbir üçüncü tarafla paylaşmaz. Toplanan tüm veriler, sadece uygulama içi işlevsellik için kullanılır ve dışarıya aktarılmaz.
+      </p>
+
+      <h2 style="--i: 10;">Güvenlik</h2>
+      <p style="--i: 11;">
+        Uygulamamız, kullanıcı bilgilerinin güvenliğini sağlamak için güçlü şifreleme yöntemleri kullanır. E-posta ve şifre bilgileriniz, yetkisiz erişime karşı korunur ve güvenli bir şekilde saklanır.
+      </p>
+
+      <h2 style="--i: 12;">Veri Saklama</h2>
+      <p style="--i: 13;">
+        Cortex, kullanıcı verilerini yalnızca hesap yönetimi amacıyla saklar. Gereksiz veri saklamamayı ilke edinmiş olup, kullanıcı verileri ihtiyacımız kalmadığında güvenli bir şekilde silinir.
+      </p>
+
+      <h2 style="--i: 14;">Değişiklikler</h2>
+      <p style="--i: 15;">
+        Bu gizlilik politikası gerektiğinde güncellenebilir. Herhangi bir değişiklik olduğunda, yeni politika uygulama içinde duyurulacaktır.
+      </p>
+
+      <h2 style="--i: 16;">İletişim</h2>
+      <p style="--i: 17;">
+        Gizlilik politikamızla ilgili herhangi bir sorunuz veya endişeniz varsa, bizimle iletişime geçmekten çekinmeyin:
+      </p>
+      <ul style="--i: 18;">
+        <li>
+          E-posta:
+          <a href="mailto:vertexgames23@gmail.com">vertexgames23@gmail.com</a>
+        </li>
+        <li>
+          Web Sitesi:
+          <a href="http://www.vertexgames.pro">www.vertexgames.pro</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
