@@ -774,3 +774,7 @@ footer {
     width: 100%;
   }
 }
+/* Ekip üyelerinin profil resimlerinin köşelerini yumuşatır */
+.team-img {
+  border-radius: 20px; /* Bu değeri değiştirerek yumuşaklığı ayarlayabilirsin */
+}
