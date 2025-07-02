@@ -522,50 +522,64 @@ nav ul li a:hover {
 
 @media (max-width: 600px) {
   .team-grid {
-    grid-template-columns: 1fr;
+   display: grid;
+    
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px; 
   }
 }
 
 .team-card {
-  width: 100%;
-  max-width: none;
+  background-color: #ffffff;
+    border-radius: 16px;
+    text-align: center;
+    overflow: hidden;
 }
 
 .team-card:hover {
-  transform: translateY(-5px);
+ transform: translateY(-8px);
+ box-shadow: 0 16px 35px rgba(0, 0, 0, 0.25);
 }
 
 .team-img {
-  height: 400px;
-  background-color: var(--accent-gray);
-  object-fit: cover;
-  width: 100%;
+    width: 100%;
+    
+    aspect-ratio: 1 / 1;
+    object-fit: cover; 
+    display: block; 
+
+   
+    border-radius: 16px 16px 0 0;
 }
 
 .team-content {
-  padding: 1.5rem;
+  padding: 24px;
 }
 
 .team-content h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.3rem;
+  margin: 0 0 4px 0;
+    font-size: 1.5rem; /* 24px */
+    font-weight: 600;
+    color: #1c1e21;
 }
 
 .team-content p {
-  color: var(--accent-gray);
-  font-size: 0.9rem;
+ margin: 0 0 20px 0;
+    font-size: 1rem; 
+    color: #65676b;
+    min-height: 24px;
 }
 
 .social-links {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 .social-links a img {
-  width: 24px;
-  height: 24px;
+ height: 24px; 
+    transition: transform 0.2s ease;
 }
 
 /* ============= */
@@ -776,5 +790,7 @@ footer {
 }
 /* Ekip üyelerinin profil resimlerinin köşelerini yumuşatır */
 .team-img {
-  border-radius: 20px; /* Bu değeri değiştirerek yumuşaklığı ayarlayabilirsin */
+  border-radius: 0px; /* Bu değeri değiştirerek yumuşaklığı ayarlayabilirsin */
 }
+
+
