@@ -50,6 +50,7 @@ body.light-theme header {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 body:not(.light-theme) header {
+  
   box-shadow: 0 2px 4px rgba(256, 256, 256, 0.1);
 }
 
@@ -522,65 +523,105 @@ nav ul li a:hover {
 
 @media (max-width: 600px) {
   .team-grid {
-   display: grid;
-    
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 32px; 
   }
 }
 
 .team-card {
-  background-color: #ffffff;
-    border-radius: 16px;
-    text-align: center;
-    overflow: hidden;
+  /* RENK DEĞİŞİMİ İÇİN DÜZENLEME: */
+  /* Artık sabit renkler yerine CSS değişkenlerini kullanıyoruz. */
+  background-color: var(--secondary-black); /* Tema değişince bu da değişecek */
+  border-radius: 12px;
+  
+  /* GÖLGE DÜZENLEMESİ: Artık gölge hep var, hover'da değişmiyor */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+  
+  /* Geçişler */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .team-card:hover {
- transform: translateY(-8px);
- box-shadow: 0 16px 35px rgba(0, 0, 0, 0.25);
+  transform: translateY(-5px);
+  /* Hover'da gölgeyi biraz daha belirgin yapıyoruz */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 .team-img {
-    width: 100%;
-    
-    aspect-ratio: 1 / 1;
-    object-fit: cover; 
-    display: block; 
-
-   
-    border-radius: 16px 16px 0 0;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover; 
+  display: block;
+ border-radius: 12px 12px 0 0;
 }
 
 .team-content {
   padding: 24px;
+  text-align: center; /* İsim, unvan ve ikonları ortalamak için */
 }
 
 .team-content h3 {
   margin: 0 0 4px 0;
-    font-size: 1.5rem; /* 24px */
-    font-weight: 600;
-    color: #1c1e21;
+  font-size: 1.5rem;
+  font-weight: 600;
+  /* RENK DEĞİŞİMİ İÇİN DÜZENLEME: */
+  color: var(--primary-white); /* Tema değişince bu da değişecek */
 }
 
 .team-content p {
- margin: 0 0 20px 0;
-    font-size: 1rem; 
-    color: #65676b;
-    min-height: 24px;
+  margin: 0 0 20px 0;
+  font-size: 1rem; 
+  /* RENK DEĞİŞİMİ İÇİN DÜZENLEME: */
+  color: var(--accent-gray); /* Tema değişince bu da değişecek */
+  min-height: 24px;
 }
 
 .social-links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 .social-links a img {
- height: 24px; 
-    transition: transform 0.2s ease;
+  height: 24px; 
+  transition: transform 0.2s ease;
+  /* İKON RENK DEĞİŞİMİ İÇİN DÜZENLEME: */
+  /* Bu kuralı zaten dosyanın en başında tanımlamıştın, bu yüzden burada tekrar yazmaya gerek yok. */
+  /* `body:not(.light-theme) .social-links a img { filter: invert(1); }` kuralı işini görecektir. */
 }
+
+/* ... */
+
+.social-links a img {
+  height: 24px; 
+  transition: transform 0.2s ease;
+}
+
+/* YENİ KODU BURAYA YAPIŞTIRIN */
+/* =================================== */
+/* TEAM CARD - TEMA BAZLI GÖLGE AYARI */
+/* =================================== */
+
+/* AÇIK TEMA GÖLGESİ (SİYAH) */
+body.light-theme .team-card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+body.light-theme .team-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* KARANLIK TEMA GÖLGESİ (BEYAZ) */
+body:not(.light-theme) .team-card {
+  /* Yarı saydam beyaz bir gölge (parlama efekti) */
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
+}
+body:not(.light-theme) .team-card:hover {
+  /* Hover durumunda daha belirgin bir beyaz gölge */
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+}
+
+
 
 /* ============= */
 /* Contact Section */
@@ -788,9 +829,11 @@ footer {
     width: 100%;
   }
 }
-/* Ekip üyelerinin profil resimlerinin köşelerini yumuşatır */
-.team-img {
-  border-radius: 0px; /* Bu değeri değiştirerek yumuşaklığı ayarlayabilirsin */
+
+
+/* SON SATIRDAKİ TEK KARTI ORTALAMAK İÇİN */
+@media (min-width: 993px) {
+  .team-card:last-child {
+    grid-column: 2;
+  }
 }
-
-
