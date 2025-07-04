@@ -462,9 +462,9 @@
 
 
     <script>
-        // --- SECURE & ROBUST FIREBASE INITIALIZER (v5 - Perfected) ---
+        // --- SECURE & ROBUST FIREBASE INITIALIZER (v8 - Definitive Syntax Fix) ---
         // This IIFE (Immediately Invoked Function Expression) encapsulates the entire
-        // application logic to prevent polluting the global scope and allows for top-level async/await.
+        // application logic, preventing global scope pollution and allowing top-level async/await.
         (async () => {
             // --- 1. DOM & UI Helper Definitions (These were already perfect) ---
             const mainContainer = document.getElementById('main-container');
@@ -504,17 +504,16 @@
                 });
             };
 
-            // --- 2. Application Initialization Flow (Corrected Loading Order) ---
+            // --- 2. Application Initialization Flow (Corrected Loading Order & Syntax) ---
             showAnimatedLoadingState('Connecting to Secure Services...');
 
             try {
-                // *** THE DEFINITIVE FIX for 'e.firebase is undefined' race condition ***
-                // Step 1: Load the CORE 'app' script first and wait for it to complete. This is mandatory for compat libraries.
+                // Step 1: Load the CORE 'app' script first. This prevents race conditions.
                 console.log('[INIT] Stage 1.1: Loading Firebase Core SDK...');
                 await loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js");
                 console.log('[INIT] Stage 1.1 Complete: Core SDK is ready.');
 
-                // Step 2: Now that the core is ready, fetch dependent SDKs and the configuration in parallel for performance.
+                // Step 2: Fetch dependent SDKs and the configuration in parallel.
                 console.log('[INIT] Stage 1.2: Starting parallel fetch of dependent SDKs and configuration...');
 
                 const dependentSdkLoaderPromise = Promise.all([
@@ -530,7 +529,7 @@
                         return JSON.parse(cachedConfig);
                     }
                     console.log('[INIT] Fetching remote Firebase config...');
-                    const configUrl = "https://getappconfig-o5h7dmtija-ew.a.run.app"; // Your function URL
+                    const configUrl = "https://getappconfig-o5h7dmtija-ew.a.run.app";
                     const response = await fetch(configUrl);
                     if (!response.ok) throw new Error(`Config server responded with status ${response.status}`);
                     const config = await response.json();
@@ -539,13 +538,15 @@
                 };
                 const configPromise = fetchConfig();
 
-                // Wait for both promises to resolve. The first element of the array is "undefined" because the SDK promise resolves to nothing.
-                const [, firebaseConfig] = await Promise.all([dependentSdkLoaderPromise, configPromise]);
-                console.log('[INIT] Stage 1.2 Complete: All dependent SDKs loaded and configuration retrieved.');
+                // *** THE DEFINITIVE FIX for 'invalid assignment left-hand side' ***
+                // Instead of destructuring, we get the full results array and pick the element we need. This is 100% syntactically safe.
+                const promiseResults = await Promise.all([dependentSdkLoaderPromise, configPromise]);
+                const firebaseConfig = promiseResults[1]; // The config object is the second result.
+
+                console.log('[INIT] Stage 1.2 Complete: All dependent resources loaded.');
 
                 // --- 3. Configuration Validation ---
                 if (!firebaseConfig || !firebaseConfig.appId) {
-                    // This will catch errors from a stale cache that doesn't have the appId.
                     throw new Error("Invalid or incomplete configuration received. 'appId' is mandatory. Please clear session storage and refresh.");
                 }
                 console.log('[INIT] Stage 2: Configuration validated successfully.');
@@ -556,7 +557,7 @@
                 setTimeout(() => {
                     const loader = document.getElementById('loader-wrapper');
                     if (loader) loader.style.opacity = '0';
-                    setTimeout(() => startApp(firebaseConfig), 500); // Start the main app logic
+                    setTimeout(() => startApp(firebaseConfig), 500);
                 }, 800);
 
             } catch (error) {
@@ -753,4 +754,5 @@
         }
     </script>
 </body>
+
 </html>
