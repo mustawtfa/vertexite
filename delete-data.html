@@ -461,9 +461,10 @@
     </div>
 
 
+
     <script>
         // This IIFE (Immediately Invoked Function Expression) encapsulates the entire
-        // application logic, preventing global scope pollution and allowing top-level async/await.
+        // application logic, preventing global scope pollution.
         (async () => {
             // --- 1. DOM & UI Helper Definitions ---
             const mainContainer = document.getElementById('main-container');
@@ -477,7 +478,11 @@
             </div>
             <style>.spinner{width:45px;height:45px;background-color:transparent;border-style:solid;border-width:0 25px 43.3px 25px;border-color:transparent transparent var(--text-primary-color) transparent;animation:spin 1.5s linear infinite;margin:20px auto 0;}</style>
             `;
-                setTimeout(() => { document.getElementById('loader-wrapper')?.style.opacity = '1'; }, 10);
+                // ROBUSTNESS FIX: Use a standard 'if' check instead of optional chaining (?.)
+                const loaderWrapper = document.getElementById('loader-wrapper');
+                if (loaderWrapper) {
+                    setTimeout(() => { loaderWrapper.style.opacity = '1'; }, 10);
+                }
             };
 
             const showErrorState = (error) => {
@@ -489,7 +494,11 @@
                 <p style="font-size: 1em; color: var(--text-secondary-color); word-break: break-word; margin-top: 15px;"><strong>Details:</strong> ${error.message}</p>
             </div>
             `;
-                setTimeout(() => { document.getElementById('error-content')?.style.opacity = '1'; }, 10);
+                // ROBUSTNESS FIX: Use a standard 'if' check
+                const errorContent = document.getElementById('error-content');
+                if (errorContent) {
+                    setTimeout(() => { errorContent.style.opacity = '1'; }, 10);
+                }
             };
 
             const loadScript = (url) => {
@@ -510,8 +519,13 @@
                 // Step 1: Load the CORE 'app' script first. This prevents race conditions.
                 await loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js");
 
-                // Step 2: Fetch dependent SDKs and the configuration in parallel for speed.
-                const dependentSdkLoaderPromise = Promise.all([
+                // Defensively check if Firebase was loaded
+                if (typeof firebase === 'undefined') {
+                    throw new Error("Firebase core SDK failed to load. The 'firebase' global object is not available.");
+                }
+
+                // Step 2: Fetch dependent SDKs and the configuration in parallel.
+                const sdkLoaderPromise = Promise.all([
                     loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js"),
                     loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-functions-compat.js"),
                     loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-app-check-compat.js")
@@ -519,9 +533,10 @@
 
                 const fetchConfig = async () => {
                     const cachedConfig = sessionStorage.getItem('firebaseConfig');
-                    if (cachedConfig) return JSON.parse(cachedConfig);
-
-                    const configUrl = "https://getappconfig-o5h7dmtija-ew.a.run.app"; // Assumes your config fetcher
+                    if (cachedConfig) {
+                        return JSON.parse(cachedConfig);
+                    }
+                    const configUrl = "https://getappconfig-o5h7dmtija-ew.a.run.app";
                     const response = await fetch(configUrl);
                     if (!response.ok) throw new Error(`Config server responded with status ${response.status}`);
                     const config = await response.json();
@@ -530,11 +545,9 @@
                 };
                 const configPromise = fetchConfig();
 
-                // *** THE DEFINITIVE FIX for 'Uncaught SyntaxError: invalid assignment left-hand side' ***
-                // Instead of complex destructuring, we await the promises and assign the results to a standard array.
-                // This is 100% syntactically safe and easier to debug.
-                const promiseResults = await Promise.all([dependentSdkLoaderPromise, configPromise]);
-                const firebaseConfig = promiseResults[1]; // The config object is the second result from the Promise.all array.
+                // Await all parallel tasks and get the results in a clear, safe way.
+                const results = await Promise.all([sdkLoaderPromise, configPromise]);
+                const firebaseConfig = results[1]; // The config object is the second result.
 
                 // Step 3: Configuration Validation
                 if (!firebaseConfig || !firebaseConfig.appId) {
@@ -542,9 +555,17 @@
                 }
 
                 // Step 4: Graceful UI Transition
-                document.getElementById('loader-message').textContent = 'Finalizing Connection...';
+                const loaderMessage = document.getElementById('loader-message');
+                if (loaderMessage) {
+                    loaderMessage.textContent = 'Finalizing Connection...';
+                }
+
                 setTimeout(() => {
-                    document.getElementById('loader-wrapper').style.opacity = '0';
+                    const loader = document.getElementById('loader-wrapper');
+                    if (loader) {
+                        loader.style.opacity = '0';
+                    }
+                    // Wait for fade-out animation before starting the app
                     setTimeout(() => startApp(firebaseConfig), 500);
                 }, 800);
 
@@ -558,27 +579,22 @@
 
             // --- Step 1: Initialize Firebase & Services ---
             let app;
-            // This check prevents re-initialization errors on hot-reloads.
             if (!firebase.apps.length) {
                 app = firebase.initializeApp(firebaseConfig);
             } else {
-                app = firebase.app(); // Get the already-initialized app.
+                app = firebase.app();
             }
 
             const auth = firebase.auth(app);
             const appCheck = firebase.appCheck(app);
 
-            // *** THE DEFINITIVE FIX for Cloud Function CORS / 404 NOT FOUND errors ***
-            // Explicitly tell the Functions SDK which region your functions are deployed to.
-            // The client will now make requests to 'europe-west1' instead of the default 'us-central1'.
+            // CRITICAL FIX for Cloud Function CORS / 404 NOT FOUND errors.
+            // Explicitly set the region of your functions.
             const functions = firebase.functions(app, 'europe-west1');
-
-            console.log('[APP] All Firebase services initialized successfully. Functions region set to "europe-west1".');
 
             // --- Step 2: Activate App Check ---
             try {
-                appCheck.activate('6LfPxncrAAAAANROpBb3E7q-gIf52Py-AePSGfJG', true); // Your reCAPTCHA v3 site key
-                console.log('[APP_CHECK] Firebase App Check activated successfully.');
+                appCheck.activate('6LfPxncrAAAAANROpBb3E7q-gIf52Py-AePSGfJG', true);
             } catch (error) {
                 console.error('[APP_CHECK] CRITICAL: Failed to activate App Check:', error);
                 alert("Security check failed. Some features may not work. Please try refreshing.");
@@ -587,7 +603,7 @@
             // --- Step 3: Define Global State & UI Templates ---
             const mainContainer = document.getElementById('main-container');
             const modal = document.getElementById('confirmation-modal');
-            let currentUser = null; // Holds the user object when authenticated.
+            let currentUser = null;
 
             const unauthenticatedTemplate = `
             <h1>Data Deletion</h1>
@@ -642,7 +658,6 @@
 
             // --- Step 5: Auth State Controller ---
             auth.onAuthStateChanged(user => {
-                console.log('[AUTH] Auth state changed. User:', user ? user.email : 'None');
                 currentUser = user;
                 render();
             });
@@ -653,7 +668,6 @@
                 try {
                     await auth.signInWithPopup(provider);
                 } catch (error) {
-                    console.error('[AUTH] Google sign-in failed:', error);
                     alert(`Google sign-in failed: ${error.message}`);
                 }
             };
@@ -673,12 +687,12 @@
                 const email = document.getElementById('email').value;
                 const password = document.getElementById('password').value;
                 const passwordError = document.getElementById('password-error');
+                passwordError.textContent = '';
                 passwordError.classList.remove('visible');
 
                 try {
                     await auth.signInWithEmailAndPassword(email, password);
                 } catch (error) {
-                    console.error('[AUTH] Email sign-in failed:', error);
                     passwordError.textContent = 'Invalid email or password. Please try again.';
                     passwordError.classList.add('visible');
                 }
@@ -695,7 +709,6 @@
                 }
 
                 try {
-                    // This 'functions' instance is now correctly configured for 'europe-west1'.
                     const requestDeletionFunction = functions.httpsCallable('requestAccountDeletion');
                     await requestDeletionFunction();
 
@@ -710,7 +723,6 @@
                     }, 500);
 
                 } catch (error) {
-                    console.error('[DELETION] Cloud Function call failed:', error);
                     modal.classList.remove('active');
                     alert(`An unexpected error occurred: ${error.message}. Please try again.`);
                 } finally {
@@ -724,5 +736,4 @@
         }
     </script>
 </body>
-
 </html>
