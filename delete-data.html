@@ -471,14 +471,81 @@
 
             const showAnimatedLoadingState = (message) => {
                 mainContainer.innerHTML = `
-            <div id="loader-wrapper" style="opacity: 0; transition: opacity 0.5s ease;">
-                <h1>Cortex</h1>
-                <p id="loader-message" style="color: var(--text-secondary-color); transition: opacity 0.3s ease-out;">${message}</p>
-                <div class="spinner"></div>
+        <div id="loader-wrapper" style="opacity: 0; transition: opacity 0.5s ease;">
+            <h1>Cortex</h1>
+            <p id="loader-message" style="color: var(--text-secondary-color); transition: opacity 0.3s ease-out;">${message}</p>
+
+            <div class="spinner-container">
+                <svg class="loading-spinner-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="spinner-track" cx="50" cy="50" r="42" />
+                    <circle class="spinner-head" cx="50" cy="50" r="42" />
+                    <polygon class="spinner-triangle" points="50,25 75,65 25,65" />
+                </svg>
             </div>
-            <style>.spinner{width:45px;height:45px;background-color:transparent;border-style:solid;border-width:0 25px 43.3px 25px;border-color:transparent transparent var(--text-primary-color) transparent;animation:spin 1.5s linear infinite;margin:20px auto 0;}</style>
-            `;
-                // ROBUSTNESS FIX: Use a standard 'if' check instead of optional chaining (?.)
+        </div>
+        <style>
+            .spinner-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 25px;
+                height: 60px;
+            }
+
+            .loading-spinner-svg {
+                width: 60px;
+                height: 60px;
+                animation: svg-spinner-spin 1.4s linear infinite;
+                transform-origin: center;
+            }
+
+            .spinner-track, .spinner-head {
+                fill: transparent;
+                stroke-width: 10;
+                stroke-linecap: round;
+            }
+
+            .spinner-track {
+                stroke: var(--triangle-color); 
+            }
+
+            .spinner-head {
+                stroke: var(--text-primary-color); 
+                stroke-dasharray: 80 264; 
+                stroke-dashoffset: 0;
+                animation: svg-spinner-dash 1.4s ease-in-out infinite;
+            }
+
+            .spinner-triangle {
+                fill: transparent;
+                stroke: var(--text-primary-color); 
+                stroke-width: 8;
+                stroke-linejoin: round;
+            }
+
+            @keyframes svg-spinner-spin {
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            @keyframes svg-spinner-dash {
+                0% {
+                    stroke-dasharray: 1 264;
+                    stroke-dashoffset: 0;
+                }
+                50% {
+                    stroke-dasharray: 120 264;
+                    stroke-dashoffset: -40;
+                }
+                100% {
+                    stroke-dasharray: 1 264;
+                    stroke-dashoffset: -263;
+                }
+            }
+        </style>
+    `;
+                // ROBUSTNESS FIX: Use a standard 'if' check instead of optional chaining (?.)s
                 const loaderWrapper = document.getElementById('loader-wrapper');
                 if (loaderWrapper) {
                     setTimeout(() => { loaderWrapper.style.opacity = '1'; }, 10);
@@ -568,7 +635,6 @@
                     // Wait for fade-out animation before starting the app
                     setTimeout(() => startApp(firebaseConfig), 500);
                 }, 800);
-
             } catch (error) {
                 showErrorState(error);
             }
@@ -627,19 +693,20 @@
             <button id="sign-out-btn" style="margin-top: 15px; background: none; border: none; color: var(--text-secondary-color); cursor: pointer;">Not you? Sign Out</button>
         `;
 
-            // --- Step 4: UI Rendering and Event Listener Management ---
-            const render = () => {
+            const updateUI = (newHTML, onCompleteCallback) => {
                 mainContainer.style.opacity = '0';
+                mainContainer.style.transform = 'translateY(20px)';
+
                 setTimeout(() => {
-                    if (currentUser) {
-                        mainContainer.innerHTML = authenticatedTemplate(currentUser.email);
-                        addAuthenticatedViewListeners();
-                    } else {
-                        mainContainer.innerHTML = unauthenticatedTemplate;
-                        addUnauthenticatedViewListeners();
-                    }
+                    mainContainer.innerHTML = newHTML;
+
                     mainContainer.style.opacity = '1';
-                }, 300);
+                    mainContainer.style.transform = 'translateY(0)';
+
+                    if (onCompleteCallback) {
+                        onCompleteCallback();
+                    }
+                }, 350);
             };
 
             function addUnauthenticatedViewListeners() {
@@ -658,17 +725,60 @@
 
             // --- Step 5: Auth State Controller ---
             auth.onAuthStateChanged(user => {
+                const wasJustAuthenticated = !currentUser && user;
+                const wasJustSignedOut = currentUser && !user;
                 currentUser = user;
-                render();
+
+                // Sadece gerçekten durum değiştiğinde UI'ı güncelle.
+                if (wasJustAuthenticated || wasJustSignedOut) {
+                    if (user) {
+                        updateUI(authenticatedTemplate(user.email), addAuthenticatedViewListeners);
+                    } else {
+                        updateUI(unauthenticatedTemplate, addUnauthenticatedViewListeners);
+                    }
+                }
             });
 
             // --- Step 6: Core Logic Functions ---
             const handleGoogleSignIn = async () => {
                 const provider = new firebase.auth.GoogleAuthProvider();
                 try {
-                    await auth.signInWithPopup(provider);
+                    const result = await auth.signInWithPopup(provider);
+
+                    // THIS IS THE SECRET SAUCE: Check if the user was just created.
+                    const isNewUser = result.additionalUserInfo?.isNewUser;
+
+                    if (isNewUser) {
+                        // IF THE USER WAS NEWLY CREATED (UNINTENDED BEHAVIOR)
+                        console.warn("A new user was created by mistake, reverting the operation...");
+
+                        // 1. Get a reference to the newly created user.
+                        const userToDelete = result.user;
+
+                        if (userToDelete) {
+                            // 2. We DELETE this unwanted user from Firebase Auth.
+                            // This is a much cleaner solution than just signing out.
+                            await userToDelete.delete();
+                        }
+
+                        // 3. Show a clear error message to the user.
+                        alert("Account not found. Please sign in with an existing Cortex account to delete your data.");
+
+                        // 4. Just in case, sign out from the local session as well.
+                        await auth.signOut();
+
+                    } else {
+                        // An existing user signed in, everything is fine.
+                        // The onAuthStateChanged listener will handle the rest.
+                        console.log("Existing user successfully signed in:", result.user.email);
+                    }
+
                 } catch (error) {
-                    alert(`Google sign-in failed: ${error.message}`);
+                    // Handle cases where the user closes the popup or another error occurs.
+                    if (error.code !== 'auth/popup-closed-by-user') {
+                        alert(`An error occurred during Google sign-in: ${error.message}`);
+                    }
+                    console.error("Google sign-in error:", error);
                 }
             };
 
@@ -703,24 +813,12 @@
                 confirmBtn.disabled = true;
                 confirmBtn.textContent = 'REQUESTING';
 
-                if (!currentUser) {
-                    modal.classList.remove('active');
-                    return;
-                }
+                if (!currentUser) { modal.classList.remove('active'); return; }
 
                 try {
-                    const requestDeletionFunction = functions.httpsCallable('requestAccountDeletion');
-                    console.log('✅', requestDeletionFunction.url);
-                    await requestDeletionFunction();
+                    await functions.httpsCallable('requestAccountDeletion')();
                     modal.classList.remove('active');
-                    mainContainer.style.transition = 'opacity 0.5s ease';
-                    mainContainer.style.opacity = '0';
-                    setTimeout(() => {
-                        mainContainer.innerHTML = `
-                    <h1>Deletion Scheduled</h1>
-                    <p>Your request has been received. Your account and all data will be permanently deleted within 24 hours. You have been signed out.</p>`;
-                        mainContainer.style.opacity = '1';
-                    }, 500);
+                    updateUI(deletionSuccessTemplate);
 
                 } catch (error) {
                     modal.classList.remove('active');
@@ -728,9 +826,7 @@
                 } finally {
                     confirmBtn.disabled = false;
                     confirmBtn.textContent = 'Yes, Delete Everything';
-                    if (auth.currentUser) {
-                        auth.signOut();
-                    }
+                    if (auth.currentUser) auth.signOut();
                 }
             };
         }
