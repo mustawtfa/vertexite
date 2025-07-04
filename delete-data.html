@@ -499,29 +499,23 @@
                 }, 10);
             };
 
-            const loadScript = (url) => {
+           const loadScript = (url) => {
                 return new Promise((resolve, reject) => {
                     const script = document.createElement('script');
-                    script.src = url;
-                    script.async = true;
-                    script.onload = resolve;
+                    script.src = url; script.async = true; script.onload = resolve;
                     script.onerror = () => reject(new Error(`Failed to load script: ${url}`));
                     document.head.appendChild(script);
                 });
             };
 
             showAnimatedLoadingState('Connecting to Services...');
-                      try {
-                // --- THE FIX: TWO-STAGE SCRIPT LOADING ---
-
-                // Stage 1: Load the core `app` script FIRST and wait for it.
-                // This creates the global `firebase` object.
+            try {
+                // Stage 1: Load the core `app` script FIRST.
                 console.log('[INIT] Stage 1.1: Loading Firebase Core SDK...');
                 await loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js");
                 console.log('[INIT] Stage 1.1 Complete: Core SDK loaded.');
 
-                // Stage 2: Now that `firebase` exists, load all dependent scripts in parallel.
-                // They can now safely attach themselves to the global `firebase` object.
+                // Stage 2: Load all dependent scripts in parallel.
                 console.log('[INIT] Stage 1.2: Loading dependent Firebase SDKs...');
                 await Promise.all([
                     loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js"),
@@ -530,6 +524,7 @@
                 ]);
                 console.log('[INIT] Stage 1.2 Complete: All dependent SDKs loaded.');
 
+                // The rest of the initialization logic remains the same.
                 let firebaseConfig;
                 const cachedConfig = sessionStorage.getItem('firebaseConfig');
                 if (cachedConfig) {
@@ -553,20 +548,26 @@
             } catch (error) { showErrorState(error); }
         })();
 
-
         // --- MAIN APPLICATION LOGIC (v3 Universal) ---
         function startApp(firebaseConfig) {
-            // --- Step 1: Initialize Firebase & App Check ---
-            firebase.initializeApp(firebaseConfig);
+            
+            // --- Step 1: Initialize Firebase & Services EXPLICITLY ---
+            // THE FIX: Get the app instance and pass it to each service.
+            // This eliminates any race conditions with the global firebase object.
+            const app = firebase.initializeApp(firebaseConfig);
+            const auth = firebase.auth(app);
+            const functions = firebase.functions(app);
+            const appCheck = firebase.appCheck(app);
+            console.log('[APP] Firebase services initialized explicitly.');
+
+            // --- Step 2: Activate App Check ---
+            // This now safely activates on the fully configured instance.
             try {
-                const appCheck = firebase.appCheck();
                 appCheck.activate('6LfPxncrAAAAANROpBb3E7q-gIf52Py-AePSGfJG', true);
                 console.log('[APP_CHECK] Firebase App Check activated successfully.');
             } catch (error) {
                 console.error('[APP_CHECK] Failed to activate App Check:', error);
             }
-            const auth = firebase.auth();
-            const functions = firebase.functions();
             console.log('[APP] Firebase initialized successfully.');
 
             // --- Step 2: Define Global State & UI Templates ---
