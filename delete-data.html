@@ -724,13 +724,14 @@
             }
 
             // --- Step 5: Auth State Controller ---
-            auth.onAuthStateChanged(user => {
-                const wasJustAuthenticated = !currentUser && user;
-                const wasJustSignedOut = currentUser && !user;
-                currentUser = user;
+            let initialAuthCheckDone = false;
 
-                // Sadece gerçekten durum değiştiğinde UI'ı güncelle.
-                if (wasJustAuthenticated || wasJustSignedOut) {
+            auth.onAuthStateChanged(user => {
+                if (!initialAuthCheckDone || (currentUser && !user) || (!currentUser && user)) {
+                    
+                    initialAuthCheckDone = true; 
+                    currentUser = user; 
+
                     if (user) {
                         updateUI(authenticatedTemplate(user.email), addAuthenticatedViewListeners);
                     } else {
