@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Cortex Privacy Policy</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" />
+  <style>
+    :root {
+      --background-color: #f4f7f9;
+      --content-bg-color: #ffffff;
+      --text-primary-color: #1a202c;
+      --text-secondary-color: #4a5568;
+      --link-color: #3182ce;
+      --link-hover-color: #2b6cb0;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --triangle-color: #e2e8f0;
+      --warning-bg-color: #fffaf0;
+      --warning-border-color: #f6e05e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: #000 transparent;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background-color);
+      color: var(--text-primary-color);
+      overflow-x: hidden;
+    }
+
+    body::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background-color: #000;
+      border-radius: 20px;
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+      background-color: #333;
+    }
+
+    body::-webkit-scrollbar-button {
+      display: none;
+    }
+
+    .triangles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .triangles li {
+      position: absolute;
+      display: block;
+      list-style: none;
+      width: 20px;
+      height: 20px;
+      background: var(--triangle-color);
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      animation: triangleAnimate 25s linear infinite;
+      bottom: -180px;
+    }
+
+    .triangles li:nth-child(1) {
+      left: 25%;
+      width: 80px;
+      height: 80px;
+      animation-delay: 0s;
+    }
+
+    .triangles li:nth-child(2) {
+      left: 10%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 2s;
+      animation-duration: 12s;
+    }
+
+    .triangles li:nth-child(3) {
+      left: 70%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 4s;
+    }
+
+    .triangles li:nth-child(4) {
+      left: 40%;
+      width: 60px;
+      height: 60px;
+      animation-delay: 0s;
+      animation-duration: 18s;
+    }
+
+    .triangles li:nth-child(5) {
+      left: 65%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 0s;
+    }
+
+    .triangles li:nth-child(6) {
+      left: 75%;
+      width: 110px;
+      height: 110px;
+      animation-delay: 3s;
+    }
+
+    .triangles li:nth-child(7) {
+      left: 35%;
+      width: 150px;
+      height: 150px;
+      animation-delay: 7s;
+    }
+
+    .triangles li:nth-child(8) {
+      left: 50%;
+      width: 25px;
+      height: 25px;
+      animation-delay: 15s;
+      animation-duration: 45s;
+    }
+
+    .triangles li:nth-child(9) {
+      left: 20%;
+      width: 15px;
+      height: 15px;
+      animation-delay: 2s;
+      animation-duration: 35s;
+    }
+
+    .triangles li:nth-child(10) {
+      left: 85%;
+      width: 150px;
+      height: 150px;
+      animation-delay: 0s;
+      animation-duration: 11s;
+    }
+
+    @keyframes triangleAnimate {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+      }
+
+      100% {
+        transform: translateY(-120vh) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+      }
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: var(--content-bg-color);
+      padding: 50px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px var(--shadow-color);
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s forwards;
+    }
+
+    h1,
+    h2 {
+      color: var(--text-primary-color);
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.8em;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      margin-top: 40px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    p,
+    ul {
+      color: var(--text-secondary-color);
+      font-size: 1.05em;
+    }
+
+    p {
+      margin: 20px 0;
+    }
+
+    ul {
+      margin-left: 25px;
+      padding-left: 10px;
+    }
+
+    li {
+      margin-bottom: 12px;
+    }
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--link-hover-color);
+      text-decoration: underline;
+    }
+
+    .disclaimer {
+      background-color: var(--warning-bg-color);
+      border-left: 4px solid var(--warning-border-color);
+      padding: 15px 20px;
+      margin-top: 20px;
+      border-radius: 4px;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px;
+        margin: 30px 15px;
+      }
+
+      h1 {
+        font-size: 2.2em;
+      }
+
+      h2 {
+        font-size: 1.6em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <ul class="triangles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  <div class="container">
+    <h1>Cortex Privacy Policy</h1>
+    <p style="text-align:center; font-style: italic;">Last Updated: July 4, 2025</p>
+
+    <p>
+      Welcome to Cortex. The Cortex application and related services ("Service") are provided by the individual
+      developers known as <strong>Vertex</strong> ("we," "us," or "our"). An account created for the Service is a
+      unified Vertex Account, usable across our ecosystem of apps and games. This Privacy Policy explains how we handle
+      your information with a commitment to clarity and transparency.
+    </p>
+
+    <h2>A) Information We Collect</h2>
+    <p>We collect information in a few different ways to provide and improve our services:</p>
+    <ul>
+      <li>
+        <b>Information You Provide Directly:</b> To create and manage your Vertex Account, we collect your
+        <strong>username</strong>, <strong>email address</strong>, and a <strong>password</strong>.
+      </li>
+      <li>
+        <b>Information from Third-Party Services (e.g., Google Sign-In):</b> You may have the option to create or access
+        your account through a third-party service like Google. When you do so, you authorize us to receive certain
+        information from that service's platform. This may include your <strong>name, email address, profile
+          picture,</strong> and a unique identifier associated with your account. We use this information to create and
+        populate your Vertex Account. The specific information we receive is determined by your privacy settings on that
+        service and the permissions you grant during the sign-in process.
+      </li>
+      <li>
+        <b>Subscription and Payment Status:</b> If you subscribe to a paid tier, our payment processors (like RevenueCat
+        and the relevant app store) will collect and process information necessary to manage your subscription. We only
+        receive a confirmation of your subscription status and do not store your full payment details.
+      </li>
+      <li>
+        <b>Conversation Data:</b> This includes your prompts and AI responses. The handling of this data is strictly
+        determined by your choice of an online or offline model.
+      </li>
+      <li>
+        <b>Technical and Device Information:</b> For security, bug fixing, and core service functionality, we or our
+        partners (like Firebase) automatically collect technical data when you use the Service. This may include your
+        <strong>IP address</strong>, <strong>device type</strong> and identifiers, <strong>operating system
+          version</strong>, and <strong>crash reports</strong>.
+      </li>
+      <li>
+        <b>Usage and Interaction Data:</b> To understand, improve, and secure our Service, we may collect data about
+        your interaction with the application's features, controls, and navigation flow. This information is used for
+        our internal analytics to identify usage trends and enhance user experience. While this data helps us understand
+        interaction patterns, it is processed in a pseudonymous manner, is never used to personally identify you, and is
+        always kept separate from the content of your private conversations.
+      </li>
+    </ul>
+
+    <h2>B) How We Use and Share Information</h2>
+    <p>We use the information we collect primarily to provide, maintain, and secure our services. This includes
+      authentication, enabling features, and communicating with you. More specifically:</p>
+
+    <h4>1. Offline Models (via Llama.cpp)</h4>
+    <p>When you use an offline model, <strong>all of your conversation data is processed and stored locally on your own
+        device.</strong> This data is never transmitted to our servers or any third party. It remains completely
+      private.</p>
+
+    <h4>2. Online Models (via Cloudflare & OpenRouter)</h4>
+    <p>Our server-side logic for online models runs directly on the <strong>Cloudflare</strong> platform. When you use
+      an online model, your prompt is sent to our system on Cloudflare, which acts as an immediate pass-through. It
+      instantly relays the request to <strong>OpenRouter</strong> and subsequently to the AI provider you've selected.
+    </p>
+    <ul>
+      <li><strong>Our No-Log Promise:</strong> While we have introduced broader language to describe data collection for
+        technical purposes, our core promise regarding conversations remains: our systems on Cloudflare act only as a
+        pass-through. <strong>We do not log, view, or store the content of your conversations.</strong></li>
+      <li><strong>Third-Party Responsibility:</strong> Once your request leaves your device, it is handled by our
+        partners. It is subject to the privacy policies of <strong>Cloudflare</strong>, <strong>OpenRouter</strong>, and
+        the final AI provider (e.g., OpenAI, Anthropic). These providers may use your data for their own purposes. We
+        strongly advise you to review their policies.</li>
+    </ul>
+
+    <h4>3. The Vertex Ecosystem and Data Separation</h4>
+    <p>Your Vertex Account allows for a seamless experience across our products. However, we maintain strict data
+      separation. <strong>Your activity, conversations, and technical data from Cortex are never used to track you or
+        personalize your experience (e.g., show ads) in other Vertex apps or games.</strong></p>
+
+    <h2>C) Your Rights and Data Control</h2>
+    <p>You are in full control of your data.</p>
+    <ul>
+      <li><strong>Choice of Privacy:</strong> You can always choose <strong>offline models</strong> for maximum privacy.
+      </li>
+      <li><strong>Right to Deletion:</strong> You can permanently delete your entire Vertex Account and all associated
+        data. To do so, please fill out the data deletion form at: <a href="https://vertexishere.com/delete-data"
+          target="_blank" rel="noopener noreferrer">vertexishere.com/delete-data</a>.</li>
+    </ul>
+
+    <h2>D) Transparency and Open Source</h2>
+    <p>We are committed to full transparency. The Cortex application is <strong>open source</strong>. We encourage you
+      to review our code on GitHub to see exactly how your data is handled.</p>
+    <ul>
+      <li><b>GitHub Project:</b> <a href="https://github.com/VertexCorporation/Cortex" target="_blank"
+          rel="noopener noreferrer">https://github.com/VertexCorporation/Cortex</a></li>
+    </ul>
+
+    <h2>E) Children's Privacy</h2>
+    <p>Our services are not directed to or intended for use by individuals under the age of 13. In alignment with our
+      Google Play Store target audience declaration, we do not knowingly collect personal information from children
+      under 13.</p>
+    <p>If we become aware that we have inadvertently collected personal information from a child under 13, we will take
+      immediate steps to delete that information from our systems. If you are a parent or guardian and believe your
+      child has provided us with personal information, please contact us so we can take action.</p>
+
+    <h2>F) Security</h2>
+    <p>We and our partners use industry-standard security measures. However, no method of transmission or storage is
+      100% secure, and we cannot guarantee absolute security.</p>
+
+    <h2>G) Limitation of Liability</h2>
+    <div class="disclaimer">
+      <p>Cortex relies on various external, third-party services to function, including but not limited to,
+        <strong>Cloudflare, Google Firebase,</strong> and <strong>OpenRouter</strong>. We do not control and are not
+        responsible for the data practices or security of these third parties.</p>
+      <p>In the event of a data breach or misuse on these platforms, <strong>the developers of Vertex assume no
+          liability.</strong> By using our service, you acknowledge this and agree to use these third-party services at
+        your own risk.</p>
+    </div>
+
+    <!-- BÖLÜM H GÜNCELLENDİ -->
+    <h2>H) Changes to This Privacy Policy</h2>
+    <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date at the top. You are advised to review this Privacy Policy periodically for any changes.</p>
+    <p>Changes to this Privacy Policy are effective when they are posted on this page. Your continued use of our Service after the changes have been posted will constitute your acceptance of the changes.</p>
+
+    <h2>I) Contact Us</h2>
+    <p>For any questions, concerns, or feedback, please contact us:</p>
+    <ul>
+      <li><b>Email:</b> <a href="mailto:contact@vertexishere.com">contact@vertexishere.com</a></li>
+      <li><b>Website:</b> <a href="https://www.vertexishere.com" target="_blank"
+          rel="noopener noreferrer">www.vertexishere.com</a></li>
+    </ul>
+  </div>
+</body>
+
+</html>
