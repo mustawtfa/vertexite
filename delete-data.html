@@ -511,17 +511,25 @@
             };
 
             showAnimatedLoadingState('Connecting to Services...');
-            try {
-                // Load all required SDKs
+                      try {
+                // --- THE FIX: TWO-STAGE SCRIPT LOADING ---
+
+                // Stage 1: Load the core `app` script FIRST and wait for it.
+                // This creates the global `firebase` object.
+                console.log('[INIT] Stage 1.1: Loading Firebase Core SDK...');
+                await loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js");
+                console.log('[INIT] Stage 1.1 Complete: Core SDK loaded.');
+
+                // Stage 2: Now that `firebase` exists, load all dependent scripts in parallel.
+                // They can now safely attach themselves to the global `firebase` object.
+                console.log('[INIT] Stage 1.2: Loading dependent Firebase SDKs...');
                 await Promise.all([
-                    loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"),
                     loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js"),
                     loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-functions-compat.js"),
                     loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-app-check-compat.js")
                 ]);
-                console.log('[INIT] Firebase SDKs loaded.');
+                console.log('[INIT] Stage 1.2 Complete: All dependent SDKs loaded.');
 
-                // Fetch or get config from cache
                 let firebaseConfig;
                 const cachedConfig = sessionStorage.getItem('firebaseConfig');
                 if (cachedConfig) {
@@ -535,7 +543,6 @@
                 }
                 if (!firebaseConfig || !firebaseConfig.apiKey) throw new Error("Invalid or missing configuration.");
 
-                // Finalize and start the main app logic
                 const loaderMessage = document.getElementById('loader-message');
                 if (loaderMessage) loaderMessage.textContent = 'Finalizing...';
                 setTimeout(() => {
