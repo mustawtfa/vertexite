@@ -590,7 +590,7 @@
 
             // CRITICAL FIX for Cloud Function CORS / 404 NOT FOUND errors.
             // Explicitly set the region of your functions.
-            const functions = firebase.functions(app, 'europe-west1');
+            const functions = app.functions('europe-west1');
 
             // --- Step 2: Activate App Check ---
             try {
@@ -701,7 +701,7 @@
             const handleDeletionRequest = async () => {
                 const confirmBtn = document.getElementById('confirm-delete-btn');
                 confirmBtn.disabled = true;
-                confirmBtn.textContent = 'REQUESTING...';
+                confirmBtn.textContent = 'REQUESTING';
 
                 if (!currentUser) {
                     modal.classList.remove('active');
@@ -710,8 +710,8 @@
 
                 try {
                     const requestDeletionFunction = functions.httpsCallable('requestAccountDeletion');
+                    console.log('✅', requestDeletionFunction.url);
                     await requestDeletionFunction();
-
                     modal.classList.remove('active');
                     mainContainer.style.transition = 'opacity 0.5s ease';
                     mainContainer.style.opacity = '0';
@@ -736,4 +736,5 @@
         }
     </script>
 </body>
+
 </html>
