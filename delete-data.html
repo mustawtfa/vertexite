@@ -462,11 +462,10 @@
 
 
     <script>
-        // --- SECURE & ROBUST FIREBASE INITIALIZER (v8 - Definitive Syntax Fix) ---
         // This IIFE (Immediately Invoked Function Expression) encapsulates the entire
         // application logic, preventing global scope pollution and allowing top-level async/await.
         (async () => {
-            // --- 1. DOM & UI Helper Definitions (These were already perfect) ---
+            // --- 1. DOM & UI Helper Definitions ---
             const mainContainer = document.getElementById('main-container');
 
             const showAnimatedLoadingState = (message) => {
@@ -504,18 +503,14 @@
                 });
             };
 
-            // --- 2. Application Initialization Flow (Corrected Loading Order & Syntax) ---
+            // --- 2. Application Initialization Flow ---
             showAnimatedLoadingState('Connecting to Secure Services...');
 
             try {
                 // Step 1: Load the CORE 'app' script first. This prevents race conditions.
-                console.log('[INIT] Stage 1.1: Loading Firebase Core SDK...');
                 await loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js");
-                console.log('[INIT] Stage 1.1 Complete: Core SDK is ready.');
 
-                // Step 2: Fetch dependent SDKs and the configuration in parallel.
-                console.log('[INIT] Stage 1.2: Starting parallel fetch of dependent SDKs and configuration...');
-
+                // Step 2: Fetch dependent SDKs and the configuration in parallel for speed.
                 const dependentSdkLoaderPromise = Promise.all([
                     loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js"),
                     loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-functions-compat.js"),
@@ -524,12 +519,9 @@
 
                 const fetchConfig = async () => {
                     const cachedConfig = sessionStorage.getItem('firebaseConfig');
-                    if (cachedConfig) {
-                        console.log('[INIT] Using cached Firebase config.');
-                        return JSON.parse(cachedConfig);
-                    }
-                    console.log('[INIT] Fetching remote Firebase config...');
-                    const configUrl = "https://getappconfig-o5h7dmtija-ew.a.run.app";
+                    if (cachedConfig) return JSON.parse(cachedConfig);
+
+                    const configUrl = "https://getappconfig-o5h7dmtija-ew.a.run.app"; // Assumes your config fetcher
                     const response = await fetch(configUrl);
                     if (!response.ok) throw new Error(`Config server responded with status ${response.status}`);
                     const config = await response.json();
@@ -538,25 +530,21 @@
                 };
                 const configPromise = fetchConfig();
 
-                // *** THE DEFINITIVE FIX for 'invalid assignment left-hand side' ***
-                // Instead of destructuring, we get the full results array and pick the element we need. This is 100% syntactically safe.
+                // *** THE DEFINITIVE FIX for 'Uncaught SyntaxError: invalid assignment left-hand side' ***
+                // Instead of complex destructuring, we await the promises and assign the results to a standard array.
+                // This is 100% syntactically safe and easier to debug.
                 const promiseResults = await Promise.all([dependentSdkLoaderPromise, configPromise]);
-                const firebaseConfig = promiseResults[1]; // The config object is the second result.
+                const firebaseConfig = promiseResults[1]; // The config object is the second result from the Promise.all array.
 
-                console.log('[INIT] Stage 1.2 Complete: All dependent resources loaded.');
-
-                // --- 3. Configuration Validation ---
+                // Step 3: Configuration Validation
                 if (!firebaseConfig || !firebaseConfig.appId) {
-                    throw new Error("Invalid or incomplete configuration received. 'appId' is mandatory. Please clear session storage and refresh.");
+                    throw new Error("Invalid or incomplete configuration received. Please clear session storage and refresh.");
                 }
-                console.log('[INIT] Stage 2: Configuration validated successfully.');
 
-                // --- 4. Graceful UI Transition ---
-                const loaderMessage = document.getElementById('loader-message');
-                if (loaderMessage) loaderMessage.textContent = 'Finalizing Connection...';
+                // Step 4: Graceful UI Transition
+                document.getElementById('loader-message').textContent = 'Finalizing Connection...';
                 setTimeout(() => {
-                    const loader = document.getElementById('loader-wrapper');
-                    if (loader) loader.style.opacity = '0';
+                    document.getElementById('loader-wrapper').style.opacity = '0';
                     setTimeout(() => startApp(firebaseConfig), 500);
                 }, 800);
 
@@ -566,45 +554,37 @@
         })();
 
         // --- MAIN APPLICATION LOGIC ---
-        // This function is called only after all SDKs are loaded and the configuration is validated.
         function startApp(firebaseConfig) {
 
-            // --- Step 1: Initialize Firebase & Services EXPLICITLY ---
-            // This is the most important section for fixing the core issues.
-            console.log('[APP] Stage 3: Initializing Firebase Services...');
+            // --- Step 1: Initialize Firebase & Services ---
             let app;
-            // This check prevents re-initialization errors on hot-reloads or other edge cases.
+            // This check prevents re-initialization errors on hot-reloads.
             if (!firebase.apps.length) {
                 app = firebase.initializeApp(firebaseConfig);
-                console.log('[APP] Firebase initialized for the first time.');
             } else {
                 app = firebase.app(); // Get the already-initialized app.
-                console.log('[APP] Using existing Firebase app instance.');
             }
 
             const auth = firebase.auth(app);
             const appCheck = firebase.appCheck(app);
 
-            // **THIS FIXES THE CORS / 404 NOT FOUND ERROR**
-            // We explicitly tell the Functions SDK which region our functions are deployed to.
+            // *** THE DEFINITIVE FIX for Cloud Function CORS / 404 NOT FOUND errors ***
+            // Explicitly tell the Functions SDK which region your functions are deployed to.
             // The client will now make requests to 'europe-west1' instead of the default 'us-central1'.
             const functions = firebase.functions(app, 'europe-west1');
 
             console.log('[APP] All Firebase services initialized successfully. Functions region set to "europe-west1".');
 
             // --- Step 2: Activate App Check ---
-            // This will now succeed because `firebaseConfig.appId` is guaranteed to exist.
             try {
                 appCheck.activate('6LfPxncrAAAAANROpBb3E7q-gIf52Py-AePSGfJG', true); // Your reCAPTCHA v3 site key
                 console.log('[APP_CHECK] Firebase App Check activated successfully.');
             } catch (error) {
                 console.error('[APP_CHECK] CRITICAL: Failed to activate App Check:', error);
-                // Optionally, inform the user that the app is in a degraded state.
-                alert("Security check failed. Some features may not work as expected. Please try refreshing the page.");
+                alert("Security check failed. Some features may not work. Please try refreshing.");
             }
 
             // --- Step 3: Define Global State & UI Templates ---
-            // No changes needed here, the original structure was solid.
             const mainContainer = document.getElementById('main-container');
             const modal = document.getElementById('confirmation-modal');
             let currentUser = null; // Holds the user object when authenticated.
@@ -618,7 +598,7 @@
             </div>
             <form id="deletion-form" class="hidden-section" novalidate>
                 <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="you@example.com" required><p class="error-message" id="email-error"></p></div>
-                <div class="form-group"><label for="password">Password</label><input type="password" id="password" name="password" placeholder="••••••••" required><p class="error-message" id="password-error"></p></div>
+                <div class="form-group"><label for="password">Password</label><div class="password-wrapper"><input type="password" id="password" name="password" placeholder="••••••••" required></div><p class="error-message" id="password-error"></p></div>
                 <button type="submit" class="submit-btn">Confirm & Continue</button>
                 <a href="#" id="back-to-providers-btn" style="display: block; margin-top: 15px; font-size: 0.9em;">← Back to sign in options</a>
             </form>
@@ -632,7 +612,6 @@
         `;
 
             // --- Step 4: UI Rendering and Event Listener Management ---
-            // This architecture ensures that event listeners are only attached when their corresponding UI is visible.
             const render = () => {
                 mainContainer.style.opacity = '0';
                 setTimeout(() => {
@@ -662,8 +641,6 @@
             }
 
             // --- Step 5: Auth State Controller ---
-            // This is the single source of truth for the user's authentication state.
-            // It automatically triggers a UI re-render whenever the state changes.
             auth.onAuthStateChanged(user => {
                 console.log('[AUTH] Auth state changed. User:', user ? user.email : 'None');
                 currentUser = user;
@@ -671,13 +648,10 @@
             });
 
             // --- Step 6: Core Logic Functions ---
-            // These functions handle specific user actions.
             const handleGoogleSignIn = async () => {
-                console.log('[AUTH] Google sign-in initiated...');
                 const provider = new firebase.auth.GoogleAuthProvider();
                 try {
                     await auth.signInWithPopup(provider);
-                    // The onAuthStateChanged listener will handle the UI update.
                 } catch (error) {
                     console.error('[AUTH] Google sign-in failed:', error);
                     alert(`Google sign-in failed: ${error.message}`);
@@ -703,7 +677,6 @@
 
                 try {
                     await auth.signInWithEmailAndPassword(email, password);
-                    // The onAuthStateChanged listener will handle the UI update.
                 } catch (error) {
                     console.error('[AUTH] Email sign-in failed:', error);
                     passwordError.textContent = 'Invalid email or password. Please try again.';
@@ -717,7 +690,6 @@
                 confirmBtn.textContent = 'REQUESTING...';
 
                 if (!currentUser) {
-                    console.error('[DELETION] Critical error: No user is signed in to delete.');
                     modal.classList.remove('active');
                     return;
                 }
@@ -726,24 +698,22 @@
                     // This 'functions' instance is now correctly configured for 'europe-west1'.
                     const requestDeletionFunction = functions.httpsCallable('requestAccountDeletion');
                     await requestDeletionFunction();
-                    console.log('[FUNCTIONS] Deletion request sent successfully to the server for user:', currentUser.uid);
 
                     modal.classList.remove('active');
                     mainContainer.style.transition = 'opacity 0.5s ease';
                     mainContainer.style.opacity = '0';
                     setTimeout(() => {
                         mainContainer.innerHTML = `
-                        <h1>Deletion Scheduled</h1>
-                        <p>Your account deletion request has been received. Your account and all associated data will be permanently deleted within 24 hours. You have been signed out.</p>`;
+                    <h1>Deletion Scheduled</h1>
+                    <p>Your request has been received. Your account and all data will be permanently deleted within 24 hours. You have been signed out.</p>`;
                         mainContainer.style.opacity = '1';
                     }, 500);
 
                 } catch (error) {
-                    console.error('[DELETION] Cloud Function call for deletion failed:', error);
+                    console.error('[DELETION] Cloud Function call failed:', error);
                     modal.classList.remove('active');
                     alert(`An unexpected error occurred: ${error.message}. Please try again.`);
                 } finally {
-                    // Always re-enable the button and sign the user out, regardless of outcome.
                     confirmBtn.disabled = false;
                     confirmBtn.textContent = 'Yes, Delete Everything';
                     if (auth.currentUser) {
