@@ -426,7 +426,7 @@
         </div>
     </div>
 
-     <script>
+    <script>
         // --- SECURE FIREBASE INITIALIZER (REFINED & ANIMATED) ---
         (async () => {
             const mainContainer = document.getElementById('main-container');
@@ -458,17 +458,23 @@
                 // Fade in the loader
                 setTimeout(() => {
                     const loader = document.getElementById('loader-wrapper');
-                    if(loader) loader.style.opacity = '1';
+                    if (loader) loader.style.opacity = '1';
                 }, 10);
             };
 
             const showErrorState = (error) => {
                 console.error("CRITICAL [INIT]:", error);
                 mainContainer.innerHTML = `
-                    <h2 style="color: var(--danger-color);">Initialization Error</h2>
-                    <p>Could not connect to the service. Please try again later.</p>
-                    <p style="font-size: 0.8em; color: var(--text-secondary-color);">${error.message}</p>
+                    <div style="opacity: 0; transition: opacity 0.5s ease;" id="error-content">
+                        <h2 style="color: var(--danger-color); font-size: 2em;">Initialization Error</h2>
+                        <p>Could not connect to the service. Please check your connection and try again later.</p>
+                        <p style="font-size: 0.8em; color: var(--text-secondary-color); word-break: break-word;">${error.message}</p>
+                    </div>
                 `;
+                setTimeout(() => {
+                    const errorContent = document.getElementById('error-content');
+                    if (errorContent) errorContent.style.opacity = '1';
+                }, 10);
             };
 
             const loadScript = (url) => {
@@ -483,15 +489,14 @@
             };
 
             try {
-                // --- Start with the new animated loader ---
                 showAnimatedLoadingState('Connecting to Services...');
-                
+
                 await loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js");
                 await loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js");
                 await loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-functions-compat.js");
                 console.log('[INIT] Firebase SDKs loaded.');
 
-                // --- UPDATED: Using the new unified getAppConfig URL ---
+                // --- CORRECTED: Using the single, unified getAppConfig URL ---
                 const configUrl = "https://getappconfig-o5h7dmtija-ew.a.run.app";
                 const response = await fetch(configUrl);
 
@@ -501,19 +506,20 @@
                 if (!firebaseConfig || !firebaseConfig.apiKey) throw new Error("Invalid config received.");
 
                 console.log('[INIT] Configuration received. Initializing application...');
-                document.getElementById('loader-message').textContent = 'Finalizing...';
+                const loaderMessage = document.getElementById('loader-message');
+                if (loaderMessage) loaderMessage.textContent = 'Finalizing...';
 
-                // --- NEW: Smooth transition to the main app ---
                 setTimeout(() => {
                     const loader = document.getElementById('loader-wrapper');
-                    if(loader) loader.style.opacity = '0';
-                    
+                    if (loader) loader.style.opacity = '0';
+
                     setTimeout(() => {
                         startApp(firebaseConfig);
-                    }, 500); // Wait for fade-out animation to finish
-                }, 800); // Give a little time for the "Finalizing" message
+                    }, 500);
+                }, 800);
 
             } catch (error) {
+                // Now this will correctly display the error inside the main container.
                 showErrorState(error);
             }
         })();
@@ -522,11 +528,11 @@
         function startApp(firebaseConfig) {
             firebase.initializeApp(firebaseConfig);
             const auth = firebase.auth();
-            const functions = firebase.functions('europe-west1');
+            const functions = firebase.functions();
             console.log('[APP] Firebase initialized successfully.');
 
             const mainContainer = document.getElementById('main-container');
-            
+
             // --- NEW: Inject the form with an initial opacity of 0 for fade-in animation ---
             mainContainer.style.opacity = '0';
             mainContainer.innerHTML = `
@@ -691,5 +697,4 @@
         }
     </script>
 </body>
-
 </html>
