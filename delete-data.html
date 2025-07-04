@@ -410,10 +410,10 @@
 
     <!-- Main Form Container -->
     <div class="container" id="main-container">
-        <!-- Bu bölümün içeriği JS tarafından yönetilecek -->
+        <!-- Content is managed by JS -->
     </div>
 
-    <!-- Confirmation Modal (Initially Hidden) -->
+    <!-- Confirmation Modal -->
     <div class="modal-overlay" id="confirmation-modal">
         <div class="modal-content">
             <h2>Are you sure?</h2>
@@ -427,11 +427,10 @@
     </div>
 
     <script>
-        // --- SECURE FIREBASE INITIALIZER (REFINED & ANIMATED) ---
+        // --- SECURE FIREBASE INITIALIZER WITH APP CHECK ---
         (async () => {
             const mainContainer = document.getElementById('main-container');
 
-            // --- NEW: Animated loading state ---
             const showAnimatedLoadingState = (message) => {
                 mainContainer.innerHTML = `
                     <div id="loader-wrapper" style="opacity: 0; transition: opacity 0.5s ease;">
@@ -440,22 +439,10 @@
                         <div class="spinner"></div>
                     </div>
                     <style>
-                        .spinner {
-                            width: 50px;
-                            height: 50px;
-                            border: 4px solid var(--border-color);
-                            border-top: 4px solid var(--text-primary-color);
-                            border-radius: 50%;
-                            animation: spin 1s linear infinite;
-                            margin: 20px auto 0;
-                        }
-                        @keyframes spin {
-                            0% { transform: rotate(0deg); }
-                            100% { transform: rotate(360deg); }
-                        }
+                        .spinner { width: 50px; height: 50px; border: 4px solid var(--border-color); border-top: 4px solid var(--text-primary-color); border-radius: 50%; animation: spin 1s linear infinite; margin: 20px auto 0; }
+                        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
                     </style>
                 `;
-                // Fade in the loader
                 setTimeout(() => {
                     const loader = document.getElementById('loader-wrapper');
                     if (loader) loader.style.opacity = '1';
@@ -491,49 +478,78 @@
             try {
                 showAnimatedLoadingState('Connecting to Services...');
 
-                await loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js");
-                await loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js");
-                await loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-functions-compat.js");
-                console.log('[INIT] Firebase SDKs loaded.');
+                // <-- NEW: Added firebase-app-check-compat.js
+                await Promise.all([
+                    loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"),
+                    loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js"),
+                    loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-functions-compat.js"),
+                    loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-app-check-compat.js")
+                ]);
+                console.log('[INIT] Firebase SDKs (including App Check) loaded.');
 
-                // --- CORRECTED: Using the single, unified getAppConfig URL ---
-                const configUrl = "https://getappconfig-o5h7dmtija-ew.a.run.app";
-                const response = await fetch(configUrl);
+                let firebaseConfig;
+                const cachedConfig = sessionStorage.getItem('firebaseConfig');
 
-                if (!response.ok) throw new Error(`Config server responded with ${response.status}.`);
+                if (cachedConfig) {
+                    console.log('[INIT] Configuration loaded from session cache.');
+                    firebaseConfig = JSON.parse(cachedConfig);
+                } else {
+                    console.log('[INIT] No cache found. Fetching configuration from server...');
+                    // This fetch is now to the UNPROTECTED getAppConfig function
+                    const configUrl = "https://getappconfig-o5h7dmtija-ew.a.run.app";
+                    const response = await fetch(configUrl);
 
-                const firebaseConfig = await response.json();
-                if (!firebaseConfig || !firebaseConfig.apiKey) throw new Error("Invalid config received.");
+                    if (!response.ok) {
+                        const errorBody = await response.text();
+                        throw new Error(`Config server responded with ${response.status}. Body: ${errorBody}`);
+                    }
 
-                console.log('[INIT] Configuration received. Initializing application...');
+                    firebaseConfig = await response.json();
+
+                    sessionStorage.setItem('firebaseConfig', JSON.stringify(firebaseConfig));
+                    console.log('[INIT] Configuration fetched and cached.');
+                }
+
+                if (!firebaseConfig || !firebaseConfig.apiKey) {
+                    sessionStorage.removeItem('firebaseConfig');
+                    throw new Error("Invalid or missing configuration.");
+                }
+
                 const loaderMessage = document.getElementById('loader-message');
                 if (loaderMessage) loaderMessage.textContent = 'Finalizing...';
 
+                // Hide loader and start the main application
                 setTimeout(() => {
                     const loader = document.getElementById('loader-wrapper');
                     if (loader) loader.style.opacity = '0';
-
-                    setTimeout(() => {
-                        startApp(firebaseConfig);
-                    }, 500);
+                    setTimeout(() => startApp(firebaseConfig), 500);
                 }, 800);
 
             } catch (error) {
-                // Now this will correctly display the error inside the main container.
                 showErrorState(error);
             }
         })();
 
-        // --- MAIN APPLICATION LOGIC (REMAINS THE SAME, IT'S ALREADY PERFECT) ---
+        // --- MAIN APPLICATION LOGIC ---
         function startApp(firebaseConfig) {
             firebase.initializeApp(firebaseConfig);
+
+            try {
+                const appCheck = firebase.appCheck();
+                appCheck.activate(
+                    '6LfPxncrAAAAANROpBb3E7q-gIf52Py-AePSGfJG',
+                    true);
+                console.log('[APP_CHECK] Firebase App Check activated successfully.');
+            } catch (error) {
+                console.error('[APP_CHECK] Failed to activate App Check:', error);
+            }
+
+            // Step 3: Get other Firebase services
             const auth = firebase.auth();
             const functions = firebase.functions();
             console.log('[APP] Firebase initialized successfully.');
 
             const mainContainer = document.getElementById('main-container');
-
-            // --- NEW: Inject the form with an initial opacity of 0 for fade-in animation ---
             mainContainer.style.opacity = '0';
             mainContainer.innerHTML = `
                 <h1>Data Deletion</h1>
@@ -558,9 +574,7 @@
                     <button type="submit" class="submit-btn">Request Deletion</button>
                 </form>
             `;
-            // --- NEW: Trigger the fade-in animation ---
             setTimeout(() => { mainContainer.style.opacity = '1'; }, 10);
-
 
             const emailInput = document.getElementById('email');
             const passwordInput = document.getElementById('password');
@@ -617,7 +631,7 @@
 
                     const requestDeletionFunction = functions.httpsCallable('requestAccountDeletion');
                     await requestDeletionFunction();
-                    console.log('[FUNCTIONS] Deletion request sent to server.');
+                    console.log('[FUNCTIONS] Deletion request sent to server (with App Check token).');
 
                     modal.classList.remove('active');
                     mainContainer.style.transition = 'opacity 0.5s ease';
@@ -631,7 +645,10 @@
 
                 } catch (error) {
                     console.error('[DELETION FAILED]', error);
-                    if (error.code && error.code.startsWith('auth/')) {
+                    // NEW: Better error handling for App Check failures
+                    if (error.code === 'failed-precondition') {
+                        handleFunctionError({ message: "Security check failed. Please refresh the page and try again." })
+                    } else if (error.code && error.code.startsWith('auth/')) {
                         handleAuthError(error);
                     } else {
                         handleFunctionError(error);
@@ -677,24 +694,21 @@
                     modal.classList.add('active');
                 }
             });
-
             confirmBtn.addEventListener('click', handleDeletion);
-
             passwordInput.addEventListener('input', () => {
                 togglePasswordBtn.classList.toggle('visible', passwordInput.value.length > 0);
             });
-
             togglePasswordBtn.addEventListener('click', () => {
                 const isPassword = passwordInput.type === 'password';
                 passwordInput.type = isPassword ? 'text' : 'password';
                 eyeOpenIcon.classList.toggle('hidden');
                 eyeClosedIcon.classList.toggle('hidden');
             });
-
             cancelBtn.addEventListener('click', () => {
                 modal.classList.remove('active');
             });
         }
     </script>
 </body>
+
 </html>
