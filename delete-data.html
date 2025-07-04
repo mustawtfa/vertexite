@@ -390,6 +390,40 @@
             background-color: #cbd5e0;
             transform: translateY(-2px);
         }
+
+        /* --- NEW STYLES --- */
+        .provider-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            font-size: 1.1em;
+            font-weight: 700;
+            color: var(--primary-action-text);
+            background-color: var(--primary-action-bg);
+            border: 2px solid var(--primary-action-text);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s, opacity 0.3s;
+        }
+
+        .provider-btn:hover {
+            background-color: var(--primary-action-text);
+            color: var(--primary-action-bg);
+            transform: translateY(-2px);
+        }
+
+        .provider-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .hidden-section {
+            display: none !important;
+        }
     </style>
 </head>
 
@@ -408,12 +442,12 @@
         <li></li>
     </ul>
 
-    <!-- Main Form Container -->
+    <!-- Main Content Container -->
     <div class="container" id="main-container">
-        <!-- Content is managed by JS -->
+        <!-- Content will be injected by JavaScript based on auth state -->
     </div>
 
-    <!-- Confirmation Modal -->
+    <!-- Confirmation Modal (Remains the same) -->
     <div class="modal-overlay" id="confirmation-modal">
         <div class="modal-content">
             <h2>Are you sure?</h2>
@@ -427,11 +461,12 @@
     </div>
 
     <script>
-        // --- SECURE FIREBASE INITIALIZER WITH APP CHECK ---
+        // --- SECURE FIREBASE INITIALIZER (v3 Universal) ---
         (async () => {
             const mainContainer = document.getElementById('main-container');
 
-            const showAnimatedLoadingState = (message) => {
+            // --- UI Helper Functions (unchanged) ---
+      const showAnimatedLoadingState = (message) => {
                 mainContainer.innerHTML = `
                     <div id="loader-wrapper" style="opacity: 0; transition: opacity 0.5s ease;">
                         <h1>Cortex</h1>
@@ -455,7 +490,7 @@
                     <div style="opacity: 0; transition: opacity 0.5s ease;" id="error-content">
                         <h2 style="color: var(--danger-color); font-size: 2em;">Initialization Error</h2>
                         <p>Could not connect to the service. Please check your connection and try again later.</p>
-                        <p style="font-size: 0.8em; color: var(--text-secondary-color); word-break: break-word;">${error.message}</p>
+                        <p style="font-size: 1em; color: var(--text-secondary-color); word-break: break-word;">${error.message}</p>
                     </div>
                 `;
                 setTimeout(() => {
@@ -475,86 +510,74 @@
                 });
             };
 
+            showAnimatedLoadingState('Connecting to Services...');
             try {
-                showAnimatedLoadingState('Connecting to Services...');
-
-                // <-- NEW: Added firebase-app-check-compat.js
+                // Load all required SDKs
                 await Promise.all([
                     loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"),
                     loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js"),
                     loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-functions-compat.js"),
                     loadScript("https://www.gstatic.com/firebasejs/11.0.0/firebase-app-check-compat.js")
                 ]);
-                console.log('[INIT] Firebase SDKs (including App Check) loaded.');
+                console.log('[INIT] Firebase SDKs loaded.');
 
+                // Fetch or get config from cache
                 let firebaseConfig;
                 const cachedConfig = sessionStorage.getItem('firebaseConfig');
-
                 if (cachedConfig) {
-                    console.log('[INIT] Configuration loaded from session cache.');
                     firebaseConfig = JSON.parse(cachedConfig);
                 } else {
-                    console.log('[INIT] No cache found. Fetching configuration from server...');
-                    // This fetch is now to the UNPROTECTED getAppConfig function
                     const configUrl = "https://getappconfig-o5h7dmtija-ew.a.run.app";
                     const response = await fetch(configUrl);
-
-                    if (!response.ok) {
-                        const errorBody = await response.text();
-                        throw new Error(`Config server responded with ${response.status}. Body: ${errorBody}`);
-                    }
-
+                    if (!response.ok) throw new Error(`Config server responded with ${response.status}`);
                     firebaseConfig = await response.json();
-
                     sessionStorage.setItem('firebaseConfig', JSON.stringify(firebaseConfig));
-                    console.log('[INIT] Configuration fetched and cached.');
                 }
+                if (!firebaseConfig || !firebaseConfig.apiKey) throw new Error("Invalid or missing configuration.");
 
-                if (!firebaseConfig || !firebaseConfig.apiKey) {
-                    sessionStorage.removeItem('firebaseConfig');
-                    throw new Error("Invalid or missing configuration.");
-                }
-
+                // Finalize and start the main app logic
                 const loaderMessage = document.getElementById('loader-message');
                 if (loaderMessage) loaderMessage.textContent = 'Finalizing...';
-
-                // Hide loader and start the main application
                 setTimeout(() => {
                     const loader = document.getElementById('loader-wrapper');
                     if (loader) loader.style.opacity = '0';
                     setTimeout(() => startApp(firebaseConfig), 500);
                 }, 800);
-
-            } catch (error) {
-                showErrorState(error);
-            }
+            } catch (error) { showErrorState(error); }
         })();
 
-        // --- MAIN APPLICATION LOGIC ---
-        function startApp(firebaseConfig) {
-            firebase.initializeApp(firebaseConfig);
 
+        // --- MAIN APPLICATION LOGIC (v3 Universal) ---
+        function startApp(firebaseConfig) {
+            // --- Step 1: Initialize Firebase & App Check ---
+            firebase.initializeApp(firebaseConfig);
             try {
                 const appCheck = firebase.appCheck();
-                appCheck.activate(
-                    '6LfPxncrAAAAANROpBb3E7q-gIf52Py-AePSGfJG',
-                    true);
+                appCheck.activate('6LfPxncrAAAAANROpBb3E7q-gIf52Py-AePSGfJG', true);
                 console.log('[APP_CHECK] Firebase App Check activated successfully.');
             } catch (error) {
                 console.error('[APP_CHECK] Failed to activate App Check:', error);
             }
-
-            // Step 3: Get other Firebase services
             const auth = firebase.auth();
             const functions = firebase.functions();
             console.log('[APP] Firebase initialized successfully.');
 
+            // --- Step 2: Define Global State & UI Templates ---
             const mainContainer = document.getElementById('main-container');
-            mainContainer.style.opacity = '0';
-            mainContainer.innerHTML = `
+            const modal = document.getElementById('confirmation-modal');
+            let currentUser = null; // Holds the user object when authenticated
+
+            const unauthenticatedTemplate = `
                 <h1>Data Deletion</h1>
-                <p>To permanently delete your account and all associated data, please enter your credentials below.</p>
-                <form id="deletion-form" novalidate>
+                <p>To permanently delete your account, please sign in one last time to confirm your identity.</p>
+                <div id="auth-providers">
+                    <button id="google-signin-btn" class="provider-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24px" height="24px"><path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.222,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.574l6.19,5.238C39.99,35.53,44,28.718,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path></svg>
+                        Sign In with Google
+                    </button>
+                    <button id="email-signin-btn" class="provider-btn">Sign In with Email</button>
+                </div>
+                <form id="deletion-form" class="hidden-section" novalidate>
                     <div class="form-group">
                         <label for="email">Email Address</label>
                         <input type="email" id="email" name="email" placeholder="you@example.com" required>
@@ -562,76 +585,117 @@
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <div class="password-wrapper">
-                            <input type="password" id="password" name="password" placeholder="••••••••" required>
-                            <span id="toggle-password" class="password-icon">
-                                <svg id="eye-open" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                                <svg id="eye-closed" class="hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" /></svg>
-                            </span>
-                        </div>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required>
                         <p class="error-message" id="password-error"></p>
                     </div>
-                    <button type="submit" class="submit-btn">Request Deletion</button>
+                    <button type="submit" class="submit-btn">Confirm & Continue</button>
+                    <a href="#" id="back-to-providers-btn" style="display: block; margin-top: 15px; font-size: 0.9em;">← Back to sign in options</a>
                 </form>
             `;
-            setTimeout(() => { mainContainer.style.opacity = '1'; }, 10);
 
-            const emailInput = document.getElementById('email');
-            const passwordInput = document.getElementById('password');
-            const emailError = document.getElementById('email-error');
-            const passwordError = document.getElementById('password-error');
-            const deletionForm = document.getElementById('deletion-form');
-            const modal = document.getElementById('confirmation-modal');
-            const confirmBtn = document.getElementById('confirm-delete-btn');
-            const cancelBtn = document.getElementById('cancel-delete-btn');
-            const togglePasswordBtn = document.getElementById('toggle-password');
-            const eyeOpenIcon = document.getElementById('eye-open');
-            const eyeClosedIcon = document.getElementById('eye-closed');
+            const authenticatedTemplate = (userEmail) => `
+                <h1>Confirm Deletion</h1>
+                <p>You are signed in as <strong style="color: var(--text-primary-color);">${userEmail}</strong>. Clicking the button below will permanently schedule your account for deletion.</p>
+                <button id="final-delete-btn" class="submit-btn btn-danger">Request Account Deletion</button>
+                <button id="sign-out-btn" style="margin-top: 15px; background: none; border: none; color: var(--text-secondary-color); cursor: pointer;">Not you? Sign Out</button>
+            `;
 
-            const clearErrors = () => {
-                emailInput.classList.remove('error');
-                passwordInput.classList.remove('error');
-                emailError.classList.remove('visible');
-                passwordError.classList.remove('visible');
+            // --- Step 3: Render initial UI ---
+            const render = () => {
+                mainContainer.style.opacity = '0';
+                setTimeout(() => {
+                    if (currentUser) {
+                        mainContainer.innerHTML = authenticatedTemplate(currentUser.email);
+                        addAuthenticatedViewListeners();
+                    } else {
+                        mainContainer.innerHTML = unauthenticatedTemplate;
+                        addUnauthenticatedViewListeners();
+                    }
+                    mainContainer.style.opacity = '1';
+                }, 300);
             };
 
-            const validateForm = () => {
-                clearErrors();
-                let isValid = true;
-                if (emailInput.value.trim() === '') {
-                    emailInput.classList.add('error');
-                    emailError.textContent = 'Email address is required.';
-                    emailError.classList.add('visible');
-                    isValid = false;
-                } else if (!/^\S+@\S+\.\S+$/.test(emailInput.value)) {
-                    emailInput.classList.add('error');
-                    emailError.textContent = 'Please enter a valid email address.';
-                    emailError.classList.add('visible');
-                    isValid = false;
+            // --- Step 4: Define Event Handlers for each view ---
+            function addUnauthenticatedViewListeners() {
+                document.getElementById('google-signin-btn').addEventListener('click', handleGoogleSignIn);
+                document.getElementById('email-signin-btn').addEventListener('click', showEmailForm);
+                document.getElementById('deletion-form').addEventListener('submit', handleEmailSignIn);
+                document.getElementById('back-to-providers-btn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showProviderButtons();
+                });
+            }
+
+            function addAuthenticatedViewListeners() {
+                document.getElementById('final-delete-btn').addEventListener('click', () => modal.classList.add('active'));
+                document.getElementById('sign-out-btn').addEventListener('click', () => auth.signOut());
+
+                // Modal listeners are only active when the user is logged in
+                document.getElementById('confirm-delete-btn').addEventListener('click', handleDeletionRequest);
+                document.getElementById('cancel-delete-btn').addEventListener('click', () => modal.classList.remove('active'));
+            }
+
+            // --- Step 5: Auth State Controller ---
+            auth.onAuthStateChanged(user => {
+                console.log('[AUTH] Auth state changed. User:', user ? user.email : 'None');
+                currentUser = user;
+                render(); // Re-render the UI based on the new auth state
+            });
+
+            // --- Step 6: Core Logic Functions ---
+            const handleGoogleSignIn = async () => {
+                console.log('[AUTH] Google sign-in initiated...');
+                const provider = new firebase.auth.GoogleAuthProvider();
+                try {
+                    await auth.signInWithPopup(provider);
+                    // onAuthStateChanged will handle the UI update
+                } catch (error) {
+                    console.error('[AUTH] Google sign-in failed:', error);
+                    // You can show a toast message here if you want
                 }
-                if (passwordInput.value.trim() === '') {
-                    passwordInput.classList.add('error');
-                    passwordError.textContent = 'Password is required.';
-                    passwordError.classList.add('visible');
-                    isValid = false;
-                }
-                return isValid;
             };
 
-            const handleDeletion = async () => {
-                confirmBtn.disabled = true;
-                confirmBtn.textContent = 'REQUESTING';
+            const showEmailForm = () => {
+                document.getElementById('auth-providers').classList.add('hidden-section');
+                document.getElementById('deletion-form').classList.remove('hidden-section');
+            };
+
+            const showProviderButtons = () => {
+                document.getElementById('auth-providers').classList.remove('hidden-section');
+                document.getElementById('deletion-form').classList.add('hidden-section');
+            };
+
+            const handleEmailSignIn = async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const passwordError = document.getElementById('password-error');
 
                 try {
-                    const email = emailInput.value;
-                    const password = passwordInput.value;
-
                     await auth.signInWithEmailAndPassword(email, password);
-                    console.log('[AUTH] User authenticated successfully.');
+                    // onAuthStateChanged will handle the UI update
+                } catch (error) {
+                    console.error('[AUTH] Email sign-in failed:', error);
+                    passwordError.textContent = 'Invalid email or password.';
+                    passwordError.classList.add('visible');
+                }
+            };
 
+            const handleDeletionRequest = async () => {
+                const confirmBtn = document.getElementById('confirm-delete-btn');
+                confirmBtn.disabled = true;
+                confirmBtn.textContent = 'REQUESTING...';
+
+                if (!currentUser) {
+                    console.error('[DELETION] Critical error: No user is signed in to delete.');
+                    modal.classList.remove('active');
+                    return;
+                }
+
+                try {
                     const requestDeletionFunction = functions.httpsCallable('requestAccountDeletion');
                     await requestDeletionFunction();
-                    console.log('[FUNCTIONS] Deletion request sent to server (with App Check token).');
+                    console.log('[FUNCTIONS] Deletion request sent to server for user:', currentUser.uid);
 
                     modal.classList.remove('active');
                     mainContainer.style.transition = 'opacity 0.5s ease';
@@ -644,15 +708,9 @@
                     }, 500);
 
                 } catch (error) {
-                    console.error('[DELETION FAILED]', error);
-                    // NEW: Better error handling for App Check failures
-                    if (error.code === 'failed-precondition') {
-                        handleFunctionError({ message: "Security check failed. Please refresh the page and try again." })
-                    } else if (error.code && error.code.startsWith('auth/')) {
-                        handleAuthError(error);
-                    } else {
-                        handleFunctionError(error);
-                    }
+                    console.error('[DELETION] Deletion request failed:', error);
+                    modal.classList.remove('active');
+                    alert(`An error occurred: ${error.message}. Please try again.`); // A simple alert for critical failures
                 } finally {
                     confirmBtn.disabled = false;
                     confirmBtn.textContent = 'Yes, Delete Everything';
@@ -661,54 +719,7 @@
                     }
                 }
             };
-
-            const handleAuthError = (error) => {
-                modal.classList.remove('active');
-                clearErrors();
-                switch (error.code) {
-                    case 'auth/invalid-credential':
-                    case 'auth/wrong-password':
-                    case 'auth/user-not-found':
-                        emailInput.classList.add('error');
-                        passwordInput.classList.add('error');
-                        passwordError.textContent = 'Invalid email or password.';
-                        passwordError.classList.add('visible');
-                        break;
-                    default:
-                        passwordError.textContent = 'An authentication error occurred. Please try again.';
-                        passwordError.classList.add('visible');
-                        break;
-                }
-            };
-
-            const handleFunctionError = (error) => {
-                modal.classList.remove('active');
-                clearErrors();
-                passwordError.textContent = error.message || 'Could not process the request. Please try again later.';
-                passwordError.classList.add('visible');
-            };
-
-            deletionForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                if (validateForm()) {
-                    modal.classList.add('active');
-                }
-            });
-            confirmBtn.addEventListener('click', handleDeletion);
-            passwordInput.addEventListener('input', () => {
-                togglePasswordBtn.classList.toggle('visible', passwordInput.value.length > 0);
-            });
-            togglePasswordBtn.addEventListener('click', () => {
-                const isPassword = passwordInput.type === 'password';
-                passwordInput.type = isPassword ? 'text' : 'password';
-                eyeOpenIcon.classList.toggle('hidden');
-                eyeClosedIcon.classList.toggle('hidden');
-            });
-            cancelBtn.addEventListener('click', () => {
-                modal.classList.remove('active');
-            });
         }
     </script>
 </body>
-
 </html>
