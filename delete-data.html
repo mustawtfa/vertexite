@@ -533,13 +533,13 @@
             // --- 6. AUTH STATE CONTROLLER ---
             let initialAuthCheckDone = false;
             auth.onAuthStateChanged(async (user) => {
-                // This condition is now simpler: just check if the user object itself has changed.
-                if (currentUser !== user) {
-                    currentUser = user;
+                if (!initialAuthCheckDone || currentUser !== user) {
+                    initialAuthCheckDone = true; 
+                    currentUser = user; 
+
                     if (user) {
                         await verifyUserAndShowUI(user);
                     } else {
-                        // User is signed out. Render the login page.
                         updateUI(unauthenticatedTemplate, () => {
                             addUnauthenticatedViewListeners();
                             if (postSignOutMessage) {
