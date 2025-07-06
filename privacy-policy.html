@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Meta Tags: Essential for character encoding, responsiveness, and compatibility -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Vertex Privacy Policy</title>
+
+  <!-- Assets: Favicon and Google Fonts for consistent branding and typography -->
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" />
+
+  <!-- Internal CSS: Styles for the entire page (Consistent with other legal pages) -->
+  <style>
+    :root {
+      --background-color: #f4f7f9;
+      --content-bg-color: #ffffff;
+      --text-primary-color: #1a202c;
+      --text-secondary-color: #4a5568;
+      --link-color: #3182ce;
+      --link-hover-color: #2b6cb0;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --triangle-color: #e2e8f0;
+      --warning-bg-color: #fffaf0;
+      --warning-border-color: #f6e05e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: #000 transparent;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background-color);
+      color: var(--text-primary-color);
+      overflow-x: hidden;
+    }
+
+    body::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background-color: #000;
+      border-radius: 20px;
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+      background-color: #333;
+    }
+
+    body::-webkit-scrollbar-button {
+      display: none;
+    }
+
+    .triangles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .triangles li {
+      position: absolute;
+      display: block;
+      list-style: none;
+      width: 20px;
+      height: 20px;
+      background: var(--triangle-color);
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      animation: triangleAnimate 25s linear infinite;
+      bottom: -180px;
+    }
+
+    .triangles li:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+    .triangles li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+    .triangles li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+    .triangles li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+    .triangles li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+    .triangles li:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
+    .triangles li:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
+    .triangles li:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+    .triangles li:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
+    .triangles li:nth-child(10) { left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
+
+    @keyframes triangleAnimate {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
+      100% { transform: translateY(-120vh) rotate(720deg); opacity: 0; border-radius: 50%; }
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: var(--content-bg-color);
+      padding: 50px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px var(--shadow-color);
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s forwards;
+    }
+
+    h1, h2 {
+      color: var(--text-primary-color);
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.8em;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      margin-top: 40px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    p, ul, li {
+      color: var(--text-secondary-color);
+      font-size: 1.05em;
+    }
+
+    p {
+      margin: 20px 0;
+    }
+
+    ul {
+      margin-left: 25px;
+      padding-left: 10px;
+    }
+
+    li {
+      margin-bottom: 12px;
+    }
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--link-hover-color);
+      text-decoration: underline;
+    }
+
+    .disclaimer {
+      background-color: var(--warning-bg-color);
+      border-left: 4px solid var(--warning-border-color);
+      padding: 15px 20px;
+      margin-top: 20px;
+      border-radius: 4px;
+    }
+
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 768px) {
+      .container { padding: 30px; margin: 30px 15px; }
+      h1 { font-size: 2.2em; }
+      h2 { font-size: 1.6em; }
+    }
+  </style>
+</head>
+
+<body>
+  <ul class="triangles">
+    <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  </ul>
+  <div class="container">
+    <h1>Vertex Privacy Policy</h1>
+    <p style="text-align:center; font-style: italic;">Last Updated: July 6, 2025</p>
+
+    <p>
+      Welcome to Vertex. We are a passionate, independent team of developers building various applications and games.
+      It's important for you to know that <strong>we are not a formal, registered company.</strong> We operate with a
+      commitment to transparency and user privacy. This general Privacy Policy explains how we handle information
+      across the entire Vertex ecosystem.
+    </p>
+    <p>
+      This policy covers the <strong>unified Vertex Account</strong> system. Please be aware that each of our products (like
+      Cortex) has its own specific Privacy Policy that details data handling unique to that service. This document
+      provides the general framework.
+    </p>
+
+    <h2>A) The Unified Vertex Account</h2>
+    <p>
+      To use our services, you create a single "Vertex Account". This account allows you to access all our current and
+      future projects with one set of credentials. For this purpose, we collect the following information:
+    </p>
+    <ul>
+      <li>
+        <b>Information You Provide Directly:</b> When you sign up, we collect your <strong>username</strong>,
+        <strong>email address</strong>, and a securely hashed <strong>password</strong>.
+      </li>
+      <li>
+        <b>Information from Third-Party Logins (e.g., Google):</b> If you sign in using a service like Google, we
+        receive information from them to create your account. This typically includes your <strong>name</strong>,
+        <strong>email address</strong>, and <strong>profile picture</strong>.
+      </li>
+    </ul>
+
+    <h2>B) Service-Specific Information & Data Separation</h2>
+    <p>
+      Beyond basic account data, each Vertex product collects information necessary for its function. For example, our
+      app Cortex processes conversation data.
+    </p>
+    <p>
+      <strong>This type of product-specific data is governed by the privacy policy of that product.</strong> We maintain
+      strict data separation. Information collected in one product (e.g., your chats in Cortex) is never used to
+      personalize your experience or serve ads in another Vertex product.
+    </p>
+
+    <h2>C) How We Use Your Information</h2>
+    <p>We use the information we collect for the following general purposes:</p>
+    <ul>
+      <li>To provide, maintain, and secure our services and the unified account system.</li>
+      <li>To communicate with you about your account or critical service updates.</li>
+      <li>To analyze usage trends and improve our products, typically using anonymized or aggregated data.</li>
+      <li>To process payments for subscriptions or digital goods via our partners (like RevenueCat or app stores).
+      </li>
+    </ul>
+    <p><strong>We do not sell or rent your personal information to third parties. Ever.</strong></p>
+
+
+    <h2>D) Your Rights and Data Control</h2>
+    <p>You are in full control of your data.</p>
+    <ul>
+      <li>
+        <strong>Right to Access:</strong> You can request a copy of the personal data we hold about your Vertex Account.
+      </li>
+      <li>
+        <strong>Right to Deletion:</strong> You have the right to permanently delete your entire Vertex Account and all
+        data associated with it across all our services. You can initiate this process using our central data deletion
+        form: <a href="https://vertexishere.com/delete-data" target="_blank"
+          rel="noopener noreferrer">vertexishere.com/delete-data</a>.
+      </li>
+    </ul>
+
+    <h2>E) Data Security and Third-Party Reliance</h2>
+    <div class="disclaimer">
+      <p>
+        The Vertex ecosystem is built upon robust and secure third-party platforms like <strong>Google Firebase</strong>
+        for hosting and authentication, and <strong>Cloudflare</strong> for network security. We rely on their
+        industry-standard security measures to protect your data.
+      </p>
+      <p>
+        However, no system is 100% immune to breaches. By using our services, you acknowledge that we are a small,
+        independent team and we depend on these partners. In the event of a data breach on these third-party platforms,
+        <strong>the developers of Vertex cannot assume liability.</strong>
+      </p>
+    </div>
+
+    <h2>F) Children's Privacy</h2>
+    <p>
+      Our services are not intended for individuals under the age of 13. We do not knowingly collect personal
+      information from children under 13. If you are a parent or guardian and believe your child has provided us with
+      personal information, please contact us immediately so we can take action.
+    </p>
+
+    <h2>G) Changes to This Privacy Policy</h2>
+    <p>
+      We reserve the right, at our sole discretion, to modify or replace this Privacy Policy at any time. We will
+      indicate any changes by updating the "Last Updated" date at the top of this Policy. Changes to this Privacy
+      Policy are effective when they are posted on this page. It is your responsibility to review this Privacy Policy
+      periodically for changes. Your continued use of our Service after the changes have been posted will constitute
+      your acceptance of the changes.
+    </p>
+
+    <h2>H) Contact Us</h2>
+    <p>If you have any questions about this general Privacy Policy, please contact us:</p>
+    <ul>
+      <li><b>Email:</b> <a href="mailto:contact@vertexishere.com">contact@vertexishere.com</a></li>
+      <li><b>Website:</b> <a href="https://www.vertexishere.com" target="_blank"
+          rel="noopener noreferrer">www.vertexishere.com</a></li>
+    </ul>
+  </div>
+</body>
+
+</html>
