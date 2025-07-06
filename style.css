@@ -408,12 +408,19 @@ nav ul li a:hover {
   transform: translateY(-5px);
 }
 
+/* BU KODU ESKİ .project-img KURALIYLA DEĞİŞTİRİN */
+
 .project-img {
   height: 200px;
-  background-color: var(--accent-gray);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: var(--accent-gray); /* Resim yüklenmezse diye arka plan rengi kalsın */
+  overflow: hidden; /* Resmin kutudan taşmasını engeller */
+}
+
+.project-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Bu en önemli kısımdır! */
+  display: block; /* Resim altındaki boşluğu kaldırır */
 }
 
 .project-content {
