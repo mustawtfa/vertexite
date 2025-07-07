@@ -15,7 +15,8 @@
   --triangle-color: #2a2a2a;
   /* Yeni eklenen değişkenler */
   --card-bg: #222222;
-  --shadow-color: rgba(255, 255, 255, 0.1); /* Gölge rengi (dark theme) */
+  --shadow-color: rgba(255, 255, 255, 0.1);
+  /* Gölge rengi (dark theme) */
   --input-border: #666666;
   --input-bg: #0a0a0a;
   --input-text-color: #ffffff;
@@ -37,7 +38,8 @@ body.light-theme {
   --triangle-color: #cccccc;
   /* Yeni eklenen değişkenler */
   --card-bg: #ffffff;
-  --shadow-color: rgba(0, 0, 0, 0.1); /* Gölge rengi (light theme) */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  /* Gölge rengi (light theme) */
   --input-border: #222222;
   --input-bg: #ffffff;
   --input-text-color: #0a0a0a;
@@ -58,20 +60,24 @@ body.light-theme .contact-info .info-item img {
 
 /* Projects ve Contact Section'ların arka planları (Light Theme'de) */
 body.light-theme .projects {
-  background-color: var(--secondary-black); /* Light theme specific */
+  background-color: var(--secondary-black);
+  /* Light theme specific */
 }
 
 body.light-theme .contact {
-  background-color: var(--primary-black); /* Light theme specific */
+  background-color: var(--primary-black);
+  /* Light theme specific */
 }
 
 /* Header gölgesi (Light / Dark) */
 body.light-theme header {
-  box-shadow: 0 2px 4px var(--shadow-color); /* Değişken kullanıldı */
+  box-shadow: 0 2px 4px var(--shadow-color);
+  /* Değişken kullanıldı */
 }
 
 body:not(.light-theme) header {
-  box-shadow: 0 2px 4px var(--shadow-color); /* Değişken kullanıldı */
+  box-shadow: 0 2px 4px var(--shadow-color);
+  /* Değişken kullanıldı */
 }
 
 /* ============= */
@@ -115,6 +121,19 @@ header {
   z-index: 100;
   transition: padding 0.3s ease, background-color 0.3s ease;
 }
+
+/* Header */
+/* ... mevcut header stilleri ... */
+
+.header-buttons {
+  display: flex;
+  /* Düğmeleri yan yana sıralamak için */
+  gap: 1rem;
+  /* Düğmeler arasına boşluk eklemek için */
+  align-items: center;
+  /* Dikeyde hizalamak için (isteğe bağlı) */
+}
+
 
 header.scrolled {
   padding: calc(0.8rem + env(safe-area-inset-top)) 0;
@@ -183,8 +202,7 @@ nav ul li a:hover {
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
-  margin-left: 1rem;
-  margin-top: 0.5rem;
+  margin-left: 0.3rem;
 }
 
 .theme-toggle-btn:hover,
@@ -516,7 +534,8 @@ nav ul li a:hover {
 /* Projects Section */
 /* ============= */
 .projects {
-  background-color: var(--secondary-black); /* Hardcoded #111111 replaced with variable */
+  background-color: var(--secondary-black);
+  /* Hardcoded #111111 replaced with variable */
 }
 
 .project-tabs {
