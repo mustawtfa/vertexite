@@ -22,6 +22,7 @@
   --input-text-color: #ffffff;
 }
 
+
 /* ==================== */
 /* Light Theme Overrides */
 /* ==================== */
@@ -100,6 +101,21 @@ body {
   font-weight: 300;
   line-height: 1.6;
   transition: background-color 0.3s ease, color 0.3s ease;
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* Internet Explorer ve Edge (eski sürümler) */
+  -ms-overflow-style: none;
+}
+
+/* Webkit tabanlı tarayıcılar (Chrome, Safari, Edge) */
+body::-webkit-scrollbar {
+  display: none;
+  /* Kaydırma çubuğunu tamamen gizler */
+  width: 0;
+  /* Genişliğini sıfırlar */
+  height: 0;
+  /* Yatay kaydırma çubuğu için yüksekliğini sıfırlar (pek kullanılmaz ama tam uyumluluk için) */
 }
 
 .container {
@@ -150,6 +166,13 @@ header.scrolled {
   font-size: 1.8rem;
   font-weight: 600;
   letter-spacing: -0.5px;
+}
+
+#main-link {
+  text-decoration: none;
+  color: #0A0A0A;
+  font-size: 1.8rem;
+  font-weight: 700;
 }
 
 .logo span {

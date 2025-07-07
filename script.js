@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Hero Bölümü
       'hero-title': 'Teknolojinin Zirvesi',
-      'hero-description': 'Türkiye\'nin en parlak genç yetenekleri tarafından ortalama 15 yaşında kurulmuş olan Vertex, teknolojinin geleceğini birçok alanda öncülük ediyor.',
+      'hero-description': 'Türkiye\'nin en parlak genç yetenekleri tarafından ortalama 14 yaşında kurulmuş olan Vertex, teknolojinin geleceğini birçok alanda öncülük ediyor.',
       'hero-btn-projects': 'Projeleri Keşfet',
       'hero-btn-vision': 'Vizyonumuz',
 
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Hero Section
       'hero-title': 'The Peak of Technology',
-      'hero-description': 'Founded by Turkiye\'s brightest young minds with an average age of just 15, Vertex is pioneering the future of technology across multiple domains.',
+      'hero-description': 'Founded by Turkiye\'s brightest young minds with an average age of just 14, Vertex is pioneering the future of technology across multiple domains.',
       'hero-btn-projects': 'Explore Projects',
       'hero-btn-vision': 'Our Vision',
 
