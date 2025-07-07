@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vertex | Peak of Technology</title>
-  <link rel="icon" type="image/png" href="assets/favicon.png"> 
+  <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" />
-  <!-- Harici CSS dosyası eklendi -->
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body class="light-theme">
-  <!-- Header -->
   <header>
     <div class="container header-container">
       <div class="logo">
@@ -18,21 +18,22 @@
       </div>
       <nav>
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#vision">Vision</a></li>
-          <li><a href="#team">Team</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#home" data-translate="nav-home">Home</a></li>
+          <li><a href="#about" data-translate="nav-about">About</a></li>
+          <li><a href="#projects" data-translate="nav-projects">Projects</a></li>
+          <li><a href="#vision" data-translate="nav-vision">Vision</a></li>
+          <li><a href="#team" data-translate="nav-team">Team</a></li>
+          <li><a href="#contact" data-translate="nav-contact">Contact</a></li>
         </ul>
       </nav>
-      <div>
-        <button class="theme-toggle-btn" id="theme-toggle-btn">Theme</button>
+      <div class="header-buttons">
+        <button class="theme-toggle-btn" id="theme-toggle-btn" data-translate="theme-toggle-dark">Dark Mode</button>
+        <button class="language-toggle-btn" id="language-toggle-btn" data-translate="lang-toggle">Türkçe</button>
       </div>
+
     </div>
   </header>
 
-  <!-- Hero Section -->
   <section class="hero" id="home">
     <ul class="triangles">
       <li></li>
@@ -52,56 +53,65 @@
       <li></li>
     </ul>
     <div class="container hero-content">
-      <h1>The Peak of Technology</h1>
-      <p>Founded by Turkiye's brightest young minds with an average age of just 15, Vertex is pioneering the future of technology across multiple domains.</p>
+      <h1 data-translate="hero-title">The Peak of Technology</h1>
+      <p data-translate="hero-description">Founded by Turkiye's brightest young minds with an average age of just 15,
+        Vertex is pioneering the future of
+        technology across multiple domains.</p>
       <div class="hero-buttons">
-        <a href="#projects" class="btn">Explore Projects</a>
-        <a href="#vision" class="btn btn-outline">Our Vision</a>
+        <a href="#projects" class="btn" data-translate="hero-btn-projects">Explore Projects</a>
+        <a href="#vision" class="btn btn-outline" data-translate="hero-btn-vision">Our Vision</a>
       </div>
     </div>
   </section>
 
-  <!-- About Section -->
   <section class="section" id="about">
     <div class="container">
       <div class="section-header animate-on-scroll">
-        <h2>Who We Are</h2>
-        <p>Started in June 2023 in Istanbul, Vertex Corporation is a cutting-edge technology company uniting Turkiye's youngest entrepreneurs to redefine the tech landscape globally.</p>
+        <h2 data-translate="about-title">Who We Are</h2>
+        <p data-translate="about-description">Started in June 2023 in Istanbul, Vertex Corporation is a cutting-edge
+          technology company uniting Turkiye's
+          youngest entrepreneurs to redefine the tech landscape globally.</p>
       </div>
       <div class="about-grid">
         <div class="about-card animate-on-scroll">
-          <h3>Young Innovators</h3>
-          <p>With an average age of just 15, our team represents the next generation of tech visionaries committed to pushing boundaries and creating revolutionary solutions.</p>
+          <h3 data-translate="about-card1-title">Young Innovators</h3>
+          <p data-translate="about-card1-description">With an average age of just 15, our team represents the next
+            generation of tech visionaries committed to
+            pushing boundaries and creating revolutionary solutions.</p>
         </div>
         <div class="about-card animate-on-scroll">
-          <h3>Multi-Domain Expertise</h3>
-          <p>From software development to AI, gaming, music production, and browser technologies, our diverse skill set allows us to innovate across multiple tech domains.</p>
+          <h3 data-translate="about-card2-title">Multi-Domain Expertise</h3>
+          <p data-translate="about-card2-description">From software development to AI, gaming, music production, and
+            browser technologies, our diverse skill set
+            allows us to innovate across multiple tech domains.</p>
         </div>
         <div class="about-card animate-on-scroll">
-          <h3>Turkiye's Tech Future</h3>
-          <p>We're dedicated to positioning Turkiye as a global tech leader by developing world-class products and nurturing young talent within our borders.</p>
+          <h3 data-translate="about-card3-title">Turkiye's Tech Future</h3>
+          <p data-translate="about-card3-description">We're dedicated to positioning Turkiye as a global tech leader by
+            developing world-class products and
+            nurturing young talent within our borders.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Projects Section -->
   <section class="section projects" id="projects">
     <div class="container">
       <div class="section-header animate-on-scroll">
-        <h2>Our Cutting-Edge Projects</h2>
-        <p>Explore our diverse portfolio of innovative technologies shaping the future across multiple domains.</p>
+        <h2 data-translate="projects-title">Our Cutting-Edge Projects</h2>
+        <p data-translate="projects-description">Explore our diverse portfolio of innovative technologies shaping the
+          future across multiple domains.</p>
       </div>
       <div class="project-tabs">
-        <button class="tab-btn active" data-filter="all">All</button>
-        <button class="tab-btn" data-filter="software">Software</button>
-        <button class="tab-btn" data-filter="ai">AI</button>
-        <button class="tab-btn" data-filter="gaming">Gaming</button>
-        <button class="tab-btn" data-filter="music">Music</button>
+        <button class="tab-btn active" data-filter="all" data-translate="projects-tab-all">All</button>
+        <button class="tab-btn" data-filter="software" data-translate="projects-tab-software">Software</button>
+        <button class="tab-btn" data-filter="ai" data-translate="projects-tab-ai">AI</button>
+        <button class="tab-btn" data-filter="gaming" data-translate="projects-tab-gaming">Gaming</button>
+        <button class="tab-btn" data-filter="music" data-translate="projects-tab-music">Music</button>
       </div>
-            <!-- BU KODU KENDİ KODUNUZLA DEĞİŞTİRİN -->
       <div class="projects-grid">
-        <a href="https://github.com/VertexCorporation/Cortex" target="_blank" style="text-decoration: none; color: inherit;">
+        <a href="https://github.com/VertexCorporation/Cortex" target="_blank"
+          style="text-decoration: none; color: inherit;">
           <div class="project-card" data-category="ai">
             <div class="project-img">
               <img src="assets/cortex.jpg" alt="Cortex Projesi">
@@ -116,14 +126,16 @@
             </div>
           </div>
         </a>
-        <a href="http://github.com/VertexCorporation/Drome" target="_blank" style="text-decoration: none; color: inherit;">
+        <a href="http://github.com/VertexCorporation/Drome" target="_blank"
+          style="text-decoration: none; color: inherit;">
           <div class="project-card" data-category="software">
             <div class="project-img">
               <img src="assets/drome.jpg" alt="Drome Projesi">
             </div>
             <div class="project-content">
               <h3>Drome</h3>
-              <p>Our innovative programming language designed to empower developers with versatile and efficient coding tools.</p>
+              <p>Our innovative programming language designed to empower developers with versatile and efficient coding
+                tools.</p>
               <div class="project-tags">
                 <span class="tag">Programming</span>
                 <span class="tag">Development</span>
@@ -138,7 +150,8 @@
             </div>
             <div class="project-content">
               <h3>Solar</h3>
-              <p>Cutting-edge web browser built from scratch without Chromium dependencies for enhanced performance and privacy.</p>
+              <p>Cutting-edge web browser built from scratch without Chromium dependencies for enhanced performance and
+                privacy.</p>
               <div class="project-tags">
                 <span class="tag">Browser</span>
                 <span class="tag">Web Technology</span>
@@ -146,14 +159,16 @@
             </div>
           </div>
         </a>
-        <a href="https://play.google.com/store/apps/details?id=com.VertexGames.AllStar" target="_blank" style="text-decoration: none; color: inherit;">
+        <a href="https://play.google.com/store/apps/details?id=com.VertexGames.AllStar" target="_blank"
+          style="text-decoration: none; color: inherit;">
           <div class="project-card" data-category="gaming">
             <div class="project-img">
               <img src="assets/allstar.jpg" alt="All Star Oyunu">
             </div>
             <div class="project-content">
               <h3>All Star</h3>
-              <p>Our debut mobile game that reached 5M+ people and 20,000+ downloads in just 48 hours with zero marketing budget.</p>
+              <p>Our debut mobile game that reached 5M+ people and 20,000+ downloads in just 48 hours with zero
+                marketing budget.</p>
               <div class="project-tags">
                 <span class="tag">Gaming</span>
                 <span class="tag">Mobile</span>
@@ -163,7 +178,7 @@
         </a>
         <div class="project-card" data-category="gaming">
           <div class="project-img">
-           Sureward
+            <img src="assets/comingsoon.png" alt="sureward">
           </div>
           <div class="project-content">
             <h3>Sureward</h3>
@@ -174,14 +189,16 @@
             </div>
           </div>
         </div>
-        <a href="https://open.spotify.com/artist/6DwLxxh2dT8Bm0KBCzjXZA?si=viRf_DK1QiGLy3rmi0SQpw" target="_blank" style="text-decoration: none; color: inherit;">
+        <a href="https://open.spotify.com/artist/6DwLxxh2dT8Bm0KBCzjXZA?si=viRf_DK1QiGLy3rmi0SQpw" target="_blank"
+          style="text-decoration: none; color: inherit;">
           <div class="project-card" data-category="music">
             <div class="project-img">
-              <img src="assets/polyhedron-photo.jpg" alt="Polyhedron Müzik">
+              <img src="assets/comingsoon.png" alt="Polyhedron">
             </div>
             <div class="project-content">
               <h3>Polyhedron</h3>
-              <p>Our music label empowering young artists that has already achieved 5,000+ monthly listeners across platforms.</p>
+              <p>Our music label empowering young artists that has already achieved 5,000+ monthly listeners across
+                platforms.</p>
               <div class="project-tags">
                 <span class="tag">Music</span>
                 <span class="tag">Entertainment</span>
@@ -193,185 +210,207 @@
     </div>
   </section>
 
-  <!-- Vision Section -->
   <section class="section" id="vision">
     <div class="container vision-container">
       <div class="vision-content animate-on-scroll">
-        <h2>Our 3-5 Year Vision</h2>
-        <p>By 2025, Vertex aims to establish a global presence across America, Europe, and Asia, targeting 5 million active users across our platforms and becoming a recognized force in the global tech industry.</p>
-        <p>We're committed to continuous innovation, developing our own operating system, expanding our AI capabilities, and reaching millions through our diverse portfolio of products.</p>
+        <h2 data-translate="vision-title">Our 3-5 Year Vision</h2>
+        <p data-translate="vision-description1">By 2025, Vertex aims to establish a global presence across America,
+          Europe, and Asia, targeting 5 million
+          active users across our platforms and becoming a recognized force in the global tech industry.</p>
+        <p data-translate="vision-description2">We're committed to continuous innovation, developing our own operating
+          system, expanding our AI capabilities,
+          and reaching millions through our diverse portfolio of products.</p>
         <div class="stats">
           <div class="stat-item">
             <h3>10M+</h3>
-            <p>Target downloads for our applications worldwide</p>
+            <p data-translate="vision-stat1">Target downloads for our applications worldwide</p>
           </div>
           <div class="stat-item">
             <h3>5M+</h3>
-            <p>Active users across our technology ecosystem</p>
+            <p data-translate="vision-stat2">Active users across our technology ecosystem</p>
           </div>
           <div class="stat-item">
             <h3>100K+</h3>
-            <p>Monthly listeners for Polyhedron music label</p>
+            <p data-translate="vision-stat3">Monthly listeners for Polyhedron music label</p>
           </div>
           <div class="stat-item">
             <h3>3</h3>
-            <p>Global markets - Americas, Europe, Asia</p>
+            <p data-translate="vision-stat4">Global markets - Americas, Europe, Asia</p>
           </div>
         </div>
       </div>
       <div class="vision-image animate-on-scroll">
-        <img src="https://cdn.glitch.global/0881385a-0bcd-4da7-a986-3a473ec4a86b/vision.png?v=1743772067413" alt="Vision">
+        <img src="https://cdn.glitch.global/0881385a-0bcd-4da7-a986-3a473ec4a86b/vision.png?v=1743772067413"
+          alt="Vision">
       </div>
     </div>
   </section>
 
-  <!-- Team Section -->
   <section class="section" id="team">
     <div class="container">
       <div class="section-header animate-on-scroll">
-        <h2>Our Leading Innovators</h2>
-        <p>The bright minds behind Vertex Corporation, Turkiye's youngest tech entrepreneurs, building the future today.</p>
+        <h2 data-translate="team-title">Our Leading Innovators</h2>
+        <p data-translate="team-description">The bright minds behind Vertex Corporation, Turkiye's youngest tech
+          entrepreneurs, building the future today.
+        </p>
       </div>
-  <div class="team-grid">
-    <!-- Mustafa Çakı -->
-    <div class="team-card animate-on-scroll">
-        <img class="team-img" src="assets/MUSTAFACAKI.jpg" alt="Mustafa Çakı">
-        <div class="team-content">
+      <div class="team-grid">
+        <div class="team-card animate-on-scroll">
+          <img class="team-img" src="assets/MUSTAFACAKI.jpg" alt="Mustafa Çakı">
+          <div class="team-content">
             <h3>Mustafa Çakı</h3>
             <p>Co-Founder & CEO</p>
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/mustafacaki/" target="_blank"><img src="assets/linkedin.svg" alt="LinkedIn"></a>
-                <a href="https://www.instagram.com/mustawtfa/" target="_blank"><img src="assets/instagram.svg" alt="Instagram"></a>
-                <a href="mailto:mustafacaki@vertexishere.com"><img src="assets/email.svg" alt="Email"></a>
+              <a href="https://www.linkedin.com/in/mustafacaki/" target="_blank"><img src="assets/linkedin.svg"
+                  alt="LinkedIn"></a>
+              <a href="https://www.instagram.com/mustawtfa/" target="_blank"><img src="assets/instagram.svg"
+                  alt="Instagram"></a>
+              <a href="mailto:mustafacaki@vertexishere.com"><img src="assets/email.svg" alt="Email"></a>
             </div>
+          </div>
         </div>
-    </div>
 
-    <!-- Ata Türkçü -->
-    <div class="team-card animate-on-scroll">
-        <img class="team-img" src="assets/ATATURKCU.jpg" alt="Ata Türkçü">
-        <div class="team-content">
+        <div class="team-card animate-on-scroll">
+          <img class="team-img" src="assets/ATATURKCU.jpg" alt="Ata Türkçü">
+          <div class="team-content">
             <h3>Ata Türkçü</h3>
             <p>Co-Founder & CTO</p>
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/ataturkcu/" target="_blank"><img src="assets/linkedin.svg" alt="LinkedIn"></a>
-                <a href="https://www.instagram.com/ataainc/" target="_blank"><img src="assets/instagram.svg" alt="Instagram"></a>
-                <a href="mailto:ataturkcu@vertexishere.com"><img src="assets/email.svg" alt="Email"></a>
+              <a href="https://www.linkedin.com/in/ataturkcu/" target="_blank"><img src="assets/linkedin.svg"
+                  alt="LinkedIn"></a>
+              <a href="https://www.instagram.com/ataainc/" target="_blank"><img src="assets/instagram.svg"
+                  alt="Instagram"></a>
+              <a href="mailto:ataturkcu@vertexishere.com"><img src="assets/email.svg" alt="Email"></a>
             </div>
+          </div>
         </div>
-    </div>
 
-    <!-- Murat Coşkun -->
-    <div class="team-card animate-on-scroll">
-        <img class="team-img" src="assets/MURATCOSKUN.jpg" alt="Murat Coşkun">
-        <div class="team-content">
+        <div class="team-card animate-on-scroll">
+          <img class="team-img" src="assets/MURATCOSKUN.jpg" alt="Murat Coşkun">
+          <div class="team-content">
             <h3>Murat Coşkun</h3>
             <p>Chief Architect</p>
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/muratck/" target="_blank"><img src="assets/linkedin.svg" alt="LinkedIn"></a>
-                <a href="https://www.instagram.com/bsdmog07/" target="_blank"><img src="assets/instagram.svg" alt="Instagram"></a>
-                <a href="mailto:murat@vertexishere.com"><img src="assets/email.svg" alt="Email"></a>
+              <a href="https://www.linkedin.com/in/muratck/" target="_blank"><img src="assets/linkedin.svg"
+                  alt="LinkedIn"></a>
+              <a href="https://www.instagram.com/bsdmog07/" target="_blank"><img src="assets/instagram.svg"
+                  alt="Instagram"></a>
+              <a href="mailto:murat@vertexishere.com"><img src="assets/email.svg" alt="Email"></a>
             </div>
+          </div>
         </div>
-    </div>
 
-    <!-- Berkay Demir -->
-    <div class="team-card animate-on-scroll">
-        <img class="team-img" src="assets/BERKAYDEMIR.jpg" alt="Berkay Demir">
-        <div class="team-content">
+        <div class="team-card animate-on-scroll">
+          <img class="team-img" src="assets/BERKAYDEMIR.jpg" alt="Berkay Demir">
+          <div class="team-content">
             <h3>Berkay Demir</h3>
             <p>Chief Marketing Officer</p>
             <div class="social-links">
-                <a href="https://www.instagram.com/begathefirst/" target="_blank"><img src="assets/instagram.svg" alt="Instagram"></a>
-                <a href="mailto:berkay@vertexishere.com"><img src="assets/email.svg" alt="Email"></a>
+              <a href="https://www.instagram.com/begathefirst/" target="_blank"><img src="assets/instagram.svg"
+                  alt="Instagram"></a>
+              <a href="mailto:berkay@vertexishere.com"><img src="assets/email.svg" alt="Email"></a>
             </div>
+          </div>
         </div>
-    </div>
 
-    <!-- Batın Tanrıverdi -->
-    <div class="team-card animate-on-scroll">
-        <img class="team-img" src="assets/BATINTANRIVERDI.jpg" alt="Batın Tanrıverdi">
-        <div class="team-content">
+        <div class="team-card animate-on-scroll">
+          <img class="team-img" src="assets/BATINTANRIVERDI.jpg" alt="Batın Tanrıverdi">
+          <div class="team-content">
             <h3>Batın Tanrıverdi</h3>
             <p>Music Director</p>
             <div class="social-links">
-                <a href="https://www.instagram.com/batin_tuna/" target="_blank"><img src="assets/instagram.svg" alt="Instagram"></a>
+              <a href="https://www.instagram.com/batin_tuna/" target="_blank"><img src="assets/instagram.svg"
+                  alt="Instagram"></a>
             </div>
+          </div>
         </div>
-    </div>
 
-    <!--İbrahim Baygun-->
-    <div class="team-card animate-on-scroll">
-        <img class="team-img" src="assets/IBRAHIMBAYGUN.jpg" alt="İbrahim Baygun">
-        <div class="team-content">
+        <div class="team-card animate-on-scroll">
+          <img class="team-img" src="assets/IBRAHIMBAYGUN.jpg" alt="İbrahim Baygun">
+          <div class="team-content">
             <h3>İbrahim Baygun</h3>
             <p>Senior Web Developer</p>
             <div class="social-links">
-                <a href="https://www.instagram.com/coremiyuka/" target="_blank"><img src="assets/instagram.svg"Instagram></a>
-                <a href="mailto:ibrahimbaygun@vertexishere.com"><img src="assets/email.svg" alt="Email"></a>
+              <a href="https://www.instagram.com/coremiyuka/" target="_blank"><img src="assets/instagram.svg"
+                  Instagram></a>
+              <a href="mailto:ibrahimbaygun@vertexishere.com"><img src="assets/email.svg" alt="Email"></a>
             </div>
+          </div>
         </div>
-    </div>
-    <div class="team-card animate-on-scroll">
-        <img class="team-img" src="assets/mir.jpg" alt="Mir Emir Kaya">
-        <div class="team-content">
+        <div class="team-card animate-on-scroll">
+          <img class="team-img" src="assets/iron.jpg" alt="iron">
+          <div class="team-content">
+            <h3>Iron</h3>
+            <p>Junior Full Stack Developer</p>
+            <div class="social-links">
+              <a href="https://www.instagram.com/ironmid.d/" target="_blank"><img src="assets/instagram.svg"
+                  Instagram></a>
+              <a href="mailto:ironbabatekkrall@proton.me"><img src="assets/email.svg" alt="Email"></a>
+            </div>
+          </div>
+        </div>
+        <div class="team-card animate-on-scroll">
+          <img class="team-img" src="assets/mir.jpg" alt="Mir Emir Kaya">
+          <div class="team-content">
             <h3>Mir Emir Kaya</h3>
             <p>Senior Web Developer</p>
             <div class="social-links">
-                <a href="https://www.instagram.com/miremirkaya0/" target="_blank"><img src="assets/instagram.svg"Instagram></a>
-                
+              <a href="https://www.instagram.com/miremirkaya0/" target="_blank"><img src="assets/instagram.svg"
+                  Instagram></a>
+
             </div>
+          </div>
         </div>
-</div> 
   </section>
 
-  <!-- Contact Section -->
   <section class="section contact" id="contact">
     <div class="container">
       <div class="section-header animate-on-scroll">
-        <h2>Get In Touch</h2>
-        <p>Interested in our technologies or potential collaborations? Reach out to our team.</p>
+        <h2 data-translate="contact-title">Get In Touch</h2>
+        <p data-translate="contact-description">Interested in our technologies or potential collaborations? Reach out to
+          our team.</p>
       </div>
       <div class="contact-container">
         <form class="contact-form">
           <div class="form-group">
-            <label class="form-label">Name</label>
-            <input type="text" class="form-input" placeholder="Your name">
+            <label class="form-label" data-translate="contact-form-name">Name</label>
+            <input type="text" class="form-input" placeholder="Your name" data-translate="contact-placeholder-name">
           </div>
           <div class="form-group">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-input" placeholder="Your email">
+            <label class="form-label" data-translate="contact-form-email">Email</label>
+            <input type="email" class="form-input" placeholder="Your email" data-translate="contact-placeholder-email">
           </div>
           <div class="form-group">
-            <label class="form-label">Subject</label>
-            <input type="text" class="form-input" placeholder="Subject">
+            <label class="form-label" data-translate="contact-form-subject">Subject</label>
+            <input type="text" class="form-input" placeholder="Subject" data-translate="contact-placeholder-subject">
           </div>
           <div class="form-group">
-            <label class="form-label">Message</label>
-            <textarea class="form-input" placeholder="Your message"></textarea>
+            <label class="form-label" data-translate="contact-form-message">Message</label>
+            <textarea class="form-input" placeholder="Your message"
+              data-translate="contact-placeholder-message"></textarea>
           </div>
-          <button type="submit" class="btn">Send Message</button>
+          <button type="submit" class="btn" data-translate="contact-form-submit">Send Message</button>
         </form>
         <div class="contact-info">
-          <h3>Contact Information</h3>
+          <h3 data-translate="contact-info-title">Contact Information</h3>
           <div class="contact-item">
             <div class="contact-icon">L</div>
             <div class="contact-text">
-              <h4>Location</h4>
+              <h4 data-translate="contact-info-location">Location</h4>
               <p>Istanbul, Turkiye</p>
             </div>
           </div>
           <div class="contact-item">
             <div class="contact-icon">E</div>
             <div class="contact-text">
-              <h4>Email</h4>
+              <h4 data-translate="contact-info-email">Email</h4>
               <p>contact@vertexcorp.tech</p>
             </div>
           </div>
           <div class="contact-item">
             <div class="contact-icon">S</div>
             <div class="contact-text">
-              <h4>Social</h4>
+              <h4 data-translate="contact-info-social">Social</h4>
               <p>@VertexCorporation</p>
             </div>
           </div>
@@ -380,16 +419,17 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col">
           <h3>Vertex</h3>
-          <p>Peak of Technology. Founded in 2023 by Turkiye's youngest tech entrepreneurs, reshaping the future through innovation across multiple domains.</p>
+          <p data-translate="footer-description">Peak of Technology. Founded in 2023 by Turkiye's youngest tech
+            entrepreneurs, reshaping the future through
+            innovation across multiple domains.</p>
         </div>
         <div class="footer-col">
-          <h3>Products</h3>
+          <h3 data-translate="footer-products">Products</h3>
           <ul class="footer-links">
             <li><a href="#">Cortex</a></li>
             <li><a href="#">Drome</a></li>
@@ -400,39 +440,45 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h3>Company</h3>
+          <h3 data-translate="footer-company">Company</h3>
           <ul class="footer-links">
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Our Vision</a></li>
-            <li><a href="#">Team</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#" data-translate="footer-about">About Us</a></li>
+            <li><a href="#" data-translate="footer-vision">Our Vision</a></li>
+            <li><a href="#" data-translate="footer-team">Team</a></li>
+            <li><a href="#" data-translate="footer-careers">Careers</a></li>
+            <li><a href="#" data-translate="footer-contact">Contact</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h3>Legal</h3>
+          <h3 data-translate="footer-legal">Legal</h3>
           <ul class="footer-links">
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">Cookie Policy</a></li>
-             <li><a href="http://example.com/" target="_blank" rel="noopener noreferrer">Ornek site aga</a></li>
+            <li><a href="#" data-translate="footer-privacy">Privacy Policy</a></li>
+            <li><a href="#" data-translate="footer-terms">Terms of Service</a></li>
+            <li><a href="#" data-translate="footer-cookies">Cookie Policy</a></li>
+            <li><a href="http://example.com/" target="_blank" rel="noopener noreferrer">Ornek site aga</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <div class="copyright">
+        <div class="copyright" data-translate="footer-rights">
           © 2025 Vertex Corporation. All rights reserved.
         </div>
         <div class="footer-social">
-          <a href="#"><img src="https://cdn.glitch.global/0881385a-0bcd-4da7-a986-3a473ec4a86b/linkedin.svg?v=1743768559811" alt="LinkedIn"></a>
-          <a href="#"><img src="https://cdn.glitch.global/0881385a-0bcd-4da7-a986-3a473ec4a86b/instagram.svg?v=1743768556717" alt="Instagram"></a>
-          <a href="#"><img src="https://cdn.glitch.global/0881385a-0bcd-4da7-a986-3a473ec4a86b/email.svg?v=1743768558066" alt="Email"></a>
+          <a href="https://www.linkedin.com/company/106897671/" target="_blank"><img
+              src="https://cdn.glitch.global/0881385a-0bcd-4da7-a986-3a473ec4a86b/linkedin.svg?v=1743768559811"
+              alt="LinkedIn"></a>
+          <a href="https://www.instagram.com/vertex.23/" target="_blank"><img
+              src="https://cdn.glitch.global/0881385a-0bcd-4da7-a986-3a473ec4a86b/instagram.svg?v=1743768556717"
+              alt="Instagram"></a>
+          <a href="mailto:contact@vertexishere.com" target="_blank"><img
+              src="https://cdn.glitch.global/0881385a-0bcd-4da7-a986-3a473ec4a86b/email.svg?v=1743768558066"
+              alt="Email"></a>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- Harici JavaScript dosyası eklendi -->
   <script src="script.js"></script>
 </body>
+
 </html>

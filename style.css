@@ -1,5 +1,5 @@
 /* =============== */
-/* Dark Theme Vars */
+/* Dark & Light Tema Değişkenleri */
 /* =============== */
 :root {
   --primary-black: #0a0a0a;
@@ -13,6 +13,12 @@
   --hero-bg: #0a0a0a;
   /* Üçgen rengi (dark modda) */
   --triangle-color: #2a2a2a;
+  /* Yeni eklenen değişkenler */
+  --card-bg: #222222;
+  --shadow-color: rgba(255, 255, 255, 0.1); /* Gölge rengi (dark theme) */
+  --input-border: #666666;
+  --input-bg: #0a0a0a;
+  --input-text-color: #ffffff;
 }
 
 /* ==================== */
@@ -29,29 +35,43 @@ body.light-theme {
   --hero-bg: #f0f0f0;
   /* Üçgen rengi (light modda) */
   --triangle-color: #cccccc;
+  /* Yeni eklenen değişkenler */
+  --card-bg: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.1); /* Gölge rengi (light theme) */
+  --input-border: #222222;
+  --input-bg: #ffffff;
+  --input-text-color: #0a0a0a;
 }
 
 /* SVG Icon Colors */
 body:not(.light-theme) .social-links a img,
-body:not(.light-theme) .footer-social a img {
+body:not(.light-theme) .footer-social a img,
+body:not(.light-theme) .contact-info .info-item img {
   filter: invert(1);
+}
+
+body.light-theme .social-links a img,
+body.light-theme .footer-social a img,
+body.light-theme .contact-info .info-item img {
+  filter: invert(0);
 }
 
 /* Projects ve Contact Section'ların arka planları (Light Theme'de) */
 body.light-theme .projects {
-  background-color: var(--secondary-black);
+  background-color: var(--secondary-black); /* Light theme specific */
 }
+
 body.light-theme .contact {
-  background-color: var(--secondary-black);
+  background-color: var(--primary-black); /* Light theme specific */
 }
 
 /* Header gölgesi (Light / Dark) */
 body.light-theme header {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--shadow-color); /* Değişken kullanıldı */
 }
+
 body:not(.light-theme) header {
-  
-  box-shadow: 0 2px 4px rgba(256, 256, 256, 0.1);
+  box-shadow: 0 2px 4px var(--shadow-color); /* Değişken kullanıldı */
 }
 
 /* ============= */
@@ -95,6 +115,7 @@ header {
   z-index: 100;
   transition: padding 0.3s ease, background-color 0.3s ease;
 }
+
 header.scrolled {
   padding: calc(0.8rem + env(safe-area-inset-top)) 0;
 }
@@ -145,7 +166,29 @@ nav ul li a:hover {
   transition: background-color 0.3s ease, color 0.3s ease;
   margin-left: 1rem;
 }
-.theme-toggle-btn:hover {
+
+.theme-toggle-btn,
+.language-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.language-toggle-btn {
+  background-color: transparent;
+  border: 1px solid var(--primary-white);
+  color: var(--primary-white);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.theme-toggle-btn:hover,
+.language-toggle-btn:hover {
   background-color: var(--primary-white);
   color: var(--primary-black);
 }
@@ -185,27 +228,122 @@ nav ul li a:hover {
   bottom: -150px;
 }
 
-.triangles li:nth-child(1){ left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
-.triangles li:nth-child(2){ left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
-.triangles li:nth-child(3){ left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
-.triangles li:nth-child(4){ left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
-.triangles li:nth-child(5){ left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
-.triangles li:nth-child(6){ left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
-.triangles li:nth-child(7){ left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
-.triangles li:nth-child(8){ left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
-.triangles li:nth-child(9){ left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
-.triangles li:nth-child(10){ left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
-.triangles li:nth-child(11){ left: 5%; width: 50px; height: 50px; animation-delay: 1s; }
-.triangles li:nth-child(12){ left: 90%; width: 30px; height: 30px; animation-delay: 3s; }
-.triangles li:nth-child(13){ left: 60%; width: 70px; height: 70px; animation-delay: 5s; }
-.triangles li:nth-child(14){ left: 15%; width: 40px; height: 40px; animation-delay: 4s; }
-.triangles li:nth-child(15){ left: 80%; width: 60px; height: 60px; animation-delay: 6s; }
+.triangles li:nth-child(1) {
+  left: 25%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+.triangles li:nth-child(2) {
+  left: 10%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 2s;
+  animation-duration: 12s;
+}
+
+.triangles li:nth-child(3) {
+  left: 70%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 4s;
+}
+
+.triangles li:nth-child(4) {
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 0s;
+  animation-duration: 18s;
+}
+
+.triangles li:nth-child(5) {
+  left: 65%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 0s;
+}
+
+.triangles li:nth-child(6) {
+  left: 75%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 3s;
+}
+
+.triangles li:nth-child(7) {
+  left: 35%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 7s;
+}
+
+.triangles li:nth-child(8) {
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 15s;
+  animation-duration: 45s;
+}
+
+.triangles li:nth-child(9) {
+  left: 20%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 2s;
+  animation-duration: 35s;
+}
+
+.triangles li:nth-child(10) {
+  left: 85%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 11s;
+}
+
+.triangles li:nth-child(11) {
+  left: 5%;
+  width: 50px;
+  height: 50px;
+  animation-delay: 1s;
+}
+
+.triangles li:nth-child(12) {
+  left: 90%;
+  width: 30px;
+  height: 30px;
+  animation-delay: 3s;
+}
+
+.triangles li:nth-child(13) {
+  left: 60%;
+  width: 70px;
+  height: 70px;
+  animation-delay: 5s;
+}
+
+.triangles li:nth-child(14) {
+  left: 15%;
+  width: 40px;
+  height: 40px;
+  animation-delay: 4s;
+}
+
+.triangles li:nth-child(15) {
+  left: 80%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 6s;
+}
 
 @keyframes triangleAnimate {
   0% {
     transform: translateY(0) rotate(0deg);
     opacity: 1;
   }
+
   100% {
     transform: translateY(-1000px) rotate(720deg);
     opacity: 0;
@@ -224,6 +362,7 @@ nav ul li a:hover {
   margin-bottom: 1.5rem;
   line-height: 1.1;
   letter-spacing: -1.5px;
+  color: var(--primary-white);
 }
 
 .hero p {
@@ -273,8 +412,15 @@ nav ul li a:hover {
 /* Giriş Animasyonları */
 /* ============= */
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-on-scroll {
@@ -303,6 +449,7 @@ nav ul li a:hover {
   font-weight: 600;
   margin-bottom: 1rem;
   letter-spacing: -0.5px;
+  color: var(--primary-white);
 }
 
 .section-header p {
@@ -320,16 +467,20 @@ nav ul li a:hover {
   gap: 2rem;
   justify-items: center;
 }
+
+/* About grid media queries are kept as provided by user in this turn */
 @media (min-width: 1200px) {
   .about-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
 @media (max-width: 1199px) and (min-width: 768px) {
   .about-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 @media (max-width: 767px) {
   .about-grid {
     grid-template-columns: 1fr;
@@ -337,7 +488,7 @@ nav ul li a:hover {
 }
 
 .about-card {
-  background-color: var(--secondary-black);
+  background-color: var(--card-bg);
   padding: 2rem;
   border-radius: 8px;
   transition: transform 0.3s ease;
@@ -354,6 +505,7 @@ nav ul li a:hover {
   font-size: 1.5rem;
   margin-bottom: 1rem;
   font-weight: 600;
+  color: var(--primary-white);
 }
 
 .about-card p {
@@ -364,7 +516,7 @@ nav ul li a:hover {
 /* Projects Section */
 /* ============= */
 .projects {
-  background-color: #111111;
+  background-color: var(--secondary-black); /* Hardcoded #111111 replaced with variable */
 }
 
 .project-tabs {
@@ -397,7 +549,7 @@ nav ul li a:hover {
 }
 
 .project-card {
-  background-color: var(--primary-black);
+  background-color: var(--card-bg);
   border-radius: 8px;
   overflow: hidden;
   opacity: 1;
@@ -408,19 +560,17 @@ nav ul li a:hover {
   transform: translateY(-5px);
 }
 
-/* BU KODU ESKİ .project-img KURALIYLA DEĞİŞTİRİN */
-
 .project-img {
   height: 200px;
-  background-color: var(--accent-gray); /* Resim yüklenmezse diye arka plan rengi kalsın */
-  overflow: hidden; /* Resmin kutudan taşmasını engeller */
+  background-color: var(--accent-gray);
+  overflow: hidden;
 }
 
 .project-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Bu en önemli kısımdır! */
-  display: block; /* Resim altındaki boşluğu kaldırır */
+  object-fit: cover;
+  display: block;
 }
 
 .project-content {
@@ -430,6 +580,7 @@ nav ul li a:hover {
 .project-content h3 {
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
+  color: var(--primary-white);
 }
 
 .project-content p {
@@ -445,7 +596,7 @@ nav ul li a:hover {
 }
 
 .tag {
-  background-color: var(--secondary-black);
+  background-color: var(--card-bg);
   color: var(--secondary-white);
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
@@ -468,6 +619,7 @@ nav ul li a:hover {
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.5px;
+  color: var(--primary-white);
 }
 
 .vision-content p {
@@ -486,6 +638,7 @@ nav ul li a:hover {
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  color: var(--primary-white);
 }
 
 .stat-item p {
@@ -496,7 +649,7 @@ nav ul li a:hover {
 
 .vision-image {
   height: 500px;
-  background-color: var(--secondary-black);
+  background-color: var(--card-bg);
   border-radius: 8px;
   overflow: hidden;
   display: flex;
@@ -522,6 +675,7 @@ nav ul li a:hover {
   margin: 0 auto;
 }
 
+/* Team grid media queries are kept as provided by user in this turn */
 @media (max-width: 992px) {
   .team-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -531,55 +685,46 @@ nav ul li a:hover {
 @media (max-width: 600px) {
   .team-grid {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 32px; 
+    gap: 32px;
   }
 }
 
 .team-card {
-  /* RENK DEĞİŞİMİ İÇİN DÜZENLEME: */
-  /* Artık sabit renkler yerine CSS değişkenlerini kullanıyoruz. */
-  background-color: var(--secondary-black); /* Tema değişince bu da değişecek */
+  background-color: var(--card-bg);
   border-radius: 12px;
-  
-  /* GÖLGE DÜZENLEMESİ: Artık gölge hep var, hover'da değişmiyor */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
-  
-  /* Geçişler */
+  box-shadow: 0 4px 12px var(--shadow-color);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .team-card:hover {
   transform: translateY(-5px);
-  /* Hover'da gölgeyi biraz daha belirgin yapıyoruz */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 20px var(--shadow-color);
 }
 
 .team-img {
   width: 100%;
   aspect-ratio: 1 / 1;
-  object-fit: cover; 
+  object-fit: cover;
   display: block;
- border-radius: 12px 12px 0 0;
+  border-radius: 12px 12px 0 0;
 }
 
 .team-content {
   padding: 24px;
-  text-align: center; /* İsim, unvan ve ikonları ortalamak için */
+  text-align: center;
 }
 
 .team-content h3 {
   margin: 0 0 4px 0;
   font-size: 1.5rem;
   font-weight: 600;
-  /* RENK DEĞİŞİMİ İÇİN DÜZENLEME: */
-  color: var(--primary-white); /* Tema değişince bu da değişecek */
+  color: var(--primary-white);
 }
 
 .team-content p {
   margin: 0 0 20px 0;
-  font-size: 1rem; 
-  /* RENK DEĞİŞİMİ İÇİN DÜZENLEME: */
-  color: var(--accent-gray); /* Tema değişince bu da değişecek */
+  font-size: 1rem;
+  color: var(--accent-gray);
   min-height: 24px;
 }
 
@@ -591,79 +736,139 @@ nav ul li a:hover {
 }
 
 .social-links a img {
-  height: 24px; 
-  transition: transform 0.2s ease;
-  /* İKON RENK DEĞİŞİMİ İÇİN DÜZENLEME: */
-  /* Bu kuralı zaten dosyanın en başında tanımlamıştın, bu yüzden burada tekrar yazmaya gerek yok. */
-  /* `body:not(.light-theme) .social-links a img { filter: invert(1); }` kuralı işini görecektir. */
-}
-
-/* ... */
-
-.social-links a img {
-  height: 24px; 
+  height: 24px;
   transition: transform 0.2s ease;
 }
 
-/* YENİ KODU BURAYA YAPIŞTIRIN */
-/* =================================== */
-/* TEAM CARD - TEMA BAZLI GÖLGE AYARI */
-/* =================================== */
-
-/* AÇIK TEMA GÖLGESİ (SİYAH) */
-body.light-theme .team-card {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-body.light-theme .team-card:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-/* KARANLIK TEMA GÖLGESİ (BEYAZ) */
-body:not(.light-theme) .team-card {
-  /* Yarı saydam beyaz bir gölge (parlama efekti) */
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
-}
-body:not(.light-theme) .team-card:hover {
-  /* Hover durumunda daha belirgin bir beyaz gölge */
-  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
-}
-
-
-
-/* ============= */
-/* Contact Section */
-/* ============= */
+/* ================= */
+/* İletişim Bölümü    */
+/* ================= */
 .contact {
-  background-color: #000;
+  background-color: var(--primary-black);
 }
 
 .contact-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 3rem;
+  align-items: start;
+  padding: 4rem 0;
+}
+
+.contact-info {
+  background-color: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-info h3 {
+  color: var(--primary-white);
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.contact-info p {
+  color: var(--secondary-white);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.contact-info .info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--secondary-white);
+  font-size: 1rem;
+}
+
+.contact-info .info-item img {
+  width: 24px;
+  height: 24px;
 }
 
 .contact-form {
-  display: flex;
-  flex-direction: column;
+  background-color: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.form-group {
+.contact-form h3 {
+  color: var(--primary-white);
+  font-size: 1.8rem;
   margin-bottom: 1.5rem;
 }
 
-.form-label {
+.contact-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.contact-form label {
   display: block;
   margin-bottom: 0.5rem;
-  font-size: 0.9rem;
+  color: var(--primary-white);
+  font-weight: 600;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--input-border);
+  border-radius: 4px;
+  background-color: var(--input-bg);
+  color: var(--input-text-color);
+  font-size: 1rem;
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+  border-color: var(--primary-white);
+  outline: none;
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-form button {
+  background-color: var(--primary-white);
+  color: var(--primary-black);
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: var(--accent-gray);
+  color: var(--primary-white);
+}
+
+/* Genel form stilleri */
+.form-group {
+  margin-bottom: 1.5rem;
 }
 
 .form-input {
   width: 100%;
   padding: 0.8rem;
-  background-color: var(--primary-black);
-  border: 1px solid var(--accent-gray);
-  color: var(--primary-white);
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--input-text-color);
   border-radius: 4px;
   font-size: 1rem;
 }
@@ -671,17 +876,6 @@ body:not(.light-theme) .team-card:hover {
 textarea.form-input {
   min-height: 150px;
   resize: vertical;
-}
-
-.contact-info h3 {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-}
-
-.contact-item {
-  display: flex;
-  margin-bottom: 1.5rem;
-  align-items: center;
 }
 
 .contact-icon {
@@ -698,6 +892,7 @@ textarea.form-input {
 .contact-text h4 {
   font-size: 1.1rem;
   margin-bottom: 0.3rem;
+  color: var(--primary-white);
 }
 
 .contact-text p {
@@ -723,6 +918,7 @@ footer {
   font-size: 1.2rem;
   margin-bottom: 1.5rem;
   font-weight: 600;
+  color: var(--primary-white);
 }
 
 .footer-col p {
@@ -753,7 +949,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding-top: 2rem;
-  border-top: 1px solid var(--secondary-black);
+  border-top: 1px solid var(--card-bg);
 }
 
 .copyright {
@@ -779,7 +975,8 @@ footer {
     font-size: 3rem;
   }
 
-  .vision-container, .contact-container {
+  .vision-container,
+  .contact-container {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
@@ -822,21 +1019,22 @@ footer {
 @media (max-width: 600px) {
   nav ul {
     display: flex;
-    flex-direction: row;       
-    flex-wrap: wrap;           
-    justify-content: center;   
-    gap: 0.5rem;               
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
   }
+
   nav ul li a {
-    padding: 0.3rem 0.5rem;    
+    padding: 0.3rem 0.5rem;
     display: inline-block;
-    font-size: 0.9rem;         
+    font-size: 0.9rem;
   }
+
   .header-container {
     width: 100%;
   }
 }
-
 
 /* SON SATIRDAKİ TEK KARTI ORTALAMAK İÇİN */
 @media (min-width: 993px) {
