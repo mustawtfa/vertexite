@@ -1084,3 +1084,217 @@ footer {
     grid-column: 2;
   }
 }
+
+/* ======================================= */
+/* == MEHTAP'S BIRTHDAY QUIZ STYLES START == */
+/* ======================================= */
+
+#birthday-quiz-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #111;
+  z-index: 10000;
+  display: none; /* Initially hidden, controlled by JS */
+  justify-content: center;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+#birthday-quiz-overlay.visible {
+  display: flex;
+  opacity: 1;
+}
+
+.quiz-container {
+  text-align: center;
+  color: #fff;
+  padding: 2rem;
+  width: 90%;
+  max-width: 800px;
+  position: relative;
+}
+
+.quiz-step {
+  display: none;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.quiz-step.active {
+  display: block;
+}
+
+.quiz-step.shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* Question and Intro Text Styles */
+.intro-text, .question-title, .final-text {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 3rem;
+  letter-spacing: -1px;
+}
+
+.intro-text, .final-text {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.intro-text.visible, .final-text.visible {
+  opacity: 1;
+}
+
+/* Options */
+.options-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.option-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.option-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-3px);
+}
+
+/* Glitch Effect for Q4 */
+.glitch {
+  position: relative;
+  animation: glitch-anim 2s infinite;
+}
+
+.glitch:before,
+.glitch:after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  overflow: hidden;
+}
+
+.glitch:before {
+  left: 2px;
+  text-shadow: -1px 0 red;
+  animation: glitch-anim-2 1.5s infinite;
+}
+
+.glitch:after {
+  left: -2px;
+  text-shadow: -1px 0 blue;
+  animation: glitch-anim-1 2.5s infinite;
+}
+
+@keyframes glitch-anim { 0% { opacity: 1; } 100% { opacity: 1; } }
+@keyframes glitch-anim-1 { 0%, 100% { clip-path: inset(0 0 98% 0); } /* ... a bunch of clip-path steps for glitching ... */ }
+@keyframes glitch-anim-2 { 0%, 100% { clip-path: inset(98% 0 0 0); } /* ... more clip-path steps ... */ }
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-20px); }
+}
+
+.quiz-step.fade-out-reset {
+  animation: fadeOut 0.4s ease-in forwards;
+}
+
+/* Love Slider for Q5 */
+.love-slider-container {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#love-slider-track {
+  width: 80%;
+  max-width: 500px;
+  height: 10px;
+  background: linear-gradient(90deg, #ff8a80, #ff4081);
+  border-radius: 5px;
+  position: relative;
+  cursor: pointer;
+}
+#love-slider-thumb {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  line-height: 40px;
+  text-align: center;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+#love-slider-thumb:active {
+  cursor: grabbing;
+}
+.instruction-text {
+    margin-top: 2rem;
+    font-size: 1rem;
+    color: #999;
+    opacity: 0.7;
+}
+
+.options-container.single-option {
+  display: flex;
+  justify-content: center;
+}
+
+.options-container.single-option .option-btn {
+  min-width: 200px;
+  font-size: 1.5rem;
+  padding: 1.2rem 2rem;
+}
+
+/* Heart Explosion Background */
+#birthday-quiz-overlay.hearts-bg {
+  background: #111; /* Fallback */
+  animation: heart-bg-anim 1s forwards;
+}
+@keyframes heart-bg-anim {
+    from { background-color: #111; }
+    to { background-color: #ff4081; }
+}
+/* ===================================== */
+/* == MEHTAP'S BIRTHDAY QUIZ STYLES END == */
+/* ===================================== */

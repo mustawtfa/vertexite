@@ -11,6 +11,102 @@
 </head>
 
 <body class="light-theme">
+    <!-- ================================== -->
+  <!-- == MEHTAP'S BIRTHDAY QUIZ START == -->
+  <!-- ================================== -->
+  <div id="birthday-quiz-overlay">
+    <div class="quiz-container">
+
+      <!-- Step 0: Intro -->
+      <div class="quiz-step" data-step="0">
+        <h1 class="intro-text" id="intro-text-1">BUGÜN NE GÜNÜ</h1>
+        <h1 class="intro-text" id="intro-text-2">MEHTAPIN DOĞUM GÜNÜ</h1>
+      </div>
+
+      <!-- Step 1: Question 1 -->
+      <div class="quiz-step" data-step="1">
+        <h2 class="question-title">MEHTAPIN FAVORİ RENGİ NEDİR</h2>
+        <div class="options-container">
+          <button class="option-btn" data-correct="false">KIRMIZI</button>
+          <button class="option-btn" data-correct="true">MAVİ</button>
+          <button class="option-btn" data-correct="false">SARI</button>
+          <button class="option-btn" data-correct="false">aynı bokun laciverti 🤪</button>
+        </div>
+      </div>
+      
+      <!-- Step 2: Question 2 -->
+      <div class="quiz-step" data-step="2">
+        <h2 class="question-title">MEHTAPIN GERÇEK DOĞUM GÜNÜ</h2>
+        <div class="options-container">
+          <button class="option-btn" data-correct="false">13 TEMMUZ</button>
+          <button class="option-btn" data-correct="false">19 HAZİRAN</button>
+          <button class="option-btn" data-correct="false">23 EYLÜL</button>
+          <button class="option-btn" data-correct="true">14 MAYIS</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Question 3 -->
+      <div class="quiz-step" data-step="3">
+        <h2 class="question-title">MEHTAPIN FAVORİ YEMEĞİ</h2>
+        <div class="options-container">
+          <button class="option-btn" data-correct="true">SARMA</button>
+          <button class="option-btn" data-correct="false">MANTI</button>
+          <button class="option-btn" data-correct="false">MUSTAFA</button>
+          <button class="option-btn" data-correct="false">SUSHI</button>
+        </div>
+      </div>
+      
+      <!-- Step 4: Glitch Question -->
+      <div class="quiz-step" data-step="4">
+        <h2 class="question-title glitch" data-text="ıbırıbcıbırıbcıb">ıbırıbcıbırıbcıb</h2>
+        <div class="options-container single-option">
+            <button class="option-btn" data-correct="true">EVET</button>
+        </div>
+      </div>
+
+            <!-- ================================== -->
+      <!-- ==      NEW QUESTION START      == -->
+      <!-- ================================== -->
+      <div class="quiz-step" data-step="5">
+        <h2 class="question-title">MEHTAP MAL MI</h2>
+        <div class="options-container single-option">
+            <button class="option-btn" data-correct="true">EVET</button>
+        </div>
+      </div>
+
+      <div class="quiz-step" data-step="6">
+        <h2 class="question-title">MEHTAP İYİ Kİ DOĞMUŞ MU</h2>
+        <div class="options-container single-option">
+            <button class="option-btn" data-correct="true">EVET</button>
+        </div>
+      </div>
+      <!-- ================================== -->
+      <!-- ==       NEW QUESTION END       == -->
+      <!-- ================================== -->
+
+      <!-- Step 5: The Slider -->
+      <div class="quiz-step" data-step="7">
+         <h2 class="question-title">MUSTAFA MEHTAPI NE KADAR SEVER</h2>
+         <div class="love-slider-container">
+            <div id="love-slider-track">
+                <div id="love-slider-thumb">❤️</div>
+            </div>
+            <div class="instruction-text">limitleri aş 😉</div>
+         </div>
+      </div>
+
+      <!-- Step 6: Final Message -->
+      <div class="quiz-step" data-step="8">
+          <h1 class="final-text" id="final-text-1">SINIRSIZ</h1>
+          <h1 class="final-text" id="final-text-2">İYİ Kİ VARSIN MEHTAP</h1>
+          <h1 class="final-text" id="final-text-3">artık girebilirsin siteye moruk</h1>
+      </div>
+
+    </div>
+  </div>
+  <!-- ================================ -->
+  <!-- == MEHTAP'S BIRTHDAY QUIZ END == -->
+  <!-- ================================ -->
   <header>
     <div class="container header-container">
       <div class="logo">
@@ -475,7 +571,7 @@
       </div>
     </div>
   </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
   <script src="script.js"></script>
 </body>
 
