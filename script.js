@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Hakkımızda Bölümü
       'about-title': 'Biz Kimiz',
-      'about-description': 'Haziran 2023\'te İstanbul\'da kurulan Vertex Corporation, Türkiye\'nin en genç girişimcilerini birleştirerek küresel teknoloji manzarasını yeniden tanımlayan ileri teknoloji şirketidir.',
+      'about-description': 'Haziran 2023\'te İstanbul\'da kurulan Vertex, Türkiye\'nin en genç girişimcilerini birleştirerek küresel teknoloji manzarasını yeniden tanımlayan ileri teknoloji şirketidir.',
       'about-card1-title': 'Genç Yenilikçiler',
       'about-card1-description': 'Ortalama 15 yaşındaki ekibimiz, sınırları zorlamaya ve devrim niteliğinde çözümler yaratmaya kendini adamış yeni nesil teknoloji vizyonerlerini temsil ediyor.',
       'about-card2-title': 'Çok Alanlı Uzmanlık',
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Ekip Bölümü
       'team-title': 'Önde Gelen Yenilikçilerimiz',
-      'team-description': 'Vertex Corporation\'ın arkasındaki parlak zihinler, Türkiye\'nin en genç teknoloji girişimcileri, bugün geleceği inşa ediyorlar.',
+      'team-description': 'Vertex\'ın arkasındaki parlak zihinler, Türkiye\'nin en genç teknoloji girişimcileri, bugün geleceği inşa ediyorlar.',
 
       // İletişim Bölümü
       'contact-title': 'İletişime Geçin',
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'footer-privacy': 'Gizlilik Politikası',
       'footer-terms': 'Hizmet Şartları',
       'footer-cookies': 'Çerez Politikası',
-      'footer-rights': '© 2025 Vertex Corporation. Tüm hakları saklıdır.'
+      'footer-rights': '© Vertex Vertex. Tüm hakları saklıdır.'
     },
 
     en: {
@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // About Section
       'about-title': 'Who We Are',
-      'about-description': 'Started in June 2023 in Istanbul, Vertex Corporation is a cutting-edge technology company uniting Turkiye\'s youngest entrepreneurs to redefine the tech landscape globally.',
+      'about-description': 'Started in June 2023 in Istanbul, Vertex is a cutting-edge technology company uniting Turkiye\'s youngest entrepreneurs to redefine the tech landscape globally.',
       'about-card1-title': 'Young Innovators',
       'about-card1-description': 'With an average age of just 15, our team represents the next generation of tech visionaries committed to pushing boundaries and creating revolutionary solutions.',
       'about-card2-title': 'Multi-Domain Expertise',
@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Team Section
       'team-title': 'Our Leading Innovators',
-      'team-description': 'The bright minds behind Vertex Corporation, Turkiye\'s youngest tech entrepreneurs, building the future today.',
+      'team-description': 'The bright minds behind Vertex, Turkiye\'s youngest tech entrepreneurs, building the future today.',
 
       // Contact Section
       'contact-title': 'Get In Touch',
@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function () {
       'footer-privacy': 'Privacy Policy',
       'footer-terms': 'Terms of Service',
       'footer-cookies': 'Cookie Policy',
-      'footer-rights': '© 2025 Vertex Corporation. All rights reserved.'
+      'footer-rights': '© Vertex Vertex. All rights reserved.'
     }
   };
 
