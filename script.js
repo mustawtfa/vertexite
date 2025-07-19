@@ -573,4 +573,6 @@ document.addEventListener('DOMContentLoaded', function () {
   // =========================================== //
   // == MEHTAP'S BIRTHDAY QUIZ LOGIC END ===== //
   // =========================================== //
+
+  document.getElementById('current-year').textContent = new Date().getFullYear();
 });
