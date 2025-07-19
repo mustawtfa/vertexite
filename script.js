@@ -274,11 +274,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const elements = document.querySelectorAll('[data-translate]');
     elements.forEach(element => {
       const key = element.getAttribute('data-translate');
-      if (translations[language] && translations[language][key]) {
+      if (translations[language]?.[key]) {
+        let translatedText = translations[language][key].replace('{year}', year);
+
         if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-          element.placeholder = translations[language][key];
+          element.placeholder = translatedText;
         } else {
-          element.textContent = translations[language][key];
+          element.textContent = translatedText;
         }
       }
     });
@@ -573,6 +575,4 @@ document.addEventListener('DOMContentLoaded', function () {
   // =========================================== //
   // == MEHTAP'S BIRTHDAY QUIZ LOGIC END ===== //
   // =========================================== //
-
-  document.getElementById('current-year').textContent = new Date().getFullYear();
 });
