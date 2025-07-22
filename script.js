@@ -27,7 +27,11 @@ document.addEventListener('DOMContentLoaded', function () {
       'projects-title': 'İleri Teknoloji Projelerimiz', 'projects-description': 'Birçok alanda geleceği şekillendiren yenilikçi teknoloji portföyümüzü keşfedin.', 'projects-tab-all': 'Tümü', 'projects-tab-software': 'Yazılım', 'projects-tab-ai': 'Yapay Zeka', 'projects-tab-gaming': 'Oyun', 'projects-tab-music': 'Müzik',
       'vision-title': '3-5 Yıllık Vizyonumuz', 'vision-description1': '2025 yılına kadar Vertex, Amerika, Avrupa ve Asya\'da küresel varlık kurarak platformlarımızda 5 milyon aktif kullanıcı hedeflemeyi ve küresel teknoloji endüstrisinde tanınan bir güç olmayı amaçlıyor.', 'vision-description2': 'Sürekli inovasyona, kendi işletim sistemimizi geliştirmeye, yapay zeka yeteneklerimizi genişletmeye ve çeşitli ürün portföyümüzle milyonlara ulaşmaya kendimizi adadık.', 'vision-stat1': 'Uygulamalarımız için dünya çapında hedef indirme sayısı', 'vision-stat2': 'Teknoloji ekosistemimizdeki aktif kullanıcı', 'vision-stat3': 'Polyhedron müzik etiketi için aylık dinleyici', 'vision-stat4': 'Küresel pazarlar - Amerika, Avrupa, Asya',
       'team-title': 'Önde Gelen Yenilikçilerimiz', 'team-description': 'Vertex\'ın arkasındaki parlak zihinler, Türkiye\'nin en genç teknoloji girişimcileri, bugün geleceği inşa ediyorlar.',
-      'footer-description': 'Teknolojinin Zirvesi. 2023 yılında Türkiye\'nin en genç teknoloji girişimcileri tarafından kurulmuş, birçok alanda yenilik yoluyla geleceği yeniden şekillendiriyor.', 'footer-products': 'Ürünler', 'footer-company': 'Şirket', 'footer-legal': 'Yasal', 'footer-about': 'Hakkımızda', 'footer-vision': 'Vizyonumuz', 'footer-team': 'Ekip', 'footer-contact': 'İletişim', 'footer-privacy': 'Gizlilik Politikası', 'footer-terms': 'Hizmet Şartları',
+      'footer-description': 'Teknolojinin Zirvesi. 2023 yılında Türkiye\'nin en genç teknoloji girişimcileri tarafından kurulmuş, birçok alanda yenilik yoluyla geleceği yeniden şekillendiriyor.', 'footer-products': 'Ürünler', 'footer-company': 'Şirket', 'footer-legal': 'Yasal', 'footer-about': 'Hakkımızda', 'footer-vision': 'Vizyonumuz', 'footer-team': 'Ekip', 'footer-contact': 'İletişim',       'footer-vertex-privacy': 'Vertex Genel Gizlilik Politikası',
+      'footer-vertex-terms': 'Vertex Genel Kullanım Koşulları', 'footer-solar-privacy': 'Solar Browser Gizlilik Politikası',
+      'footer-solar-terms': 'Solar Browser Kullanım Koşulları',
+      'footer-cortex-privacy': 'Cortex Gizlilik Politikası',
+      'footer-cortex-terms': 'Cortex Kullanım Koşulları',
       'footer-rights': '© {year} Vertex. Tüm hakları saklıdır.'
     },
     en: {
@@ -38,7 +42,12 @@ document.addEventListener('DOMContentLoaded', function () {
       'projects-title': 'Our Cutting-Edge Projects', 'projects-description': 'Explore our diverse portfolio of innovative technologies shaping the future across multiple domains.', 'projects-tab-all': 'All', 'projects-tab-software': 'Software', 'projects-tab-ai': 'AI', 'projects-tab-gaming': 'Gaming', 'projects-tab-music': 'Music',
       'vision-title': 'Our 3-5 Year Vision', 'vision-description1': 'By 2025, Vertex aims to establish a global presence across America, Europe, and Asia, targeting 5 million active users across our platforms and becoming a recognized force in the global tech industry.', 'vision-description2': 'We\'re committed to continuous innovation, developing our own operating system, expanding our AI capabilities, and reaching millions through our diverse portfolio of products.', 'vision-stat1': 'Target downloads for our applications worldwide', 'vision-stat2': 'Active users across our technology ecosystem', 'vision-stat3': 'Monthly listeners for Polyhedron music label', 'vision-stat4': 'Global markets - Americas, Europe, Asia',
       'team-title': 'Our Leading Innovators', 'team-description': 'The bright minds behind Vertex, Turkiye\'s youngest tech entrepreneurs, building the future today.',
-      'footer-description': 'Peak of Technology. Founded in 2023 by Turkiye\'s youngest tech entrepreneurs, reshaping the future through innovation across multiple domains.', 'footer-products': 'Products', 'footer-company': 'Company', 'footer-legal': 'Legal', 'footer-about': 'About Us', 'footer-vision': 'Our Vision', 'footer-team': 'Team', 'footer-contact': 'Contact', 'footer-privacy': 'Privacy Policy', 'footer-terms': 'Terms of Service',
+      'footer-description': 'Peak of Technology. Founded in 2023 by Turkiye\'s youngest tech entrepreneurs, reshaping the future through innovation across multiple domains.', 'footer-products': 'Products', 'footer-company': 'Company', 'footer-legal': 'Legal', 'footer-about': 'About Us', 'footer-vision': 'Our Vision', 'footer-team': 'Team', 'footer-contact': 'Contact',       'footer-vertex-privacy': 'Vertex General Privacy Policy',
+      'footer-vertex-terms': 'Vertex General Terms of Service',
+      'footer-solar-privacy': 'Solar Browser Privacy Policy',
+      'footer-solar-terms': 'Solar Browser Terms of Use',
+      'footer-cortex-privacy': 'Cortex Privacy Policy',
+      'footer-cortex-terms': 'Cortex Terms of Service',
       'footer-rights': '© {year} Vertex. All rights reserved.'
     }
   };
