@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cortex Data Deletion</title>
+    <title>Vertex Data Deletion</title>
     <link rel="icon" type="image/png" href="assets/favicon.png" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
@@ -455,7 +455,7 @@
             const mainContainer = document.getElementById('main-container');
 
             const showAnimatedLoadingState = (message) => {
-                mainContainer.innerHTML = `<div id="loader-wrapper" style="opacity: 0; transition: opacity 0.5s ease;"><h1>Cortex</h1><p id="loader-message" style="color: var(--text-secondary-color); transition: opacity 0.3s ease-out;">${message}</p><div class="spinner-container"><svg class="loading-spinner-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle class="spinner-track" cx="50" cy="50" r="42" /><circle class="spinner-head" cx="50" cy="50" r="42" /><polygon class="spinner-triangle" points="50,25 75,65 25,65" /></svg></div></div><style>.spinner-container{display:flex;justify-content:center;align-items:center;margin-top:25px;height:60px;}.loading-spinner-svg{width:60px;height:60px;animation:svg-spinner-spin 1.4s linear infinite;transform-origin:center;}.spinner-track,.spinner-head{fill:transparent;stroke-width:10;stroke-linecap:round;}.spinner-track{stroke:var(--triangle-color);}.spinner-head{stroke:var(--text-primary-color);stroke-dasharray:80 264;stroke-dashoffset:0;animation:svg-spinner-dash 1.4s ease-in-out infinite;}.spinner-triangle{fill:transparent;stroke:var(--text-primary-color);stroke-width:8;stroke-linejoin:round;}@keyframes svg-spinner-spin{100%{transform:rotate(360deg);}}@keyframes svg-spinner-dash{0%{stroke-dasharray:1 264;stroke-dashoffset:0;}50%{stroke-dasharray:120 264;stroke-dashoffset:-40;}100%{stroke-dasharray:1 264;stroke-dashoffset:-263;}}</style>`;
+                mainContainer.innerHTML = `<div id="loader-wrapper" style="opacity: 0; transition: opacity 0.5s ease;"><h1>Delete Data</h1><p id="loader-message" style="color: var(--text-secondary-color); transition: opacity 0.3s ease-out;">${message}</p><div class="spinner-container"><svg class="loading-spinner-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle class="spinner-track" cx="50" cy="50" r="42" /><circle class="spinner-head" cx="50" cy="50" r="42" /><polygon class="spinner-triangle" points="50,25 75,65 25,65" /></svg></div></div><style>.spinner-container{display:flex;justify-content:center;align-items:center;margin-top:25px;height:60px;}.loading-spinner-svg{width:60px;height:60px;animation:svg-spinner-spin 1.4s linear infinite;transform-origin:center;}.spinner-track,.spinner-head{fill:transparent;stroke-width:10;stroke-linecap:round;}.spinner-track{stroke:var(--triangle-color);}.spinner-head{stroke:var(--text-primary-color);stroke-dasharray:80 264;stroke-dashoffset:0;animation:svg-spinner-dash 1.4s ease-in-out infinite;}.spinner-triangle{fill:transparent;stroke:var(--text-primary-color);stroke-width:8;stroke-linejoin:round;}@keyframes svg-spinner-spin{100%{transform:rotate(360deg);}}@keyframes svg-spinner-dash{0%{stroke-dasharray:1 264;stroke-dashoffset:0;}50%{stroke-dasharray:120 264;stroke-dashoffset:-40;}100%{stroke-dasharray:1 264;stroke-dashoffset:-263;}}</style>`;
                 const loaderWrapper = document.getElementById('loader-wrapper');
                 if (loaderWrapper) { setTimeout(() => { loaderWrapper.style.opacity = '1'; }, 10); }
             };
@@ -561,7 +561,7 @@
                         updateUI(authenticatedTemplate(user.email), addAuthenticatedViewListeners);
                     } else {
                         console.warn(`[SECURITY] Unregistered user ${user.email} signed in. Forcing sign-out.`);
-                        postSignOutMessage = { text: "Account not found. Please use an existing Cortex account.", type: "error" };
+                        postSignOutMessage = { text: "Account not found. Please use an existing Vertex account.", type: "error" };
                         await auth.signOut();
                     }
                 } catch (error) {
