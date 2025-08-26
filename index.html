@@ -1,64 +1,286 @@
 <!DOCTYPE html>
-<!-- =================================================================== -->
-<!-- == The 'lang' attribute is set to 'tr' (Turkish) because the   == -->
-<!-- == initial content (the birthday quiz) is in Turkish. This is  == -->
-<!-- == better for accessibility and SEO. Your JS should update this  == -->
-<!-- == attribute when the user toggles the language.                == -->
-<!-- =================================================================== -->
 <html lang="tr">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- =================================================================== -->
-  <!-- == SEO & Social Sharing Meta Tags - CRITICAL FOR VISIBILITY      == -->
-  <!-- =================================================================== -->
   <title>Vertex | The Peak of Technology</title>
   <meta name="description"
     content="Vertex, founded by Turkey's youngest tech entrepreneurs, pioneers the future of AI, software, and gaming. Discover our innovative projects and vision.">
 
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://vertexishere.com/">
   <meta property="og:title" content="Vertex | The Peak of Technology">
   <meta property="og:description"
     content="Pioneering the future of technology, from AI and software to gaming and music.">
   <meta property="og:image" content="https://vertexishere.com/assets/og-image.png">
-  <!-- Note: Create and upload an 'og-image.png' (1200x630px recommended) -->
-
-  <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://vertexishere.com/">
   <meta property="twitter:title" content="Vertex | The Peak of Technology">
   <meta property="twitter:description"
     content="Pioneering the future of technology, from AI and software to gaming and music.">
   <meta property="twitter:image" content="https://vertexishere.com/assets/og-image.png">
-  <!-- Re-using the OG image for Twitter -->
-
-  <!-- =================================================================== -->
-
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" />
   <link rel="stylesheet" href="style.css" />
-</head>
 
-<body class="light-theme">
-  <!-- ================================== -->
-  <!-- == MEHTAP'S BIRTHDAY QUIZ START == -->
-  <!-- ================================== -->
+  <!-- 🌍 OTOMATIK DİL ALGILAMA SİSTEMİ -->
+  <script>
+    // 🎯 Kullanıcının browser dili ve konumuna göre otomatik dil tespiti
+    function detectUserLanguage() {
+        try {
+            const browserLang = navigator.language || navigator.userLanguage;
+            const langCode = browserLang.toLowerCase().substring(0, 2);
+            
+            console.log('🌍 Browser language detected:', browserLang, '→', langCode);
+            
+            const languageMapping = {
+                'tr': 'tr', 'az': 'tr', 'tk': 'tr',
+                'hi': 'hi', 'ur': 'hi', 'bn': 'hi', 'ta': 'hi', 'te': 'hi', 'ml': 'hi', 'kn': 'hi', 'gu': 'hi', 'pa': 'hi', 'or': 'hi', 'as': 'hi', 'mr': 'hi', 'ne': 'hi', 'si': 'hi', 'my': 'hi',
+                'en': 'en', 'de': 'en', 'fr': 'en', 'es': 'en', 'it': 'en', 'ru': 'en', 'ar': 'en', 'ja': 'en', 'ko': 'en', 'zh': 'en', 'pt': 'en', 'nl': 'en', 'sv': 'en', 'da': 'en', 'no': 'en', 'fi': 'en', 'pl': 'en', 'cs': 'en', 'sk': 'en', 'hu': 'en', 'ro': 'en', 'bg': 'en', 'hr': 'en', 'sr': 'en', 'sl': 'en', 'et': 'en', 'lv': 'en', 'lt': 'en', 'mt': 'en', 'ga': 'en', 'cy': 'en', 'eu': 'en', 'ca': 'en', 'gl': 'en', 'th': 'en', 'vi': 'en', 'id': 'en', 'ms': 'en', 'tl': 'en', 'sw': 'en', 'am': 'en', 'he': 'en', 'fa': 'en', 'kk': 'en', 'ky': 'en', 'uz': 'en', 'mn': 'en'
+            };
+            
+            const detectedLang = languageMapping[langCode] || 'en';
+            console.log('🎯 Language mapped:', langCode, '→', detectedLang);
+            
+            // Timezone bazlı tahmin
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            console.log('🕐 Timezone detected:', timezone);
+            
+            if (timezone.includes('Istanbul') || timezone.includes('Turkey')) {
+                return 'tr';
+            } else if (timezone.includes('Kolkata') || timezone.includes('Delhi') || timezone.includes('Mumbai')) {
+                return 'hi';
+            }
+            
+            return detectedLang;
+            
+        } catch (error) {
+            console.error('❌ Language detection error:', error);
+            return 'en';
+        }
+    }
+
+    // 📍 Konum bazlı dil tespiti
+    function detectLocationBasedLanguage() {
+        return new Promise((resolve) => {
+            if (!navigator.geolocation) {
+                resolve(null);
+                return;
+            }
+            
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    console.log('📍 User location detected:', lat, lon);
+                    
+                    if (lat >= 35 && lat <= 42 && lon >= 25 && lon <= 45) {
+                        console.log('🇹🇷 Location suggests Turkish');
+                        resolve('tr');
+                    } else if (lat >= 6 && lat <= 37 && lon >= 68 && lon <= 97) {
+                        console.log('🇮🇳 Location suggests Hindi');
+                        resolve('hi');
+                    } else {
+                        resolve(null);
+                    }
+                },
+                function(error) {
+                    console.log('📍 Geolocation error:', error.message);
+                    resolve(null);
+                },
+                { timeout: 3000, enableHighAccuracy: false }
+            );
+        });
+    }
+
+    // 💬 Dil tespit mesajı göster
+    function showLanguageDetectionMessage() {
+        const messageDiv = document.createElement('div');
+        messageDiv.id = 'language-detection-message';
+        messageDiv.style.cssText = `
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 10, 10, 0.95); color: white;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 10000; font-family: 'Inter', sans-serif;
+        `;
+        
+        messageDiv.innerHTML = `
+            <div style="text-align: center; max-width: 400px; padding: 40px;">
+                <div style="font-size: 48px; margin-bottom: 20px;">🌍</div>
+                <h2 style="font-size: 24px; margin-bottom: 16px; font-weight: 600;">Detecting Your Language</h2>
+                <p style="font-size: 16px; opacity: 0.8; margin-bottom: 20px;">
+                    Dilinizi tespit ediyoruz...<br>भाषा का पता लगाया जा रहा है...<br>Detecting your preferred language...
+                </p>
+                <div style="width: 40px; height: 40px; border: 3px solid #333; border-top: 3px solid #fff; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+            </div>
+            <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
+        `;
+        
+        document.body.appendChild(messageDiv);
+        
+        setTimeout(() => {
+            if (document.getElementById('language-detection-message')) {
+                document.getElementById('language-detection-message').remove();
+            }
+        }, 3000);
+    }
+
+    // 🚀 Otomatik dil yönlendirme
+    async function autoRedirectToLanguage() {
+        const currentPath = window.location.pathname;
+        const isMainPage = currentPath === '/' || 
+                          currentPath === '/vertexite-main/' || 
+                          currentPath.endsWith('/vertexite-main') ||
+                          currentPath === '/vertexite-main/index.html';
+        
+        if (isMainPage && !localStorage.getItem('hasVisited')) {
+            showLanguageDetectionMessage();
+            
+            let detectedLang = detectUserLanguage();
+            
+            try {
+                const locationLang = await detectLocationBasedLanguage();
+                if (locationLang) {
+                    detectedLang = locationLang;
+                }
+            } catch (error) {
+                console.log('📍 Location detection failed');
+            }
+            
+            console.log('🚀 Auto-redirecting to language:', detectedLang);
+            
+            localStorage.setItem('hasVisited', 'true');
+            localStorage.setItem('selectedLanguage', detectedLang);
+            
+            const baseUrl = window.location.origin;
+            let redirectUrl;
+            
+            switch(detectedLang) {
+                case 'tr':
+                    redirectUrl = baseUrl + '/vertexite-main/tr/';
+                    break;
+                case 'en':
+                    redirectUrl = baseUrl + '/vertexite-main/en/';
+                    break;
+                case 'hi':
+                    redirectUrl = baseUrl + '/vertexite-main/hi/';
+                    break;
+                default:
+                    redirectUrl = baseUrl + '/vertexite-main/en/';
+            }
+            
+            setTimeout(() => {
+                window.location.href = redirectUrl;
+            }, 1000);
+            
+            return true;
+        }
+        
+        return false;
+    }
+
+    // 🎨 OTOMATIK TEMA ALGILAMA SİSTEMİ
+    function detectSystemTheme() {
+        try {
+            // 1. Kullanıcının sistem tema tercihini kontrol et
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+            
+            console.log('🎨 System theme detection:');
+            console.log('  - Prefers dark:', prefersDark);
+            console.log('  - Prefers light:', prefersLight);
+            
+            // 2. localStorage'dan kullanıcının önceki tercihini kontrol et
+            const savedTheme = localStorage.getItem('selectedTheme');
+            console.log('  - Saved theme:', savedTheme);
+            
+            // 3. Tema kararı ver
+            let detectedTheme;
+            if (savedTheme) {
+                // Kullanıcının kaydedilmiş tercihi var
+                detectedTheme = savedTheme;
+                console.log('🔄 Using saved theme:', detectedTheme);
+            } else if (prefersDark) {
+                // Sistem karanlık mod tercih ediyor
+                detectedTheme = 'dark';
+                console.log('🌙 System prefers dark theme');
+            } else if (prefersLight) {
+                // Sistem açık mod tercih ediyor
+                detectedTheme = 'light';
+                console.log('☀️ System prefers light theme');
+            } else {
+                // Varsayılan açık mod
+                detectedTheme = 'light';
+                console.log('🌅 Defaulting to light theme');
+            }
+            
+            return detectedTheme;
+            
+        } catch (error) {
+            console.error('❌ Theme detection error:', error);
+            return 'light'; // Hata durumunda varsayılan açık mod
+        }
+    }
+    
+    function applyTheme(theme) {
+        const body = document.body;
+        const isDark = theme === 'dark';
+        
+        if (isDark) {
+            body.classList.remove('light-theme');
+            body.classList.add('dark-theme');
+            console.log('🌙 Applied dark theme');
+        } else {
+            body.classList.remove('dark-theme');
+            body.classList.add('light-theme');
+            console.log('☀️ Applied light theme');
+        }
+        
+        // Tema tercihini kaydet
+        localStorage.setItem('selectedTheme', theme);
+    }
+    
+    function initializeTheme() {
+        const detectedTheme = detectSystemTheme();
+        applyTheme(detectedTheme);
+        
+        // Sistem tema değişikliklerini dinle
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+            const savedTheme = localStorage.getItem('selectedTheme');
+            // Eğer kullanıcı manuel bir seçim yapmamışsa, sistem değişikliğini takip et
+            if (!savedTheme) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                console.log('🔄 System theme changed to:', newTheme);
+                applyTheme(newTheme);
+            }
+        });
+    }
+
+    // Sayfa yüklendiğinde çalıştır
+    document.addEventListener('DOMContentLoaded', function() {
+        // Önce tema algılama
+        initializeTheme();
+        
+        // Sonra dil algılama
+        autoRedirectToLanguage();
+    });
+  </script>
+
+  </head>
+
+<body class="theme-loading">
   <div id="birthday-quiz-overlay">
     <div class="quiz-container">
 
-      <!-- Step 0: Intro -->
       <div class="quiz-step" data-step="0">
         <h1 class="intro-text" id="intro-text-1">BUGÜN NE GÜNÜ</h1>
         <h1 class="intro-text" id="intro-text-2">MEHTAPIN DOĞUM GÜNÜ</h1>
       </div>
 
-      <!-- Step 1: Question 1 -->
       <div class="quiz-step" data-step="1">
         <h2 class="question-title">MEHTAPIN FAVORİ RENGİ NEDİR</h2>
         <div class="options-container">
@@ -69,7 +291,6 @@
         </div>
       </div>
 
-      <!-- Step 2: Question 2 -->
       <div class="quiz-step" data-step="2">
         <h2 class="question-title">MEHTAPIN GERÇEK DOĞUM GÜNÜ</h2>
         <div class="options-container">
@@ -80,7 +301,6 @@
         </div>
       </div>
 
-      <!-- Step 3: Question 3 -->
       <div class="quiz-step" data-step="3">
         <h2 class="question-title">MEHTAPIN FAVORİ YEMEĞİ</h2>
         <div class="options-container">
@@ -91,7 +311,6 @@
         </div>
       </div>
 
-      <!-- Step 4: Glitch Question -->
       <div class="quiz-step" data-step="4">
         <h2 class="question-title glitch" data-text="ıbırıbcıbırıbcıb">ıbırıbcıbırıbcıb</h2>
         <div class="options-container single-option">
@@ -99,7 +318,6 @@
         </div>
       </div>
 
-      <!-- Step 5 & 6: More Questions -->
       <div class="quiz-step" data-step="5">
         <h2 class="question-title">MEHTAP MAL MI</h2>
         <div class="options-container single-option">
@@ -114,10 +332,6 @@
         </div>
       </div>
 
-      <!-- =================================================================== -->
-      <!-- == ACCESSIBILITY FIX: The Love Slider now has ARIA roles so      == -->
-      <!-- == screen readers can understand and interact with it.           == -->
-      <!-- =================================================================== -->
       <div class="quiz-step" data-step="7">
         <h2 class="question-title" id="love-slider-label">MUSTAFA MEHTAPI NE KADAR SEVER</h2>
         <div class="love-slider-container" role="slider" tabindex="0" aria-labelledby="love-slider-label"
@@ -129,7 +343,6 @@
         </div>
       </div>
 
-      <!-- Final Step: Message -->
       <div class="quiz-step" data-step="8">
         <h1 class="final-text" id="final-text-1">SINIRSIZ</h1>
         <h1 class="final-text" id="final-text-2">İYİ Kİ VARSIN MEHTAP</h1>
@@ -138,10 +351,6 @@
 
     </div>
   </div>
-  <!-- ================================ -->
-  <!-- == MEHTAP'S BIRTHDAY QUIZ END == -->
-  <!-- ================================ -->
-
   <header>
     <div class="container header-container">
       <div class="logo">
@@ -154,333 +363,364 @@
           <li><a href="#projects" data-translate="nav-projects">Projects</a></li>
           <li><a href="#vision" data-translate="nav-vision">Vision</a></li>
           <li><a href="#team" data-translate="nav-team">Team</a></li>
+          <li><a href="#news" data-translate="nav-news">News</a></li>
         </ul>
       </nav>
       <div class="header-buttons">
         <button class="theme-toggle-btn" id="theme-toggle-btn" data-translate="theme-toggle-dark">Dark Mode</button>
-        <button class="language-toggle-btn" id="language-toggle-btn" data-translate="lang-toggle">Türkçe</button>
-      </div>
+        
+        <div class="language-dropdown">
+            <button class="language-toggle-btn" id="language-toggle-btn">
+                <span id="current-lang-text">Türkçe</span>
+                <span class="dropdown-arrow">▼</span>
+            </button>
+            <div class="language-menu" id="language-menu">
+                <button class="lang-btn" data-lang="tr">Türkçe</button>
+                <button class="lang-btn" data-lang="en">English</button>
+                <button class="lang-btn" data-lang="hi">हिंदी</button>
+            </div>
+        </div>
     </div>
   </header>
 
-  <section class="hero" id="home">
-    <!-- =================================================================== -->
-    <!-- == ACCESSIBILITY FIX: Added aria-hidden to the decorative list   == -->
-    <!-- == so screen readers will ignore it.                             == -->
-    <!-- =================================================================== -->
-    <ul class="triangles" aria-hidden="true">
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
-    <div class="container hero-content">
-      <h1 data-translate="hero-title">The Peak of Technology</h1>
-      <p data-translate="hero-description">Founded by Turkiye's brightest young minds with an average age of just 14,
-        Vertex is pioneering the future of
-        technology across multiple domains.</p>
-      <div class="hero-buttons">
-        <a href="#projects" class="btn" data-translate="hero-btn-projects">Explore Projects</a>
-        <a href="#vision" class="btn btn-outline" data-translate="hero-btn-vision">Our Vision</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="about">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <h2 data-translate="about-title">Who We Are</h2>
-        <p data-translate="about-description">Started in June 2023 in Istanbul, Vertex is a cutting-edge
-          technology company uniting Turkiye's
-          youngest entrepreneurs to redefine the tech landscape globally.</p>
-      </div>
-      <div class="about-grid">
-        <div class="about-card animate-on-scroll">
-          <h3 data-translate="about-card1-title">Young Innovators</h3>
-          <p data-translate="about-card1-description">With an average age of just 15, our team represents the next
-            generation of tech visionaries committed to
-            pushing boundaries and creating revolutionary solutions.</p>
-        </div>
-        <div class="about-card animate-on-scroll">
-          <h3 data-translate="about-card2-title">Multi-Domain Expertise</h3>
-          <p data-translate="about-card2-description">From software development to AI, gaming, music production, and
-            browser technologies, our diverse skill set
-            allows us to innovate across multiple tech domains.</p>
-        </div>
-        <div class="about-card animate-on-scroll">
-          <h3 data-translate="about-card3-title">Turkiye's Tech Future</h3>
-          <p data-translate="about-card3-description">We're dedicated to positioning Turkiye as a global tech leader by
-            developing world-class products and
-            nurturing young talent within our borders.</p>
+  <main>
+    <section class="hero" id="home">
+      <ul class="triangles" aria-hidden="true">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <div class="container hero-content">
+        <h1 data-translate="hero-title">The Peak of Technology</h1>
+        <p data-translate="hero-description">Founded by Turkiye's brightest young minds with an average age of just 14,
+          Vertex is pioneering the future of
+          technology across multiple domains.</p>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn" data-translate="hero-btn-projects">Explore Projects</a>
+          <a href="#vision" class="btn btn-outline" data-translate="hero-btn-vision">Our Vision</a>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="section projects" id="projects">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <h2 data-translate="projects-title">Our Cutting-Edge Projects</h2>
-        <p data-translate="projects-description">Explore our diverse portfolio of innovative technologies shaping the
-          future across multiple domains.</p>
+    </section>
+  
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <h2 data-translate="about-title">Who We Are</h2>
+          <p data-translate="about-description">Started in June 2023 in Istanbul, Vertex is a cutting-edge
+            technology company uniting Turkiye's
+            youngest entrepreneurs to redefine the tech landscape globally.</p>
+        </div>
+        <div class="about-grid">
+          <div class="about-card animate-on-scroll">
+            <h3 data-translate="about-card1-title">Young Innovators</h3>
+            <p data-translate="about-card1-description">With an average age of just 15, our team represents the next
+              generation of tech visionaries committed to
+              pushing boundaries and creating revolutionary solutions.</p>
+          </div>
+          <div class="about-card animate-on-scroll">
+            <h3 data-translate="about-card2-title">Multi-Domain Expertise</h3>
+            <p data-translate="about-card2-description">From software development to AI, gaming, music production, and
+              browser technologies, our diverse skill set
+              allows us to innovate across multiple tech domains.</p>
+          </div>
+          <div class="about-card animate-on-scroll">
+            <h3 data-translate="about-card3-title">Turkiye's Tech Future</h3>
+            <p data-translate="about-card3-description">We're dedicated to positioning Turkiye as a global tech leader by
+              developing world-class products and
+              nurturing young talent within our borders.</p>
+          </div>
+        </div>
       </div>
-      <div class="project-tabs">
-        <button class="tab-btn active" data-filter="all" data-translate="projects-tab-all">All</button>
-        <button class="tab-btn" data-filter="software" data-translate="projects-tab-software">Software</button>
-        <button class="tab-btn" data-filter="ai" data-translate="projects-tab-ai">AI</button>
-        <button class="tab-btn" data-filter="gaming" data-translate="projects-tab-gaming">Gaming</button>
-        <button class="tab-btn" data-filter="music" data-translate="projects-tab-music">Music</button>
-      </div>
-      <!-- =================================================================== -->
-      <!-- == BEST PRACTICE: Removed inline styles. Add the following to    == -->
-      <!-- == your style.css:                                               == -->
-      <!-- == .projects-grid a { text-decoration: none; color: inherit; }   == -->
-      <!-- =================================================================== -->
-      <div class="projects-grid">
-        <a href="https://github.com/VertexCorporation/Cortex" target="_blank">
-          <div class="project-card" data-category="ai">
-            <div class="project-img">
-              <img src="assets/cortex.jpg" alt="Cortex AI Project">
+    </section>
+  
+    <section class="section projects" id="projects">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <h2 data-translate="projects-title">Our Cutting-Edge Projects</h2>
+          <p data-translate="projects-description">Explore our diverse portfolio of innovative technologies shaping the
+            future across multiple domains.</p>
+        </div>
+        <div class="project-tabs">
+          <button class="tab-btn active" data-filter="all" data-translate="projects-tab-all">All</button>
+          <button class="tab-btn" data-filter="software" data-translate="projects-tab-software">Software</button>
+          <button class="tab-btn" data-filter="ai" data-translate="projects-tab-ai">AI</button>
+          <button class="tab-btn" data-filter="gaming" data-translate="projects-tab-gaming">Gaming</button>
+          <button class="tab-btn" data-filter="music" data-translate="projects-tab-music">Music</button>
+        </div>
+        <div class="projects-grid">
+          <a href="https://github.com/VertexCorporation/Cortex" target="_blank">
+            <div class="project-card" data-category="ai">
+              <div class="project-img">
+                <img src="assets/cortex.jpg" alt="Cortex AI Project">
+              </div>
+              <div class="project-content">
+                <h3>Cortex</h3>
+                <p>Revolutionary online and offline artificial intelligence platform with advanced capabilities.</p>
+                <div class="project-tags"><span class="tag">Artificial Intelligence</span><span class="tag">Mobile
+                    App</span></div>
+              </div>
             </div>
-            <div class="project-content">
-              <h3>Cortex</h3>
-              <p>Revolutionary online and offline artificial intelligence platform with advanced capabilities.</p>
-              <div class="project-tags"><span class="tag">Artificial Intelligence</span><span class="tag">Mobile
-                  App</span></div>
+          </a>
+          <a href="https://github.com/VertexCorporation/Drome" target="_blank">
+            <div class="project-card" data-category="software">
+              <div class="project-img">
+                <img src="assets/drome.jpg" alt="Drome Programming Language Project">
+              </div>
+              <div class="project-content">
+                <h3>Drome</h3>
+                <p>Our innovative programming language designed to empower developers with versatile and efficient tools.
+                </p>
+                <div class="project-tags"><span class="tag">Programming</span><span class="tag">Development</span></div>
+              </div>
             </div>
-          </div>
-        </a>
-        <!-- =================================================================== -->
-        <!-- == BEST PRACTICE: Changed http to https for security.            == -->
-        <!-- =================================================================== -->
-        <a href="https://github.com/VertexCorporation/Drome" target="_blank">
-          <div class="project-card" data-category="software">
-            <div class="project-img">
-              <img src="assets/drome.jpg" alt="Drome Programming Language Project">
+          </a>
+          <a href="https://github.com/SolarBrowser/" target="_blank">
+            <div class="project-card" data-category="software">
+              <div class="project-img">
+                <img src="assets/solar.jpg" alt="Solar Web Browser Project">
+              </div>
+              <div class="project-content">
+                <h3>Solar</h3>
+                <p>Cutting-edge web browser built from scratch for enhanced performance and privacy.</p>
+                <div class="project-tags"><span class="tag">Browser</span><span class="tag">Web Technology</span></div>
+              </div>
             </div>
-            <div class="project-content">
-              <h3>Drome</h3>
-              <p>Our innovative programming language designed to empower developers with versatile and efficient tools.
-              </p>
-              <div class="project-tags"><span class="tag">Programming</span><span class="tag">Development</span></div>
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.VertexGames.AllStar" target="_blank">
+            <div class="project-card" data-category="gaming">
+              <div class="project-img">
+                <img src="assets/allstar.jpg" alt="All Star Mobile Game">
+              </div>
+              <div class="project-content">
+                <h3>All Star</h3>
+                <p>Our debut mobile game that reached 5M+ people and 20,000+ downloads in 48 hours with zero marketing.
+                </p>
+                <div class="project-tags"><span class="tag">Gaming</span><span class="tag">Mobile</span></div>
+              </div>
             </div>
-          </div>
-        </a>
-        <a href="https://github.com/SolarBrowser/" target="_blank">
-          <div class="project-card" data-category="software">
-            <div class="project-img">
-              <img src="assets/solar.jpg" alt="Solar Web Browser Project">
-            </div>
-            <div class="project-content">
-              <h3>Solar</h3>
-              <p>Cutting-edge web browser built from scratch for enhanced performance and privacy.</p>
-              <div class="project-tags"><span class="tag">Browser</span><span class="tag">Web Technology</span></div>
-            </div>
-          </div>
-        </a>
-        <a href="https://play.google.com/store/apps/details?id=com.VertexGames.AllStar" target="_blank">
+          </a>
           <div class="project-card" data-category="gaming">
             <div class="project-img">
-              <img src="assets/allstar.jpg" alt="All Star Mobile Game">
+              <img src="assets/comingsoon.png" alt="Sureward Anti-Cheat Technology Project (Coming Soon)">
             </div>
             <div class="project-content">
-              <h3>All Star</h3>
-              <p>Our debut mobile game that reached 5M+ people and 20,000+ downloads in 48 hours with zero marketing.
-              </p>
-              <div class="project-tags"><span class="tag">Gaming</span><span class="tag">Mobile</span></div>
+              <h3>Sureward</h3>
+              <p>Advanced anti-cheating technology ensuring fair gameplay environments across gaming platforms.</p>
+              <div class="project-tags"><span class="tag">Security</span><span class="tag">Gaming</span></div>
             </div>
           </div>
-        </a>
-        <div class="project-card" data-category="gaming">
-          <div class="project-img">
-            <img src="assets/comingsoon.png" alt="Sureward Anti-Cheat Technology Project (Coming Soon)">
-          </div>
-          <div class="project-content">
-            <h3>Sureward</h3>
-            <p>Advanced anti-cheating technology ensuring fair gameplay environments across gaming platforms.</p>
-            <div class="project-tags"><span class="tag">Security</span><span class="tag">Gaming</span></div>
-          </div>
-        </div>
-        <a href="https://open.spotify.com/artist/6DwLxxh2dT8Bm0KBCzjXZA?si=viRf_DK1QiGLy3rmi0SQpw" target="_blank">
-          <div class="project-card" data-category="music">
-            <div class="project-img">
-              <img src="assets/comingsoon.png" alt="Polyhedron Music Label (Coming Soon)">
+          <a href="https://open.spotify.com/artist/6DwLxxh2dT8Bm0KBCzjXZA?si=viRf_DK1QiGLy3rmi0SQpw" target="_blank">
+            <div class="project-card" data-category="music">
+              <div class="project-img">
+                <img src="assets/comingsoon.png" alt="Polyhedron Music Label (Coming Soon)">
+              </div>
+              <div class="project-content">
+                <h3>Polyhedron</h3>
+                <p>Our music label empowering young artists, achieving 5,000+ monthly listeners across platforms.</p>
+                <div class="project-tags"><span class="tag">Music</span><span class="tag">Entertainment</span></div>
+              </div>
             </div>
-            <div class="project-content">
-              <h3>Polyhedron</h3>
-              <p>Our music label empowering young artists, achieving 5,000+ monthly listeners across platforms.</p>
-              <div class="project-tags"><span class="tag">Music</span><span class="tag">Entertainment</span></div>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="vision">
-    <div class="container vision-container">
-      <div class="vision-content animate-on-scroll">
-        <h2 data-translate="vision-title">Our 3-5 Year Vision</h2>
-        <p data-translate="vision-description1">By 2025, Vertex aims to establish a global presence across America,
-          Europe, and Asia, targeting 5 million
-          active users across our platforms and becoming a recognized force in the global tech industry.</p>
-        <p data-translate="vision-description2">We're committed to continuous innovation, developing our own operating
-          system, expanding our AI capabilities,
-          and reaching millions through our diverse portfolio of products.</p>
-        <div class="stats">
-          <div class="stat-item">
-            <h3>10M+</h3>
-            <p data-translate="vision-stat1">Target downloads for our applications</p>
-          </div>
-          <div class="stat-item">
-            <h3>5M+</h3>
-            <p data-translate="vision-stat2">Active users across our ecosystem</p>
-          </div>
-          <div class="stat-item">
-            <h3>100K+</h3>
-            <p data-translate="vision-stat3">Monthly listeners for Polyhedron</p>
-          </div>
-          <div class="stat-item">
-            <h3>3</h3>
-            <p data-translate="vision-stat4">Global markets - Americas, Europe, Asia</p>
-          </div>
+          </a>
         </div>
       </div>
-      <div class="vision-image animate-on-scroll">
-        <img src="assets/vision.png" alt="A globe representing Vertex's global vision and expansion.">
+    </section>
+  
+    <section class="section" id="vision">
+      <div class="container vision-container">
+        <div class="vision-content animate-on-scroll">
+          <h2 data-translate="vision-title">Our 3-5 Year Vision</h2>
+          <p data-translate="vision-description1">By 2025, Vertex aims to establish a global presence across America,
+            Europe, and Asia, targeting 5 million
+            active users across our platforms and becoming a recognized force in the global tech industry.</p>
+          <p data-translate="vision-description2">We're committed to continuous innovation, developing our own operating
+            system, expanding our AI capabilities,
+            and reaching millions through our diverse portfolio of products.</p>
+          <div class="stats">
+            <div class="stat-item">
+              <h3>10M+</h3>
+              <p data-translate="vision-stat1">Target downloads for our applications</p>
+            </div>
+            <div class="stat-item">
+              <h3>5M+</h3>
+              <p data-translate="vision-stat2">Active users across our ecosystem</p>
+            </div>
+            <div class="stat-item">
+              <h3>100K+</h3>
+              <p data-translate="vision-stat3">Monthly listeners for Polyhedron</p>
+            </div>
+            <div class="stat-item">
+              <h3>3</h3>
+              <p data-translate="vision-stat4">Global markets - Americas, Europe, Asia</p>
+            </div>
+          </div>
+        </div>
+        <div class="vision-image animate-on-scroll">
+          <img src="assets/vision.png" alt="A globe representing Vertex's global vision and expansion.">
+        </div>
       </div>
-    </div>
-  </section>
-
-  <section class="section" id="team">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <h2 data-translate="team-title">Our Leading Innovators</h2>
-        <p data-translate="team-description">The bright minds behind Vertex, Turkiye's youngest tech
-          entrepreneurs, building the future today.</p>
+    </section>
+  
+    <section class="section" id="team">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <h2 data-translate="team-title">Our Leading Innovators</h2>
+          <p data-translate="team-description">The bright minds behind Vertex, Turkiye's youngest tech
+            entrepreneurs, building the future today.</p>
+        </div>
+        <div class="team-grid">
+  
+          <div class="team-card animate-on-scroll">
+            <img class="team-img" src="assets/MUSTAFACAKI.jpg" alt="Photo of Mustafa Çakı, Co-Founder & CEO.">
+            <div class="team-content">
+              <h3>Mustafa Çakı</h3>
+              <p>Co-Founder & CEO</p>
+              <div class="social-links">
+                <a href="https://www.linkedin.com/in/mustafacaki/" target="_blank" rel="noopener noreferrer"><img
+                    src="assets/linkedin.svg" alt="Mustafa Çakı's LinkedIn Profile"></a>
+                <a href="https://www.instagram.com/mustawtfa/" target="_blank" rel="noopener noreferrer"><img
+                    src="assets/instagram.svg" alt="Mustafa Çakı's Instagram Profile"></a>
+                <a href="mailto:mustafacaki@vertexishere.com"><img src="assets/email.svg" alt="Email Mustafa Çakı"></a>
+              </div>
+            </div>
+          </div>
+  
+          <div class="team-card animate-on-scroll">
+            <img class="team-img" src="assets/selim.jpg" alt="Photo of Selim Doğan, Senior Web Developer">
+            <div class="team-content">
+              <h3>Selim Doğan</h3>
+              <p>Senior Web Developer</p>
+              <div class="social-links">
+                <a href="https://www.linkedin.com/in/selim-doğan-865380320/" target="_blank" rel="noopener noreferrer"><img
+                    src="assets/linkedin.svg" alt="Selim Doğan's LinkedIn Profile"></a>
+                <a href="https://www.instagram.com/selim.rar/" target="_blank" rel="noopener noreferrer"><img
+                    src="assets/instagram.svg" alt="Selim Doğan's Instagram Profile"></a>
+              </div>
+            </div>
+          </div>
+  
+          <div class="team-card animate-on-scroll">
+            <img class="team-img" src="assets/ATATURKCU.jpg" alt="Photo of A*** T***, Co-Founder & CTO.">
+            <div class="team-content">
+              <h3>A*** T***</h3>
+              <p>Co-Founder & CTO</p>
+              <div class="social-links">
+                <a href="https://www.instagram.com/miniikbirkuss/" target="_blank" rel="noopener noreferrer"><img
+                    src="assets/instagram.svg" alt="A*** T***'s Instagram Profile"></a>
+              </div>
+            </div>
+          </div>
+  
+          <div class="team-card animate-on-scroll">
+            <img class="team-img" src="assets/MURATCOSKUN.jpg" alt="Photo of Murat Coşkun, Chief Architect.">
+            <div class="team-content">
+              <h3>Murat Coşkun</h3>
+              <p>Chief Architect</p>
+              <div class="social-links">
+                <a href="https://www.linkedin.com/in/muratck/" target="_blank" rel="noopener noreferrer"><img
+                    src="assets/linkedin.svg" alt="Murat Coşkun's LinkedIn Profile"></a>
+                <a href="https://www.instagram.com/bsdmog07/" target="_blank" rel="noopener noreferrer"><img
+                    src="assets/instagram.svg" alt="Murat Coşkun's Instagram Profile"></a>
+                <a href="mailto:murat@vertexishere.com"><img src="assets/email.svg" alt="Email Murat Coşkun"></a>
+              </div>
+            </div>
+          </div>
+  
+          <div class="team-card animate-on-scroll">
+            <img class="team-img" src="assets/BERKAYDEMIR.jpg" alt="Photo of Berkay Demir, Chief Marketing Officer.">
+            <div class="team-content">
+              <h3>Berkay Demir</h3>
+              <p>Chief Marketing Officer</p>
+              <div class="social-links">
+                <a href="https://www.instagram.com/begathefirst/" target="_blank" rel="noopener noreferrer"><img
+                    src="assets/instagram.svg" alt="Berkay Demir's Instagram Profile"></a>
+                <a href="mailto:berkay@vertexishere.com"><img src="assets/email.svg" alt="Email Berkay Demir"></a>
+              </div>
+            </div>
+          </div>
+  
+          <div class="team-card animate-on-scroll">
+            <img class="team-img" src="assets/BATINTANRIVERDI.jpg" alt="Photo of Batın Tanrıverdi, Music Director.">
+            <div class="team-content">
+              <h3>Batın Tanrıverdi</h3>
+              <p>Music Director</p>
+              <div class="social-links">
+                <a href="https://www.instagram.com/batin_tuna/" target="_blank" rel="noopener noreferrer"><img
+                    src="assets/instagram.svg" alt="Batın Tanrıverdi's Instagram Profile"></a>
+              </div>
+            </div>
+          </div>
+  
+          <div class="team-card animate-on-scroll">
+            <img class="team-img" src="assets/IBRAHIMBAYGUN.jpg" alt="Photo of İbrahim Baygun, Senior Web Developer.">
+            <div class="team-content">
+              <h3>İbrahim Baygun</h3>
+              <p>Senior Web Developer</p>
+              <div class="social-links">
+                <a href="https://www.instagram.com/coremiyuka/" target="_blank" rel="noopener noreferrer"><img
+                    src="assets/instagram.svg" alt="İbrahim Baygun's Instagram Profile"></a>
+                <a href="mailto:ibrahimbaygun@vertexishere.com"><img src="assets/email.svg"
+                    alt="Email İbrahim Baygun"></a>
+              </div>
+            </div>
+          </div>
+          <div class="team-card animate-on-scroll">
+            <img class="team-img" src="assets/iron.jpg" alt="Photo of Bekir Yağmur, Junior Full Stack Developer.">
+            <div class="team-content">
+              <h3>Bekir Yağmur</h3>
+              <p>Junior Full Stack Developer</p>
+              <div class="social-links">
+                <a href="https://www.instagram.com/ironmid.d/" target="_blank" rel="noopener noreferrer"><img
+                    src="assets/instagram.svg" alt="Bekir Yağmur's Instagram Profile"></a>
+                <a href="mailto:ironbabatekkrall@proton.me"><img src="assets/email.svg" alt="Email Bekir Yağmur"></a>
+              </div>
+            </div>
+          </div>
+          <div class="team-card animate-on-scroll">
+            <img class="team-img" src="assets/mir.jpg" alt="Photo of Mir Emir Kaya, Senior Web Developer.">
+            <div class="team-content">
+              <h3>Mir Emir Kaya</h3>
+              <p>Senior Web Developer</p>
+              <div class="social-links">
+                <a href="https://www.instagram.com/miremirkaya0/" target="_blank" rel="noopener noreferrer"><img
+                    src="assets/instagram.svg" alt="Mir Emir Kaya's Instagram Profile"></a>
+              </div>
+            </div>
+          </div>
+  
+  
+          <div></div>
+           
+          
+  
+  
+        </div> 
       </div>
-      <div class="team-grid">
-
-        <!-- =================================================================== -->
-        <!-- == ACCESSIBILITY FIX: Vastly improved alt tags and fixed icons   == -->
-        <!-- =================================================================== -->
-        <div class="team-card animate-on-scroll">
-          <img class="team-img" src="assets/MUSTAFACAKI.jpg" alt="Photo of Mustafa Çakı, Co-Founder & CEO.">
-          <div class="team-content">
-            <h3>Mustafa Çakı</h3>
-            <p>Co-Founder & CEO</p>
-            <div class="social-links">
-              <a href="https://www.linkedin.com/in/mustafacaki/" target="_blank" rel="noopener noreferrer"><img
-                  src="assets/linkedin.svg" alt="Mustafa Çakı's LinkedIn Profile"></a>
-              <a href="https://www.instagram.com/mustawtfa/" target="_blank" rel="noopener noreferrer"><img
-                  src="assets/instagram.svg" alt="Mustafa Çakı's Instagram Profile"></a>
-              <a href="mailto:mustafacaki@vertexishere.com"><img src="assets/email.svg" alt="Email Mustafa Çakı"></a>
-            </div>
+    </section>
+  
+    <section class="section news" id="news">
+      <div class="container">
+          <div class="section-header animate-on-scroll">
+              <h2 data-translate="news-title">Latest News & Updates</h2>
+              <p data-translate="news-description">Stay up-to-date with our latest announcements, project developments, and milestones.</p>
           </div>
-        </div>
-
-        <div class="team-card animate-on-scroll">
-          <img class="team-img" src="assets/ATATURKCU.jpg" alt="Photo of A*** T***, Co-Founder & CTO.">
-          <div class="team-content">
-            <h3>A*** T***</h3>
-            <p>Co-Founder & CTO</p>
-            <div class="social-links">
-              <a href="https://www.instagram.com/miniikbirkuss/" target="_blank" rel="noopener noreferrer"><img
-                  src="assets/instagram.svg" alt="A*** T***'s Instagram Profile"></a>
-            </div>
+          <div id="news-container" class="news-grid">
+              <h2>Haberler Yükleniyor...</h2>
           </div>
-        </div>
-
-        <div class="team-card animate-on-scroll">
-          <img class="team-img" src="assets/MURATCOSKUN.jpg" alt="Photo of Murat Coşkun, Chief Architect.">
-          <div class="team-content">
-            <h3>Murat Coşkun</h3>
-            <p>Chief Architect</p>
-            <div class="social-links">
-              <a href="https://www.linkedin.com/in/muratck/" target="_blank" rel="noopener noreferrer"><img
-                  src="assets/linkedin.svg" alt="Murat Coşkun's LinkedIn Profile"></a>
-              <a href="https://www.instagram.com/bsdmog07/" target="_blank" rel="noopener noreferrer"><img
-                  src="assets/instagram.svg" alt="Murat Coşkun's Instagram Profile"></a>
-              <a href="mailto:murat@vertexishere.com"><img src="assets/email.svg" alt="Email Murat Coşkun"></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="team-card animate-on-scroll">
-          <img class="team-img" src="assets/BERKAYDEMIR.jpg" alt="Photo of Berkay Demir, Chief Marketing Officer.">
-          <div class="team-content">
-            <h3>Berkay Demir</h3>
-            <p>Chief Marketing Officer</p>
-            <div class="social-links">
-              <a href="https://www.instagram.com/begathefirst/" target="_blank" rel="noopener noreferrer"><img
-                  src="assets/instagram.svg" alt="Berkay Demir's Instagram Profile"></a>
-              <a href="mailto:berkay@vertexishere.com"><img src="assets/email.svg" alt="Email Berkay Demir"></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="team-card animate-on-scroll">
-          <img class="team-img" src="assets/BATINTANRIVERDI.jpg" alt="Photo of Batın Tanrıverdi, Music Director.">
-          <div class="team-content">
-            <h3>Batın Tanrıverdi</h3>
-            <p>Music Director</p>
-            <div class="social-links">
-              <a href="https://www.instagram.com/batin_tuna/" target="_blank" rel="noopener noreferrer"><img
-                  src="assets/instagram.svg" alt="Batın Tanrıverdi's Instagram Profile"></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="team-card animate-on-scroll">
-          <img class="team-img" src="assets/IBRAHIMBAYGUN.jpg" alt="Photo of İbrahim Baygun, Senior Web Developer.">
-          <div class="team-content">
-            <h3>İbrahim Baygun</h3>
-            <p>Senior Web Developer</p>
-            <div class="social-links">
-              <a href="https://www.instagram.com/coremiyuka/" target="_blank" rel="noopener noreferrer"><img
-                  src="assets/instagram.svg" alt="İbrahim Baygun's Instagram Profile"></a>
-              <a href="mailto:ibrahimbaygun@vertexishere.com"><img src="assets/email.svg"
-                  alt="Email İbrahim Baygun"></a>
-            </div>
-          </div>
-        </div>
-        <div class="team-card animate-on-scroll">
-          <img class="team-img" src="assets/iron.jpg" alt="Photo of Bekir Yağmur, Junior Full Stack Developer.">
-          <div class="team-content">
-            <h3>Bekir Yağmur</h3>
-            <p>Junior Full Stack Developer</p>
-            <div class="social-links">
-              <a href="https://www.instagram.com/ironmid.d/" target="_blank" rel="noopener noreferrer"><img
-                  src="assets/instagram.svg" alt="Bekir Yağmur's Instagram Profile"></a>
-              <a href="mailto:ironbabatekkrall@proton.me"><img src="assets/email.svg" alt="Email Bekir Yağmur"></a>
-            </div>
-          </div>
-        </div>
-        <div class="team-card animate-on-scroll">
-          <img class="team-img" src="assets/mir.jpg" alt="Photo of Mir Emir Kaya, Senior Web Developer.">
-          <div class="team-content">
-            <h3>Mir Emir Kaya</h3>
-            <p>Senior Web Developer</p>
-            <div class="social-links">
-              <a href="https://www.instagram.com/miremirkaya0/" target="_blank" rel="noopener noreferrer"><img
-                  src="assets/instagram.svg" alt="Mir Emir Kaya's Instagram Profile"></a>
-            </div>
-          </div>
-        </div>
-      </div> <!-- VALIDATION FIX: This closing div for 'team-grid' was missing. -->
-    </div> <!-- VALIDATION FIX: This closing div for 'container' was missing. -->
-  </section>
+      </div>
+    </section>
+  </main>
 
   <footer>
     <div class="container">
@@ -545,11 +785,10 @@
           <a href="mailto:contact@vertexishere.com"><img src="assets/email.svg" alt="Email Vertex"></a>
         </div>
       </div>
-    </div> <!-- VALIDATION FIX: Removed one extra, un-matched closing </div> from here. -->
-  </footer>
+    </div> </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 
 </html>
