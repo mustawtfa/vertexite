@@ -1,0 +1,60 @@
+# 🤖 VERTEX CORPORATION - ROBOTS.TXT
+# Arama motorları için süper optimizasyon!
+
+User-agent: *
+Allow: /
+
+# Ana sayfalar
+Allow: /tr/
+Allow: /en/
+Allow: /hi/
+Allow: /assets/
+Allow: /js/
+Allow: /lang/
+
+# Arama motorları için özel sayfa
+Allow: /sitemap.xml
+Allow: /sitemap-tr.xml
+Allow: /sitemap-en.xml
+Allow: /sitemap-hi.xml
+
+# Disallow pages (hiçbir sayfa engellenmedi - tam erişim!)
+# Disallow: /admin/ (yok)
+# Disallow: /private/ (yok)
+
+# Sitemap lokasyonları
+Sitemap: https://vertexishere.com/sitemap.xml
+Sitemap: https://vertexishere.com/sitemap-tr.xml
+Sitemap: https://vertexishere.com/sitemap-en.xml
+Sitemap: https://vertexishere.com/sitemap-hi.xml
+
+# Google Bot özel ayarları
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Bing Bot ayarları  
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Yandex Bot ayarları
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 1
+
+# Facebook Bot (sosyal medya önizleme)
+User-agent: facebookexternalhit
+Allow: /
+
+# Twitter Bot (Twitter Card önizleme)
+User-agent: Twitterbot
+Allow: /
+
+# LinkedIn Bot
+User-agent: LinkedInBot
+Allow: /
+
+# WhatsApp Bot
+User-agent: WhatsApp
+Allow: /

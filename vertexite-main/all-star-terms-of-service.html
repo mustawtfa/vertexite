@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>All Star Terms of Service</title>
+    <!-- Assets -->
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" />
+    <!-- Internal CSS -->
+    <style>
+        :root {
+            --background-color: #f4f7f9;
+            --content-bg-color: #ffffff;
+            --text-primary-color: #1a202c;
+            --text-secondary-color: #4a5568;
+            --link-color: #3182ce;
+            --link-hover-color: #2b6cb0;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --triangle-color: #e2e8f0;
+            --divider-color: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: #000 transparent;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-primary-color);
+            overflow-x: hidden;
+        }
+
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: #000;
+            border-radius: 20px;
+        }
+
+        .triangles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .triangles li {
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            background: var(--triangle-color);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation: triangleAnimate 25s linear infinite;
+            bottom: -180px;
+        }
+
+        .triangles li:nth-child(1) {
+            left: 25%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+        }
+
+        .triangles li:nth-child(2) {
+            left: 10%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 2s;
+            animation-duration: 12s;
+        }
+
+        .triangles li:nth-child(3) {
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 4s;
+        }
+
+        .triangles li:nth-child(4) {
+            left: 40%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+            animation-duration: 18s;
+        }
+
+        .triangles li:nth-child(5) {
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 0s;
+        }
+
+        .triangles li:nth-child(6) {
+            left: 75%;
+            width: 110px;
+            height: 110px;
+            animation-delay: 3s;
+        }
+
+        .triangles li:nth-child(7) {
+            left: 35%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 7s;
+        }
+
+        .triangles li:nth-child(8) {
+            left: 50%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 15s;
+            animation-duration: 45s;
+        }
+
+        .triangles li:nth-child(9) {
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 2s;
+            animation-duration: 35s;
+        }
+
+        .triangles li:nth-child(10) {
+            left: 85%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 0s;
+            animation-duration: 11s;
+        }
+
+        @keyframes triangleAnimate {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 0;
+            }
+
+            100% {
+                transform: translateY(-120vh) rotate(720deg);
+                opacity: 0;
+                border-radius: 50%;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: var(--content-bg-color);
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards;
+        }
+
+        h1,
+        h2 {
+            color: var(--text-primary-color);
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.8em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-top: 40px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--divider-color);
+        }
+
+        p,
+        ul,
+        li {
+            color: var(--text-secondary-color);
+            font-size: 1.05em;
+        }
+
+        .last-updated {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        ul {
+            margin: 15px 0 15px 25px;
+            padding-left: 10px;
+            list-style-position: outside;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--link-hover-color);
+            text-decoration: underline;
+        }
+
+        strong {
+            color: var(--text-primary-color);
+            font-weight: 600;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+                margin: 30px 15px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            h2 {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="triangles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <div class="container">
+        <h1>All Star Terms of Service</h1>
+        <p class="last-updated">Last Updated: July 27, 2025</p>
+
+        <p>Welcome to All Star! These Terms of Service are specific to the All Star game ("the Game"). This document
+            <strong>supplements</strong> our general <a href="https://vertexishere.com/terms-of-service">Vertex Terms of
+                Service</a>.
+        </p>
+
+
+        <h2>1. Account and Service Eligibility</h2>
+        <p>
+            Your use of All Star is governed by both these terms and the general <strong><a
+                    href="https://vertexishere.com/terms-of-service">Vertex Terms of Service</a></strong>.
+            The general terms cover the core rules for your unified <strong>Vertex Account</strong>.
+        </p>
+        <p>
+            To create a Vertex Account and use the online features of All Star, you must be <strong>at least 13 years of
+                age</strong>.
+            By creating an account, you represent that you meet this age requirement.
+        </p>
+
+        <h2>2. Virtual Items & Game Economy</h2>
+        <p>The Game includes non-monetary items like points, badges, and other in-game boosts ("Virtual Items").</p>
+        <ul>
+            <li>You acknowledge that <strong>Virtual Items have no cash value</strong> and are non-transferable.</li>
+            <li>We grant you a limited, personal, and revocable license to use Virtual Items within the Game only.</li>
+            <li>All Virtual Items, including your total seasonal score, are reset at the beginning of each new
+                competitive "Season".</li>
+        </ul>
+
+        <h2>3. Seasons, Leaderboards, and Rewards</h2>
+        <p>The Game features two distinct public leaderboards, each displaying the top 100 players:</p>
+        <ul>
+            <li><strong>Seasonal Leaderboard:</strong> This leaderboard tracks your total cumulative score within a
+                single Season. At the end of the Season, top-ranking players are eligible for rewards (such as badges).
+                This leaderboard and your total score are reset for every new Season.</li>
+            <li><strong>All-Time High Score Leaderboard:</strong> This leaderboard displays the highest single-game
+                scores ever achieved. This leaderboard is for prestige only, does not reset with seasons, and has no
+                rewards associated with it.</li>
+        </ul>
+        <p>Vertex determines the rules and reward conditions for each Season. Our server records are the final authority
+            in determining all rankings and rewards.</p>
+
+        <h2>4. Parody and Commentary Disclaimer</h2>
+        <p>The Game is presented as a work of <strong>parody and satire</strong>, intended for comedic effect and
+            commentary on public figures and internet culture. The characters within the Game are intended as
+            <strong>transformative caricatures</strong> for these purposes.
+        </p>
+        <p>Vertex and the All Star game are <strong>not affiliated with, endorsed by, or sponsored by</strong> any of
+            the public figures who may be depicted. No harm or disrespect is intended towards any individual.</p>
+
+        <h2>5. Rules of Conduct and Fair Play</h2>
+        <p>To ensure a fair environment, you agree not to:</p>
+        <ul>
+            <li><strong>A. Cheat:</strong> Use third-party software (bots, hacks) or exploit bugs.</li>
+            <li><strong>B. Manipulate Data:</strong> Tamper with local game data or the data synchronization process.
+            </li>
+            <li><strong>C. Use Inappropriate Names:</strong> Your username must not be offensive or hateful.</li>
+            <li><strong>D. Share Your Account:</strong> You are responsible for all activity on your account.</li>
+        </ul>
+
+        <h2>6. Enforcement and Penalties</h2>
+        <p>Violating these rules may result in actions including a warning, reset of points, or termination of your
+            access to All Star. For severe violations, we reserve the right to terminate your entire unified Vertex
+            Account.</p>
+
+        <h2>7. Our Supporters</h2>
+        <p>
+            All Star is an independent project by the Vertex team, made possible through the invaluable support of our
+            community and partners. We extend our sincere gratitude to <strong>Gamekolik and all our other
+                supporters</strong>
+            for their material and non-material contributions that help us grow.
+        </p>
+        <p>
+            Our relationships with any of our supporters do not involve the sharing of your personal gameplay data.
+            Their
+            support is related to the promotion and improvement of the Game itself.
+        </p>
+
+        <h2>8. Changes to These Terms</h2>
+        <p>We may modify these Terms at any time. Your continued use of All Star after changes constitutes acceptance of
+            the new Terms.</p>
+
+        <h2>9. Contact Us</h2>
+        <p>If you have any questions, please contact us via the main Vertex channels:</p>
+        <ul>
+            <li><strong>Email:</strong> <a href="mailto:contact@vertexishere.com">contact@vertexishere.com</a></li>
+            <li><strong>Website:</strong> <a href="https://vertexishere.com" target="_blank">vertexishere.com</a></li>
+        </ul>
+    </div>
+</body>
+
+</html>

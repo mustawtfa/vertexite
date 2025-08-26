@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Meta Tags: Essential for character encoding, responsiveness, and compatibility -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Cortex Terms of Service</title>
+
+  <!-- Assets: Favicon and Google Fonts for consistent branding and typography -->
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" />
+
+  <!-- Internal CSS: Styles for the entire page -->
+  <style>
+    /* CSS Variable Definitions for Theming */
+    :root {
+      --background-color: #f4f7f9;
+      --content-bg-color: #ffffff;
+      --text-primary-color: #1a202c;
+      --text-secondary-color: #4a5568;
+      --link-color: #3182ce;
+      --link-hover-color: #2b6cb0;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --triangle-color: #e2e8f0;
+      --critical-bg-color: #fff5f5;
+      --critical-border-color: #e53e3e;
+      --critical-text-color: #9b2c2c;
+    }
+
+    /* Global Resets and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: #000 transparent;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background-color);
+      color: var(--text-primary-color);
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar Styling */
+    body::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background-color: #000;
+      border-radius: 20px;
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+      background-color: #333;
+    }
+
+    body::-webkit-scrollbar-button {
+      display: none;
+    }
+
+    /* Animated Background Styling */
+    .triangles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .triangles li {
+      position: absolute;
+      display: block;
+      list-style: none;
+      width: 20px;
+      height: 20px;
+      background: var(--triangle-color);
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      animation: triangleAnimate 25s linear infinite;
+      bottom: -180px;
+    }
+
+    /* Individual Triangle Animations for a random effect */
+    .triangles li:nth-child(1) {
+      left: 25%;
+      width: 80px;
+      height: 80px;
+      animation-delay: 0s;
+    }
+
+    .triangles li:nth-child(2) {
+      left: 10%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 2s;
+      animation-duration: 12s;
+    }
+
+    .triangles li:nth-child(3) {
+      left: 70%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 4s;
+    }
+
+    .triangles li:nth-child(4) {
+      left: 40%;
+      width: 60px;
+      height: 60px;
+      animation-delay: 0s;
+      animation-duration: 18s;
+    }
+
+    .triangles li:nth-child(5) {
+      left: 65%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 0s;
+    }
+
+    .triangles li:nth-child(6) {
+      left: 75%;
+      width: 110px;
+      height: 110px;
+      animation-delay: 3s;
+    }
+
+    .triangles li:nth-child(7) {
+      left: 35%;
+      width: 150px;
+      height: 150px;
+      animation-delay: 7s;
+    }
+
+    .triangles li:nth-child(8) {
+      left: 50%;
+      width: 25px;
+      height: 25px;
+      animation-delay: 15s;
+      animation-duration: 45s;
+    }
+
+    .triangles li:nth-child(9) {
+      left: 20%;
+      width: 15px;
+      height: 15px;
+      animation-delay: 2s;
+      animation-duration: 35s;
+    }
+
+    .triangles li:nth-child(10) {
+      left: 85%;
+      width: 150px;
+      height: 150px;
+      animation-delay: 0s;
+      animation-duration: 11s;
+    }
+
+    @keyframes triangleAnimate {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+      }
+
+      100% {
+        transform: translateY(-120vh) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+      }
+    }
+
+    /* Layout and Content Container */
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: var(--content-bg-color);
+      padding: 50px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px var(--shadow-color);
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s forwards;
+    }
+
+    /* Typography Styles */
+    h1,
+    h2 {
+      color: var(--text-primary-color);
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.8em;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      margin-top: 40px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    p,
+    ul,
+    li {
+      color: var(--text-secondary-color);
+      font-size: 1.05em;
+    }
+
+    p {
+      margin: 20px 0;
+    }
+
+    ul {
+      margin-left: 25px;
+      padding-left: 10px;
+      list-style-position: outside;
+    }
+
+    li {
+      margin-bottom: 12px;
+    }
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--link-hover-color);
+      text-decoration: underline;
+    }
+
+    /* Critical Disclaimer Box Styling for Highlighting Key Legal Points */
+    .critical-disclaimer {
+      background-color: var(--critical-bg-color);
+      border-left: 4px solid var(--critical-border-color);
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+
+    .critical-disclaimer p,
+    .critical-disclaimer li {
+      color: var(--critical-text-color);
+    }
+
+    .critical-disclaimer strong {
+      color: var(--critical-border-color);
+    }
+
+    /* Simple Fade-In Animation */
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design for Mobile Devices */
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px;
+        margin: 30px 15px;
+      }
+
+      h1 {
+        font-size: 2.2em;
+      }
+
+      h2 {
+        font-size: 1.6em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Animated Background: Decorative triangles for visual appeal -->
+  <ul class="triangles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+
+  <!-- Main Content Container -->
+  <div class="container">
+    <h1>Cortex Terms of Service</h1>
+    <p style="text-align:center; font-style: italic;">Last Updated: July 22, 2025</p>
+
+
+    <!-- Section: Introduction and Acceptance of Terms -->
+    <p>
+      Welcome to Cortex. The Cortex application and related services (collectively, the "Service") are provided by the
+      individual developers known as <strong>Vertex</strong> ("we," "us," or "our"). These Terms of Service ("Terms")
+      govern your access to and use of the Cortex Service specifically.
+    </p>
+    <p>
+      These Terms supplement and are incorporated by reference into the general <strong><a
+          href="https://vertexishere.com/terms-of-service" target="_blank" rel="noopener noreferrer">Vertex Terms of
+          Service</a></strong>, which govern the entire Vertex ecosystem. By creating an account or using our Service,
+      you agree to be bound by both these Cortex-specific Terms, the general Vertex Terms, and the <strong><a
+          href="https://vertexishere.com/cortex-privacy-policy" target="_blank" rel="noopener noreferrer">Cortex Privacy
+          Policy</a></strong>.
+    </p>
+
+
+
+    <!-- Section 1: The Service -->
+    <h2>1. The Service</h2>
+    <p>Cortex provides access to a variety of third-party artificial intelligence models for conversational purposes.
+      The Service is offered through both free and paid tiers. Your access to and use of the Service is conditioned on
+      your acceptance of and compliance with these Terms.</p>
+
+    <!-- Section 2: Account Responsibilities -->
+    <h2>2. Your Vertex Account</h2>
+    <p>You must create a Vertex Account to use most features of Cortex. You are responsible for all activities that
+      occur under your account and for keeping your password confidential and secure. You agree to notify us immediately
+      of any unauthorized use of your account.</p>
+
+    <!-- Section 3: Financial Terms -->
+    <h2>3. Subscriptions, Credits, and Payments</h2>
+    <p>
+      Cortex may offer paid subscriptions and a digital credit system ("Credits") to access premium features or online
+      models. <strong>Credits are specifically required to interact with online AI models.</strong> All financial
+      transactions are processed through third-party payment gateways like the Google Play Store or
+      Apple App Store.
+    </p>
+    <ul>
+      <li>
+        <strong>Subscriptions:</strong> Subscriptions are billed in advance on a recurring basis (e.g., monthly or
+        yearly).
+        They will automatically renew at the end of each billing cycle unless you cancel them through your account
+        settings
+        or the relevant app store's subscription management tools.
+      </li>
+      <li>
+        <strong>Credits:</strong> Credits are the digital currency used for online model interactions.
+        <ul style="margin-top: 10px;">
+          <li>The cost of sending messages or including images is denominated in Credits. <strong>The specific cost for
+              each action is displayed within the application interface (e.g., next to the send button) before you
+              confirm the action.</strong></li>
+          <li>Users on the free plan may receive a daily bonus of promotional Credits. <strong>The amount of this bonus
+              and its terms are specified within the app and are subject to change at our discretion.</strong></li>
+          <li>Credits are a digital commodity for use only within the Service. They have no cash value, are not
+            redeemable for cash, and cannot be transferred between users or accounts.</li>
+          <li><strong>Upon termination of your account for any reason, all unused Credits will be forfeited and you will
+              not be entitled to any compensation or refund.</strong></li>
+        </ul>
+      </li>
+      <li>
+        <strong>Pricing and Refund Policy:</strong> <strong>We reserve the right to change the pricing for
+          Subscriptions and Credits at any time.</strong> Due to the immediate and digital nature of our services, all
+        purchases for
+        subscriptions and Credits are considered final and non-refundable, except as required by applicable law or the
+        terms of
+        the platform through which the purchase was made (e.g., Google Play Store, Apple App Store).
+      </li>
+    </ul>
+
+
+
+    <!-- Section 4: User Obligations -->
+    <h2>4. User Conduct and Content Policy</h2>
+    <p>
+      You are solely responsible for your conduct and any content you submit or generate using the Service ("User
+      Content"),
+      <strong>which includes both the messages in your conversations and the custom AI models you
+        create.</strong>
+      To maintain a safe and respectful environment, especially considering our diverse user base which includes younger
+      audiences, you agree not to use the Service for any purpose that is illegal or prohibited by these Terms.
+    </p>
+    <p>
+      To enforce these rules, we employ safety mechanisms for both online and offline models. For <strong>online
+        models</strong>, your inputs and <strong>custom model configurations</strong> may be submitted to automated
+      content moderation services like <strong>OpenAI's
+        Moderation API</strong>. For <strong>offline models</strong>, the app performs a similar check locally on your
+      device using a set of rules periodically downloaded from our servers, as detailed in our Privacy Policy. In both
+      cases, these checks are automated and designed to prevent the generation of harmful content. You agree that you
+      will
+      not generate or disseminate User Content that:
+    </p>
+    <ul>
+      <li>
+        <strong>Is Sexually Explicit or Pornographic:</strong> Includes any form of pornography, nudity with sexual
+        intent,
+        or content intended for sexual gratification.
+      </li>
+      <li>
+        <strong>Involves Self-Harm:</strong> Encourages or provides instructions on how to self-harm or commit suicide.
+      </li>
+      <li>
+        <strong>Is Hateful or Discriminatory:</strong> Promotes hate speech, harassment, or violence against individuals
+        or
+        groups based on race, ethnicity, religion, gender, sexual orientation, disability, or other protected
+        characteristics.
+      </li>
+      <li>
+        <strong>Is Illegal or Promotes Illegal Acts:</strong> Depicts or facilitates illegal activities, such as drug
+        creation, theft, or terrorism.
+      </li>
+      <li>
+        <strong>Infringes on Privacy or Intellectual Property:</strong> Violates someone's privacy or infringes on
+        copyrights, trademarks, or other intellectual property rights.
+      </li>
+      <li>
+        <strong>Is Malicious:</strong> Attempts to generate malware, viruses, phishing schemes, or otherwise disrupt the
+        security of any service or individual.
+      </li>
+    </ul>
+    <p>
+      We reserve the right, but have no obligation, to monitor, filter, and remove User Content that we determine, in
+      our
+      sole discretion, violates these Terms or is otherwise harmful to our Service or our users. We may also suspend or
+      terminate your account for violations of this policy.
+    </p>
+
+    <p>
+      We empower our users to help us maintain a safe and responsible environment. If you encounter any AI-generated
+      content that you believe violates our policies or is otherwise harmful, you agree to report it. You can do this
+      by using the <strong>in-app reporting feature</strong>, which is accessed by long-pressing the specific
+      message in a conversation. When you submit a report, you acknowledge that this action will transmit the necessary
+      data for our review. The specific details of the data collected during this process are outlined in the "Handling
+      of User Reports and Content Moderation" section of our <strong><a
+          href="https://vertexishere.com/cortex-privacy-policy" target="_blank" rel="noopener noreferrer">Privacy
+          Policy</a></strong>. We are committed to investigating these reports promptly to take appropriate action.
+    </p>
+
+
+    <!-- Section 5: Disclaimer for AI Content (Critical) -->
+    <div class="critical-disclaimer">
+      <p><strong>The Service provides access to experimental AI technologies. Your use of these features is entirely at
+          your own risk.</strong></p>
+      <ul>
+        <li><strong>No Guarantees:</strong> We do not guarantee the accuracy, relevance, safety, or appropriateness of
+          any content generated by the AI models. This content may be incorrect, biased, offensive, or otherwise
+          harmful.</li>
+        <li><strong>Character Models:</strong> Some models are presented as "Characters" configured by Vertex. While we
+          provide the personality layer (system prompt), the core intelligence and generative capabilities are powered
+          by third-party models via OpenRouter. <strong>The developers of Vertex</strong> are not the creators of the
+          underlying AI and disclaim all responsibility for its outputs.</li>
+        <li><strong>No Professional Advice:</strong> Content generated by the AI is for informational and entertainment
+          purposes only. It does not constitute, and should not be used as a substitute for, professional advice (e.g.,
+          medical, legal, or financial advice). Always consult a qualified professional.</li>
+        <li><strong>Your Responsibility:</strong> You are solely responsible for your use of the generated content and
+          for any decisions or actions you take based on it.</li>
+      </ul>
+    </div>
+
+    <p>
+      While we implement automated safety filters and establish clear content policies, you acknowledge that generative
+      AI is an evolving technology and may, in rare and unintended instances, produce outputs that are inconsistent with
+      our policies. We are committed to continuously improving our safety mechanisms and promptly addressing any
+      reported issues to mitigate such occurrences.
+    </p>
+
+    <!-- Section 6: Intellectual Property -->
+
+    <!-- Section 6: Intellectual Property and Third-Party Licenses -->
+    <h2>6. Intellectual Property and Third-Party Licenses</h2>
+    <p>
+      The Cortex client application is open-source software. You may download, modify, and distribute the source code
+      in accordance with the license specified in the GitHub repository. However, these Terms of Service apply only to
+      the official Service provided by Vertex. <strong>We are not responsible or liable for any self-hosted, modified,
+        or third-party versions of the application.</strong>
+    </p>
+    <p>
+      In addition to our own code, the Service incorporates various third-party assets, including but not limited to
+      fonts,
+      icons, and AI models, which are provided under their own respective licenses. A comprehensive list of these assets
+      and their required attributions can be found on our <strong><a href="https://vertexishere.com/cortex-attributions"
+          target="_blank" rel="noopener noreferrer">Attributions Page</a></strong>. By agreeing to these Terms, you also
+      agree to be bound by the terms of these third-party licenses.
+    </p>
+
+
+
+    <!-- Section 7: Legal Disclaimers (Critical - ALL CAPS) -->
+    <h2>7. Disclaimer of Warranties and Limitation of Liability</h2>
+    <p>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+      INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
+      NON-INFRINGEMENT.</p>
+    <p>TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL <strong>THE DEVELOPERS OF VERTEX, THEIR
+        AFFILIATES, OR PARTNERS</strong> BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE
+      DAMAGES, OR ANY LOSS OF PROFITS OR REVENUES, WHETHER INCURRED DIRECTLY OR INDIRECTLY, OR ANY LOSS OF DATA, USE,
+      GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM: (A) YOUR ACCESS TO OR USE OF OR INABILITY TO ACCESS OR USE
+      THE SERVICE; (B) ANY CONDUCT OR CONTENT OF ANY THIRD PARTY ON THE SERVICE; (C) ANY CONTENT OBTAINED FROM THE
+      SERVICE; OR (D) UNAUTHORIZED ACCESS, USE, OR ALTERATION OF YOUR TRANSMISSIONS OR CONTENT.</p>
+
+    <!-- Section 8: Termination Clause -->
+    <h2>8. Termination</h2>
+    <p>We may terminate or suspend your account and bar access to the Service immediately, without prior notice or
+      liability, for any reason whatsoever, including without limitation if you breach the Terms. We also reserve the
+      right to modify or discontinue the Service at any time.</p>
+
+    <!-- Section 9: Legal Jurisdiction -->
+    <h2>9. Governing Law and Dispute Resolution</h2>
+    <p>These Terms shall be governed and construed in accordance with the laws of the <strong>Republic of
+        Turkiye</strong>, without regard to its conflict of law provisions. You agree to submit to the exclusive
+      jurisdiction of the <strong>Istanbul Central (Çağlayan) Courts</strong> to resolve any legal matter arising from
+      the Terms.</p>
+
+    <!-- Section 10: Standard Legal Boilerplate -->
+    <h2>10. General Terms</h2>
+    <p>These Terms constitute the entire agreement between you and Vertex regarding our Service. Our failure to enforce
+      any right or provision of these Terms will not be considered a waiver of those rights. If any provision is held to
+      be invalid, the remaining provisions will remain in effect.</p>
+
+    <!-- Section 11: Changes to Terms -->
+    <h2>11. Changes to These Terms</h2>
+    <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. We will indicate any
+      changes by updating the "Last Updated" date at the top of these Terms. For any significant changes, we will
+      provide a more prominent notice. Your continued use of the Service following the posting of any changes to these
+      Terms constitutes
+      acceptance of those changes.</p>
+
+    <!-- Section 12: Contact Information -->
+    <h2>12. Contact Us</h2>
+    <p>If you have any questions about these Terms, please contact us:</p>
+    <ul>
+      <li><b>Email:</b> <a href="mailto:contact@vertexishere.com">contact@vertexishere.com</a></li>
+      <li><b>Website:</b> <a href="https://vertexishere.com" target="_blank"
+          rel="noopener noreferrer">vertexishere.com</a></li>
+    </ul>
+  </div>
+</body>
+
+</html>

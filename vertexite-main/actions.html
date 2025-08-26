@@ -1,0 +1,438 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertex Account Action</title>
+    <!-- Use an absolute URL for the favicon to prevent path issues -->
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- === EMBEDDED STYLES: Unified White Theme for All Actions === -->
+    <style>
+        :root {
+            --primary-bg: #f5f5f5;
+            --secondary-bg: #ffffff;
+            --primary-text: #0a0a0a;
+            --secondary-text: #666666;
+            --accent-color: #0a0a0a;
+            --triangle-color: #cccccc;
+            --success-color: #059669;
+            --error-color: #b91c1c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .auth-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 2rem 3rem;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo a {
+            color: var(--primary-text);
+            font-size: 2rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--secondary-text);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+            transition: opacity 0.5s ease;
+        }
+        .subtitle a {
+            color: var(--success-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .subtitle a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Form Styles --- */
+        .form-group {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            color: var(--primary-text);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(10, 10, 10, 0.2);
+        }
+        .btn {
+            width: 100%;
+            padding: 0.9rem;
+            font-size: 1rem;
+            background-color: var(--accent-color);
+            color: var(--secondary-bg);
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* --- Dynamic View Management --- */
+        .action-view {
+            transition: opacity 0.5s ease, max-height 0.5s ease;
+            max-height: 500px;
+            overflow: hidden;
+        }
+        .action-view.hidden {
+            opacity: 0;
+            max-height: 0;
+            margin: 0 !important;
+            padding: 0;
+            border: 0;
+            overflow: hidden;
+        }
+        
+        /* --- NEW, IMPROVED SVG ANIMATIONS --- */
+        .status-animation svg {
+            width: 80px;
+            height: 80px;
+            display: block;
+            margin: 1rem auto;
+        }
+        .status-animation .circle-bg {
+            fill: none;
+            stroke: #eee;
+            stroke-width: 4;
+        }
+        .status-animation .circle-progress {
+            fill: none;
+            stroke-width: 4;
+            stroke-linecap: round;
+            animation: progress 1s ease-out forwards;
+        }
+        .status-animation .icon-path {
+            stroke-width: 6;
+            stroke-linecap: round;
+            fill: none;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: draw-icon 0.5s ease-out 0.5s forwards;
+        }
+        .status-animation.success .circle-progress { stroke: var(--success-color); }
+        .status-animation.success .icon-path { stroke: var(--success-color); }
+        .status-animation.error .circle-progress { stroke: var(--error-color); }
+        .status-animation.error .icon-path { stroke: var(--error-color); }
+        
+        @keyframes progress {
+            from { stroke-dasharray: 0 251.2; /* 2*pi*r where r=40 */ }
+            to { stroke-dasharray: 251.2 251.2; }
+        }
+        @keyframes draw-icon {
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* --- Loading Spinner --- */
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #e0e0e0;
+            border-top-color: var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* --- Triangle Background Animation --- */
+        .triangles {
+            position: absolute; top: 0; left: 0; width: 100%;
+            height: 100%; overflow: hidden; z-index: 1;
+        }
+        .triangles li {
+            position: absolute; display: block; list-style: none;
+            width: 20px; height: 20px; background: var(--triangle-color);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation: triangleAnimate 25s linear infinite;
+            bottom: -150px;
+        }
+        .triangles li:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+        .triangles li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+        .triangles li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+        .triangles li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+        .triangles li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+        @keyframes triangleAnimate {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <ul class="triangles"><li></li><li></li><li></li><li></li><li></li></ul>
+
+    <div class="auth-container">
+        <div class="logo"><a href="https://vertexishere.com">Vertex</a></div>
+        <h1 id="title">Loading...</h1>
+        <p id="subtitle" class="subtitle"></p>
+
+        <div id="loading-view" class="action-view">
+            <div class="loader"></div>
+        </div>
+
+        <div id="reset-password-view" class="action-view hidden">
+            <form id="password-reset-form" novalidate>
+                <div class="form-group">
+                    <label for="new-password" class="form-label"></label>
+                    <input type="password" id="new-password" class="form-input" required>
+                </div>
+                <button type="submit" id="submit-btn" class="btn"></button>
+            </form>
+        </div>
+
+        <div id="status-view" class="action-view hidden"></div>
+    </div>
+
+    <!-- === JAVASCRIPT LOGIC (MODULAR, ENGLISH, UNIFIED) === -->
+    <script type="module">
+        // --- 1. FIREBASE SDK IMPORTS (MODULAR & LATEST VERSION) ---
+        // Updated from 9.15.0 to a more recent version for latest fixes.
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import {
+            getAuth,
+            applyActionCode,
+            verifyPasswordResetCode,
+            confirmPasswordReset
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        // --- 2. CONFIGURATION ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyBEp_LYyZWnvdhdJzvRf_h8U6rEEq2Iyp4",
+            authDomain: "vertex-ai-1618.firebaseapp.com",
+            projectId: "vertex-ai-1618",
+            storageBucket: "vertex-ai-1618.appspot.com",
+            messagingSenderId: "561391430514",
+            appId: "1:561391430514:web:b20fa666a893a7c4b10beb"
+        };
+
+        const translations = {
+            en: {
+                loadingTitle: "Loading...",
+                invalidLinkTitle: "Action Failed",
+                invalidLinkSubtitle: "This link may be invalid, expired, or has already been used. Please try the action again from our app.",
+                
+                verifyingTitle: "Verifying Email...",
+                verifyingSubtitle: "Please wait a moment while we confirm your email address.",
+                verifySuccessTitle: "Email Verified!",
+                verifySuccessSubtitle: 'Your email is now verified. You can <a href="https://vertexishere.com">return to the app</a>.',
+                
+                resetTitle: "Create New Password",
+                resetSubtitle: "Please enter your new password below. It must be at least 6 characters long.",
+                passwordLabel: "New Password",
+                passwordPlaceholder: "Enter at least 6 characters",
+                buttonDefault: "Update Password",
+                buttonUpdating: "Updating...",
+                resetSuccessTitle: "Password Changed!",
+                resetSuccessSubtitle: 'Your password has been successfully updated. You can now <a href="https://vertexishere.com">log in</a>.',
+                weakPassword: "Password is too weak. It must be at least 6 characters long."
+            },
+            tr: {
+                loadingTitle: "Yükleniyor...",
+                invalidLinkTitle: "İşlem Başarısız",
+                invalidLinkSubtitle: "Bu bağlantı geçersiz, süresi dolmuş veya daha önce kullanılmış olabilir. Lütfen işlemi uygulamamızdan tekrar deneyin.",
+
+                verifyingTitle: "E-posta Doğrulanıyor...",
+                verifyingSubtitle: "Lütfen e-posta adresinizi onaylarken bir an bekleyin.",
+                verifySuccessTitle: "E-posta Doğrulandı!",
+                verifySuccessSubtitle: 'E-postanız artık doğrulandı. <a href="https://vertexishere.com">Uygulamaya dönebilirsiniz</a>.',
+                
+                resetTitle: "Yeni Şifre Oluştur",
+                resetSubtitle: "Lütfen yeni şifrenizi girin. En az 6 karakter uzunluğunda olmalıdır.",
+                passwordLabel: "Yeni Şifre",
+                passwordPlaceholder: "En az 6 karakter girin",
+                buttonDefault: "Şifreyi Güncelle",
+                buttonUpdating: "Güncelleniyor...",
+                resetSuccessTitle: "Şifre Değiştirildi!",
+                resetSuccessSubtitle: 'Şifreniz başarıyla güncellendi. Artık <a href="https://vertexishere.com">giriş yapabilirsiniz</a>.',
+                weakPassword: "Şifre çok zayıf. En az 6 karakter uzunluğunda olmalıdır."
+            }
+        };
+
+        // --- 3. INITIALIZATION ---
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        
+        // --- 4. DOM ELEMENTS ---
+        const titleEl = document.getElementById('title');
+        const subtitleEl = document.getElementById('subtitle');
+        const loadingView = document.getElementById('loading-view');
+        const resetPasswordView = document.getElementById('reset-password-view');
+        const statusView = document.getElementById('status-view');
+        const passwordResetForm = document.getElementById('password-reset-form');
+        const passwordLabel = passwordResetForm.querySelector('label');
+        const passwordInput = document.getElementById('new-password');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // --- 5. UI HELPER FUNCTIONS ---
+        function showView(viewId) {
+            document.querySelectorAll('.action-view').forEach(view => view.classList.add('hidden'));
+            document.getElementById(viewId).classList.remove('hidden');
+        }
+
+        function updateText(title, subtitle = '') {
+            titleEl.textContent = title;
+            subtitleEl.innerHTML = subtitle;
+        }
+        
+        function showStatusAnimation(type) {
+            const svgHTML = `
+                <div class="status-animation ${type}">
+                    <svg viewBox="0 0 52 52">
+                        <circle class="circle-bg" cx="26" cy="26" r="25"/>
+                        <circle class="circle-progress" cx="26" cy="26" r="25" transform="rotate(-90 26 26)"/>
+                        ${type === 'success' ? '<path class="icon-path" d="M14 27l7.5 7.5L38 22"/>' : '<path class="icon-path" d="M16 16 36 36 M36 16 16 36"/>'}
+                    </svg>
+                </div>`;
+            statusView.innerHTML = svgHTML;
+            showView('status-view');
+        }
+
+        // --- 6. CORE ACTION HANDLERS ---
+        async function handleVerifyEmail(oobCode, t) {
+            updateText(t.verifyingTitle, t.verifyingSubtitle);
+            try {
+                await applyActionCode(auth, oobCode);
+                updateText(t.verifySuccessTitle, t.verifySuccessSubtitle);
+                showStatusAnimation('success');
+            } catch (error) {
+                console.error("Email verification failed:", error.code, error.message);
+                updateText(t.invalidLinkTitle, t.invalidLinkSubtitle);
+                showStatusAnimation('error');
+            }
+        }
+
+        async function handleResetPassword(oobCode, t) {
+            try {
+                await verifyPasswordResetCode(auth, oobCode);
+                updateText(t.resetTitle, t.resetSubtitle);
+                passwordLabel.textContent = t.passwordLabel;
+                passwordInput.placeholder = t.passwordPlaceholder;
+                submitBtn.textContent = t.buttonDefault;
+                showView('reset-password-view');
+                
+                passwordResetForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    if (passwordInput.value.length < 6) {
+                        alert(t.weakPassword);
+                        return;
+                    }
+
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = t.buttonUpdating;
+
+                    try {
+                        await confirmPasswordReset(auth, oobCode, passwordInput.value);
+                        updateText(t.resetSuccessTitle, t.resetSuccessSubtitle);
+                        showStatusAnimation('success');
+                    } catch (error) {
+                        console.error("Password reset confirmation failed:", error.code, error.message);
+                        updateText(t.invalidLinkTitle, t.invalidLinkSubtitle);
+                        showStatusAnimation('error');
+                    }
+                }, { once: true });
+
+            } catch (error) {
+                console.error("Invalid password reset code:", error.code, error.message);
+                updateText(t.invalidLinkTitle, t.invalidLinkSubtitle);
+                showStatusAnimation('error');
+            }
+        }
+
+        // --- 7. MAIN ROUTER LOGIC (RUNS ON PAGE LOAD) ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const mode = params.get('mode');
+            const oobCode = params.get('oobCode');
+            const lang = params.get('lang') || (navigator.language.startsWith('tr') ? 'tr' : 'en');
+            const t = translations[lang] || translations.en;
+            
+            document.documentElement.lang = lang;
+            updateText(t.loadingTitle);
+
+            if (!mode || !oobCode) {
+                updateText(t.invalidLinkTitle, t.invalidLinkSubtitle);
+                showStatusAnimation('error');
+                return;
+            }
+
+            switch (mode) {
+                case 'verifyEmail':
+                    handleVerifyEmail(oobCode, t);
+                    break;
+                case 'resetPassword':
+                    handleResetPassword(oobCode, t);
+                    break;
+                default:
+                    console.warn("Unknown action mode:", mode);
+                    updateText(t.invalidLinkTitle, t.invalidLinkSubtitle);
+                    showStatusAnimation('error');
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 🇹🇷 VERTEX CORPORATION - TÜRKÇE SITEMAP -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Ana Türkçe sayfa -->
+  <url>
+    <loc>https://vertexishere.com/tr/</loc>
+    <lastmod>2024-01-15T00:00:00Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    
+    <!-- Dil alternatifleri -->
+    <xhtml:link rel="alternate" hreflang="tr" href="https://vertexishere.com/tr/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://vertexishere.com/en/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://vertexishere.com/hi/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vertexishere.com/" />
+    
+    <!-- Sayfa görselleri -->
+    <image:image>
+      <image:loc>https://vertexishere.com/assets/og-image-tr.jpg</image:loc>
+      <image:title>Vertex - Türkiye'nin En Genç Teknoloji Şirketi</image:title>
+      <image:caption>14 yaş ortalamalı Türk teknoloji girişimcileri</image:caption>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://vertexishere.com/assets/logo.png</image:loc>
+      <image:title>Vertex Corporation Logo</image:title>
+      <image:caption>Vertex teknoloji şirketi logosu</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Türkçe bölümler -->
+  <url>
+    <loc>https://vertexishere.com/tr/#about</loc>
+    <lastmod>2024-01-15T00:00:00Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://vertexishere.com/tr/#projects</loc>
+    <lastmod>2024-01-15T00:00:00Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://vertexishere.com/tr/#vision</loc>
+    <lastmod>2024-01-15T00:00:00Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://vertexishere.com/tr/#team</loc>
+    <lastmod>2024-01-15T00:00:00Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://vertexishere.com/tr/#news</loc>
+    <lastmod>2024-01-15T00:00:00Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>

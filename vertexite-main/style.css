@@ -1,0 +1,2310 @@
+/* =============== */
+/* 🎨 AUTOMATIC THEME DETECTION CSS SUPPORT */
+/* =============== */
+/* 🌌 Sistem tema tespiti için CSS media query desteği */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark theme as default when system prefers dark */
+    --primary-black: #0a0a0a;
+    --secondary-black: #222222;
+    --primary-white: #ffffff;
+    --secondary-white: #f5f5f5;
+    --accent-gray: #666666;
+    --header-bg: rgba(10, 10, 10, 0.8);
+    --hero-bg: #0a0a0a;
+    --triangle-color: #2a2a2a;
+    --card-bg: #222222;
+    --shadow-color: rgba(255, 255, 255, 0.1);
+    --input-border: #666666;
+    --input-bg: #0a0a0a;
+    --input-text-color: #ffffff;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    /* Light theme as default when system prefers light */
+    --primary-black: #ffffff;
+    --secondary-black: #f5f5f5;
+    --primary-white: #0a0a0a;
+    --secondary-white: #222222;
+    --accent-gray: #999999;
+    --header-bg: rgba(255, 255, 255, 0.8);
+    --hero-bg: #f0f0f0;
+    --triangle-color: #cccccc;
+    --card-bg: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --input-border: #222222;
+    --input-bg: #ffffff;
+    --input-text-color: #0a0a0a;
+  }
+}
+
+/* =============== */
+/* Dark & Light Tema Değişkenleri */
+/* =============== */
+:root {
+  --primary-black: #0a0a0a;
+  --secondary-black: #222222;
+  --primary-white: #ffffff;
+  --secondary-white: #f5f5f5;
+  --accent-gray: #666666;
+  /* Header background (dark) */
+  --header-bg: rgba(10, 10, 10, 0.8);
+  /* Hero arka plan rengi */
+  --hero-bg: #0a0a0a;
+  /* Üçgen rengi (dark modda) */
+  --triangle-color: #2a2a2a;
+  /* Yeni eklenen değişkenler */
+  --card-bg: #222222;
+  --shadow-color: rgba(255, 255, 255, 0.1);
+  /* Gölge rengi (dark theme) */
+  --input-border: #666666;
+  --input-bg: #0a0a0a;
+  --input-text-color: #ffffff;
+}
+
+
+/* ==================== */
+/* Light Theme Overrides */
+/* ==================== */
+body.light-theme {
+  --primary-black: #ffffff;
+  --secondary-black: #f5f5f5;
+  --primary-white: #0a0a0a;
+  --secondary-white: #222222;
+  --accent-gray: #999999;
+  --header-bg: rgba(255, 255, 255, 0.8);
+  /* Hero arka plan rengini biraz daha açık yaptık */
+  --hero-bg: #f0f0f0;
+  /* Üçgen rengi (light modda) */
+  --triangle-color: #cccccc;
+  /* Yeni eklenen değişkenler */
+  --card-bg: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  /* Gölge rengi (light theme) */
+  --input-border: #222222;
+  --input-bg: #ffffff;
+  --input-text-color: #0a0a0a;
+}
+
+/* SVG Icon Colors */
+body:not(.light-theme) .social-links a img,
+body:not(.light-theme) .footer-social a img,
+body:not(.light-theme) .contact-info .info-item img {
+  filter: invert(1);
+}
+
+body.light-theme .social-links a img,
+body.light-theme .footer-social a img,
+body.light-theme .contact-info .info-item img {
+  filter: invert(0);
+}
+
+/* 🎨 THEME LOADING STATE */
+/* Tema yükleme sırasında gösterilecek geçiş efekti */
+body.theme-loading {
+  transition: background-color 0.5s ease, color 0.5s ease;
+  /* JavaScript tarafından tema uygulanana kadar varsayılan değerler */
+  background-color: var(--primary-black);
+  color: var(--primary-white);
+}
+
+/* 🌙 DARK THEME OVERRIDE */
+/* JavaScript ile eklenen dark-theme class'ı sistem CSS'ini geçersiz kılar */
+body.dark-theme {
+  --primary-black: #0a0a0a !important;
+  --secondary-black: #222222 !important;
+  --primary-white: #ffffff !important;
+  --secondary-white: #f5f5f5 !important;
+  --accent-gray: #666666 !important;
+  --header-bg: rgba(10, 10, 10, 0.8) !important;
+  --hero-bg: #0a0a0a !important;
+  --triangle-color: #2a2a2a !important;
+  --card-bg: #222222 !important;
+  --shadow-color: rgba(255, 255, 255, 0.1) !important;
+  --input-border: #666666 !important;
+  --input-bg: #0a0a0a !important;
+  --input-text-color: #ffffff !important;
+}
+
+/* ☀️ LIGHT THEME OVERRIDE */
+/* JavaScript ile eklenen light-theme class'ı sistem CSS'ini geçersiz kılar */
+
+/* Projects ve Contact Section'ların arka planları (Light Theme'de) */
+body.light-theme .projects {
+  background-color: var(--secondary-black);
+  /* Light theme specific */
+}
+
+body.light-theme .contact {
+  background-color: var(--primary-black);
+  /* Light theme specific */
+}
+
+/* Header gölgesi (Light / Dark) */
+body.light-theme header {
+  box-shadow: 0 2px 4px var(--shadow-color);
+  /* Değişken kullanıldı */
+}
+
+body:not(.light-theme) header {
+  box-shadow: 0 2px 4px var(--shadow-color);
+  /* Değişken kullanıldı */
+}
+
+/* ============= */
+/* Global Styles */
+/* ============= */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: var(--primary-black);
+  color: var(--primary-white);
+  font-weight: 300;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* Internet Explorer ve Edge (eski sürümler) */
+  -ms-overflow-style: none;
+}
+
+/* Webkit tabanlı tarayıcılar (Chrome, Safari, Edge) */
+body::-webkit-scrollbar {
+  display: none;
+  /* Kaydırma çubuğunu tamamen gizler */
+  width: 0;
+  /* Genişliğini sıfırlar */
+  height: 0;
+  /* Yatay kaydırma çubuğu için yüksekliğini sıfırlar (pek kullanılmaz ama tam uyumluluk için) */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ============= */
+/* Header        */
+/* ============= */
+header {
+  padding: calc(1.5rem + env(safe-area-inset-top)) 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  backdrop-filter: blur(10px);
+  background-color: var(--header-bg);
+  z-index: 10000;
+  transition: padding 0.3s ease, background-color 0.3s ease;
+}
+
+/* Menü açıksa header'ı overlay altına almayalım; overlay daha üstte */
+header.menu-open {
+  z-index: 10000; /* overlay zaten 99999 */
+}
+
+/* Header */
+/* ... mevcut header stilleri ... */
+
+.header-buttons {
+  display: flex;
+  /* Düğmeleri yan yana sıralamak için */
+  gap: 1rem;
+  /* Düğmeler arasına boşluk eklemek için */
+  align-items: center;
+  /* Dikeyde hizalamak için (isteğe bağlı) */
+}
+
+
+header.scrolled {
+  padding: calc(0.8rem + env(safe-area-inset-top)) 0;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+#main-link {
+  text-decoration: none;
+  color: var(--primary-white); 
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.logo span {
+  color: var(--primary-white);
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+nav ul li a {
+  color: var(--primary-white);
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.3s ease;
+  font-size: 0.95rem;
+}
+
+nav ul li a:hover {
+  color: var(--secondary-white);
+}
+
+.theme-toggle-btn {
+  background-color: transparent;
+  border: 1px solid var(--primary-white);
+  color: var(--primary-white);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-left: 1rem;
+}
+
+.theme-toggle-btn,
+.language-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.language-toggle-btn {
+  background-color: transparent;
+  border: 1px solid var(--primary-white);
+  color: var(--primary-white);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-left: 0.3rem;
+}
+
+.theme-toggle-btn:hover,
+.language-toggle-btn:hover {
+  background-color: var(--primary-white);
+  color: var(--primary-black);
+}
+
+/* ============= */
+/* Hero Section  */
+/* ============= */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: calc(100px + env(safe-area-inset-top));
+  position: relative;
+  overflow: hidden;
+  background-color: var(--hero-bg);
+}
+
+.triangles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.triangles li {
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  background: var(--triangle-color);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  animation: triangleAnimate 25s linear infinite;
+  bottom: -150px;
+}
+
+.triangles li:nth-child(1) {
+  left: 25%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+.triangles li:nth-child(2) {
+  left: 10%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 2s;
+  animation-duration: 12s;
+}
+
+.triangles li:nth-child(3) {
+  left: 70%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 4s;
+}
+
+.triangles li:nth-child(4) {
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 0s;
+  animation-duration: 18s;
+}
+
+.triangles li:nth-child(5) {
+  left: 65%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 0s;
+}
+
+.triangles li:nth-child(6) {
+  left: 75%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 3s;
+}
+
+.triangles li:nth-child(7) {
+  left: 35%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 7s;
+}
+
+.triangles li:nth-child(8) {
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 15s;
+  animation-duration: 45s;
+}
+
+.triangles li:nth-child(9) {
+  left: 20%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 2s;
+  animation-duration: 35s;
+}
+
+.triangles li:nth-child(10) {
+  left: 85%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 11s;
+}
+
+.triangles li:nth-child(11) {
+  left: 5%;
+  width: 50px;
+  height: 50px;
+  animation-delay: 1s;
+}
+
+.triangles li:nth-child(12) {
+  left: 90%;
+  width: 30px;
+  height: 30px;
+  animation-delay: 3s;
+}
+
+.triangles li:nth-child(13) {
+  left: 60%;
+  width: 70px;
+  height: 70px;
+  animation-delay: 5s;
+}
+
+.triangles li:nth-child(14) {
+  left: 15%;
+  width: 40px;
+  height: 40px;
+  animation-delay: 4s;
+}
+
+.triangles li:nth-child(15) {
+  left: 80%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 6s;
+}
+
+@keyframes triangleAnimate {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-1000px) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  color: var(--primary-white);
+}
+
+.hero p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  color: var(--secondary-white);
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background-color: var(--primary-white);
+  color: var(--primary-black);
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--secondary-white);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--primary-white);
+  color: var(--primary-white);
+  margin-left: 1rem;
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-white);
+  color: var(--primary-black);
+}
+
+/* ============= */
+/* Giriş Animasyonları */
+/* ============= */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* ============= */
+/* Genel Section */
+/* ============= */
+.section {
+  padding: 8rem 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+  color: var(--primary-white);
+}
+
+.section-header p {
+  font-size: 1.1rem;
+  color: var(--accent-gray);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ============= */
+/* About Section */
+/* ============= */
+.about-grid {
+  display: grid;
+  gap: 2rem;
+  justify-items: center;
+}
+
+/* About grid media queries are kept as provided by user in this turn */
+@media (min-width: 1200px) {
+  .about-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  .about-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.about-card {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+}
+
+.about-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--primary-white);
+}
+
+.about-card p {
+  color: var(--accent-gray);
+}
+
+/* ============= */
+/* Projects Section */
+/* ============= */
+.projects {
+  background-color: var(--secondary-black);
+}
+
+.project-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.tab-btn {
+  padding: 0.5rem 1.5rem;
+  background: none;
+  border: none;
+  color: var(--accent-gray);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+.tab-btn:hover {
+  border-bottom: 2px solid var(--primary-white); 
+}
+
+.tab-btn.active:hover {
+  border-bottom: 2px solid var(--primary-white); 
+}
+
+.tab-btn.active {
+  color: var(--primary-white);
+  border-bottom: 2px solid var(--primary-white);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem; 
+}
+
+.projects-grid a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+}
+
+.project-card {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  opacity: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex; 
+  flex-direction: column;
+  width: 100%;
+  box-shadow: 0 4px 12px var(--shadow-color); 
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px var(--shadow-color); 
+}
+
+.project-img {
+  height: auto;
+  aspect-ratio: 16 / 9; 
+  background-color: var(--accent-gray);
+  overflow: hidden;
+}
+
+.project-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.project-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.project-content h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-white);
+}
+
+.project-content p {
+  color: var(--accent-gray);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  flex-grow: 1; 
+}
+
+.project-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background-color: var(--primary-black); 
+  color: var(--accent-gray);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  border: 1px solid var(--card-bg);
+}
+
+@media (max-width: 992px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .projects-grid {
+    grid-template-columns: 1fr; 
+  }
+}
+
+/* ============= */
+/* Vision Section */
+/* ============= */
+.vision-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.vision-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  color: var(--primary-white);
+}
+
+.vision-content p {
+  margin-bottom: 1.5rem;
+  color: var(--accent-gray);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+.stat-item h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--primary-white);
+}
+
+.stat-item p {
+  font-size: 0.95rem;
+  color: var(--accent-gray);
+  margin-bottom: 0;
+}
+
+.vision-image {
+  height: 500px;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vision-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* ============= */
+/* Team Section  */
+/* ============= */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Team grid media queries are kept as provided by user in this turn */
+@media (max-width: 992px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .team-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+  }
+}
+
+.team-card {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.team-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px 12px 0 0;
+}
+
+.team-content {
+  padding: 24px;
+  text-align: center;
+}
+
+.team-content h3 {
+  margin: 0 0 4px 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-white);
+}
+
+.team-content p {
+  margin: 0 0 20px 0;
+  font-size: 1rem;
+  color: var(--accent-gray);
+  min-height: 24px;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.social-links a img {
+  height: 24px;
+  transition: transform 0.2s ease;
+}
+
+/* ================= */
+/* İletişim Bölümü    */
+/* ================= */
+.contact {
+  background-color: var(--primary-black);
+}
+
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 3rem;
+  align-items: start;
+  padding: 4rem 0;
+}
+
+.contact-info {
+  background-color: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-info h3 {
+  color: var(--primary-white);
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.contact-info p {
+  color: var(--secondary-white);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.contact-info .info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--secondary-white);
+  font-size: 1rem;
+}
+
+.contact-info .info-item img {
+  width: 24px;
+  height: 24px;
+}
+
+.contact-form {
+  background-color: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form h3 {
+  color: var(--primary-white);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--primary-white);
+  font-weight: 600;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--input-border);
+  border-radius: 4px;
+  background-color: var(--input-bg);
+  color: var(--input-text-color);
+  font-size: 1rem;
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+  border-color: var(--primary-white);
+  outline: none;
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-form button {
+  background-color: var(--primary-white);
+  color: var(--primary-black);
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: var(--accent-gray);
+  color: var(--primary-white);
+}
+
+/* Genel form stilleri */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--input-text-color);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+textarea.form-input {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.contact-icon {
+  width: 40px;
+  height: 40px;
+  background-color: var(--primary-black);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+.contact-text h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+  color: var(--primary-white);
+}
+
+.contact-text p {
+  color: var(--accent-gray);
+}
+
+/* ============= */
+/* Footer        */
+/* ============= */
+footer {
+  background-color: var(--primary-black);
+  padding: 4rem 0 2rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 3rem;
+}
+
+.footer-col h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-white);
+}
+
+.footer-col p {
+  color: var(--accent-gray);
+  margin-bottom: 1.5rem;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+  color: var(--accent-gray);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--primary-white);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+  border-top: 1px solid var(--card-bg);
+}
+
+.copyright {
+  color: var(--accent-gray);
+  font-size: 0.9rem;
+}
+
+.footer-social {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-social a img {
+  width: 24px;
+  height: 24px;
+}
+
+/* ============= */
+/* Responsive    */
+/* ============= */
+@media (max-width: 992px) {
+  .hero h1 {
+    font-size: 3rem;
+  }
+
+  .vision-container,
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Tablet header tightening */
+  .header-container { gap: 0.75rem; }
+  .desktop-nav ul { gap: 1.25rem; }
+  .desktop-nav ul li a { font-size: 0.95rem; }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: calc(1rem + env(safe-area-inset-top)) 0;
+  }
+
+  .header-container {
+    flex-direction: row;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Logo a little smaller for tight spaces */
+  #main-link {
+    font-size: 1.5rem;
+  }
+
+  /* Reduce nav spacing and font size on small screens */
+  .desktop-nav ul {
+    gap: 1rem;
+  }
+  .desktop-nav ul li a {
+    font-size: 0.9rem;
+  }
+
+  /* Show compact theme switch on mobile header */
+  .desktop-buttons { display: flex !important; gap: 0.5rem; align-items: center; }
+  /* Dil dropdown'ını tekrar gösterelim (modern görünsün) */
+  .desktop-buttons .language-dropdown { display: block !important; }
+  .theme-switch-container { margin-right: 0; }
+  .theme-switch { width: 48px; height: 24px; }
+
+  /* Compact theme switch container */
+  .theme-switch-container {
+    margin-right: 0.25rem;
+  }
+  .theme-switch {
+    width: 48px;
+    height: 24px;
+  }
+  .theme-slider:before {
+    width: 18px;
+    height: 18px;
+    bottom: 3px;
+    left: 3px;
+  }
+  .theme-switch input:checked + .theme-slider:before {
+    transform: translateX(24px);
+  }
+
+  /* Show only globe icon on language button to save space */
+  .modern-lang-btn #current-lang-text {
+    display: none;
+  }
+  .modern-lang-btn .dropdown-arrow {
+    display: none;
+  }
+
+  /* Make sure language menu anchors correctly to button */
+  .language-dropdown {
+    position: relative;
+  }
+  .language-menu {
+    right: 0;
+    left: auto;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .section-header h2 {
+    font-size: 2rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Scrollable chip nav aktif, hamburger kapalı */
+  .desktop-nav { display: block; }
+  .mobile-menu-container { display: none; }
+  .mobile-nav-overlay { display: none !important; }
+
+  .hero { height: 100svh; padding-top: calc(80px + env(safe-area-inset-top)); }
+  .hero h1 { font-size: 2.1rem; }
+  .hero p { font-size: 0.95rem; }
+}
+
+/* Son kartın hizasını standart bırak (sola yaslı kalsın) */
+@media (min-width: 993px) {
+  .team-card:last-child {
+    grid-column: auto;
+  }
+}
+
+/* ======================================= */
+/* == MEHTAP'S BIRTHDAY QUIZ STYLES START == */
+/* ======================================= */
+
+#birthday-quiz-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #111;
+  z-index: 10000;
+  display: none; /* Initially hidden, controlled by JS */
+  justify-content: center;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+#birthday-quiz-overlay.visible {
+  display: flex;
+  opacity: 1;
+}
+
+.quiz-container {
+  text-align: center;
+  color: #fff;
+  padding: 2rem;
+  width: 90%;
+  max-width: 800px;
+  position: relative;
+}
+
+.quiz-step {
+  display: none;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.quiz-step.active {
+  display: block;
+}
+
+.quiz-step.shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* Question and Intro Text Styles */
+.intro-text, .question-title, .final-text {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 3rem;
+  letter-spacing: -1px;
+}
+
+.intro-text, .final-text {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.intro-text.visible, .final-text.visible {
+  opacity: 1;
+}
+
+/* Options */
+.options-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.option-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.option-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-3px);
+}
+
+/* Glitch Effect for Q4 */
+.glitch {
+  position: relative;
+  animation: glitch-anim 2s infinite;
+}
+
+.glitch:before,
+.glitch:after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  overflow: hidden;
+}
+
+.glitch:before {
+  left: 2px;
+  text-shadow: -1px 0 red;
+  animation: glitch-anim-2 1.5s infinite;
+}
+
+.glitch:after {
+  left: -2px;
+  text-shadow: -1px 0 blue;
+  animation: glitch-anim-1 2.5s infinite;
+}
+
+@keyframes glitch-anim { 0% { opacity: 1; } 100% { opacity: 1; } }
+@keyframes glitch-anim-1 { 0%, 100% { clip-path: inset(0 0 98% 0); } /* ... a bunch of clip-path steps for glitching ... */ }
+@keyframes glitch-anim-2 { 0%, 100% { clip-path: inset(98% 0 0 0); } /* ... more clip-path steps ... */ }
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-20px); }
+}
+
+.quiz-step.fade-out-reset {
+  animation: fadeOut 0.4s ease-in forwards;
+}
+
+/* Love Slider for Q5 */
+.love-slider-container {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#love-slider-track {
+  width: 80%;
+  max-width: 500px;
+  height: 10px;
+  background: linear-gradient(90deg, #ff8a80, #ff4081);
+  border-radius: 5px;
+  position: relative;
+  cursor: pointer;
+}
+#love-slider-thumb {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  line-height: 40px;
+  text-align: center;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+#love-slider-thumb:active {
+  cursor: grabbing;
+}
+.instruction-text {
+    margin-top: 2rem;
+    font-size: 1rem;
+    color: #999;
+    opacity: 0.7;
+}
+
+.options-container.single-option {
+  display: flex;
+  justify-content: center;
+}
+
+.options-container.single-option .option-btn {
+  min-width: 200px;
+  font-size: 1.5rem;
+  padding: 1.2rem 2rem;
+}
+
+/* Heart Explosion Background */
+#birthday-quiz-overlay.hearts-bg {
+  background: #111; /* Fallback */
+  animation: heart-bg-anim 1s forwards;
+}
+@keyframes heart-bg-anim {
+    from { background-color: #111; }
+    to { background-color: #ff4081; }
+}
+/* ===================================== */
+/* == MEHTAP'S BIRTHDAY QUIZ STYLES END == */
+/* ===================================== */
+/* Navigasyon linklerinin temel stilleri */
+nav ul li a {
+  position: relative;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+/* Hover efekti - fare ile üzerine gelindiğinde */
+nav ul li a:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+  color: #007bff;
+  transform: translateY(-2px);
+}
+
+/* Alt çizgi efekti */
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 2px;
+  left: 50%;
+  background-color: #007bff;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+nav ul li a:hover::after {
+  width: 85%;
+}
+
+/* Alternatif: Üstten gelen çizgi efekti */
+nav ul li a::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  top: 0;
+  left: 50%;
+  background-color: #007bff;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+nav ul li a:hover::before {
+  width: 100%;
+}
+
+/* Glow efekti */
+nav ul li a:hover {
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+/* Dark mode için stiller */
+body.dark-theme nav ul li a:hover,
+.dark-theme nav ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #4dabf7;
+}
+
+.dark-theme nav ul li a::after,
+.dark-theme nav ul li a::before {
+  background-color: #4dabf7;
+}
+
+.dark-theme nav ul li a:hover {
+  box-shadow: 0 4px 8px rgba(77, 171, 247, 0.2);
+}
+
+/* Mobil cihazlar için */
+@media (max-width: 768px) {
+  nav ul li a {
+      padding: 10px 18px;
+  }
+  
+  nav ul li a:hover {
+      transform: none; /* Mobilde hareket efekti istemiyorsanız */
+  }
+}
+
+
+
+/* 3. Border efekti */
+.border-effect nav ul li a {
+  border: 2px solid transparent;
+}
+
+.border-effect nav ul li a:hover {
+  border-color: #007bff;
+  background: none;
+  transform: none;
+}
+/* Kartlar için temel stiller */
+.about-card {
+    position: relative;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    overflow: hidden;
+}
+
+/* Animasyonlu kenarlık için pseudo-element */
+.about-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #00d5ff00, #0099cc00, #0066cc00, #00d5ff00);
+    background-size: 400% 400%;
+    border-radius: 15px;
+    opacity: 0;
+    z-index: -1;
+    animation: borderAnimation 15s infinite;
+}
+
+/* Her kart için farklı animasyon gecikmesi */
+.about-card:nth-child(1)::before {
+    animation-delay: 0s;
+}
+
+.about-card:nth-child(2)::before {
+    animation-delay: 5s;
+}
+
+.about-card:nth-child(3)::before {
+    animation-delay: 10s;
+}
+
+/* Ana animasyon */
+@keyframes borderAnimation {
+    0%, 20% {
+        opacity: 0;
+        transform: scale(1);
+        background-position: 0% 50%;
+    }
+    25%, 45% {
+        opacity: 1;
+        transform: scale(1.05);
+        background-position: 100% 50%;
+    }
+    50%, 100% {
+        opacity: 0;
+        transform: scale(1);
+        background-position: 0% 50%;
+    }
+}
+
+/* Kartlar için temel stiller */
+.about-card {
+  position: relative;
+  padding: 2rem;
+  background-color: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Light theme için kart kenarlığı */
+body.light-theme .about-card {
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Hover'da animasyonlu kenarlık için pseudo-element */
+.about-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #00d5ff00, #0099cc00, #0066cc00, #00d5ff00);
+  background-size: 400% 400%;
+  border-radius: 15px;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  animation: borderFlow 3s linear infinite;
+}
+
+/* Light theme için hover kenarlık gradientı */
+body.light-theme .about-card::before {
+  background: linear-gradient(45deg, #abacad, #ffffff, #ffffff, #abacad);
+}
+
+/* Hover'da kenarlık animasyonu */
+.about-card:hover::before {
+  opacity: 1;
+}
+
+/* Kenarlık akışı animasyonu */
+@keyframes borderFlow {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
+/* Hover efektleri - mod uyumlu */
+.about-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 212, 255, 0.3);
+  border: 2px solid transparent;
+}
+
+/* Light theme için hover gölgesi */
+body.light-theme .about-card:hover {
+  box-shadow: 0 15px 35px rgba(0, 102, 204, 0.2);
+}
+
+/* Başlık stilleri - mod uyumlu ve hover efekti */
+.about-card h3 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  transition: color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+/* Light theme için başlık rengi */
+body.light-theme .about-card h3 {
+  color: #03294f;
+}
+
+/* Başlık hover efekti */
+.about-card h3:hover {
+  color: #083c47;
+  transform: translateX(5px);
+}
+
+/* Light theme için başlık hover rengi */
+body.light-theme .about-card h3:hover {
+  color: #003a45;
+}
+
+/* Paragraf stilleri - mod uyumlu */
+.about-card p {
+  color: var(--accent-gray);
+  line-height: 1.6;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+/* Hover'da paragraf rengi de değişsin */
+.about-card:hover p {
+  color: var(--primary-white);
+}
+/* Language Dropdown Menu */
+.language-dropdown {
+  position: relative; /* Menüyü butona göre konumlandırmak için */
+}
+
+#language-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+#language-toggle-btn:hover {
+  background-color: var(--secondary-background);
+}
+
+/* 🚀 MOBİL NAVİGASYON SİSTEMİ - v2.0.1 */
+/* Cache bypass için version güncellendi */
+
+/* Desktop Navigation - Sadece büyük ekranlarda göster */
+.desktop-nav {
+  display: flex;
+}
+
+/* Mobile Menu Container - Sadece küçük ekranlarda göster */
+.mobile-menu-container {
+  display: none;
+}
+
+/* Ensure mobile toggle is visible on small screens */
+@media (max-width: 768px) {
+  .mobile-menu-container { display: flex; align-items: center; }
+}
+
+/* Modern Theme Switch Tasarımı */
+.theme-switch-container {
+  margin-right: 1rem;
+}
+
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.theme-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #ffd700, #ffb300);
+  border-radius: 30px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.theme-slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.theme-slider-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.sun-icon {
+  left: 8px;
+  opacity: 1;
+}
+
+.moon-icon {
+  right: 8px;
+  opacity: 0;
+}
+
+/* Dark mode aktif olduğunda */
+.theme-switch input:checked + .theme-slider {
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+}
+
+.theme-switch input:checked + .theme-slider:before {
+  transform: translateX(30px);
+}
+
+.theme-switch input:checked + .theme-slider .sun-icon {
+  opacity: 0;
+}
+
+.theme-switch input:checked + .theme-slider .moon-icon {
+  opacity: 1;
+}
+
+/* Modern Language Button */
+.modern-lang-btn {
+  background: var(--card-bg);
+  border: 2px solid var(--accent-gray);
+  border-radius: 12px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  color: var(--primary-white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modern-lang-btn:hover {
+  background: var(--accent-gray);
+  border-color: var(--primary-white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.lang-icon {
+  font-size: 16px;
+}
+
+.modern-lang-menu {
+  background: var(--card-bg);
+  border: 2px solid var(--accent-gray);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  padding: 8px;
+  margin-top: 8px;
+}
+
+.modern-lang-menu .lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+/* Sprite tabanlı bayrak ikonları (emojilerin yerine) */
+.flag-icon {
+  width: 18px;
+  height: 12px;
+  border-radius: 2px;
+  background-size: cover;
+  background-position: center;
+  display: inline-block;
+}
+.flag-tr { background-image: url('https://flagcdn.com/tr.svg'); }
+.flag-en { background-image: url('https://flagcdn.com/us.svg'); }
+.flag-hi { background-image: url('https://flagcdn.com/in.svg'); }
+
+.modern-lang-menu .lang-btn:hover {
+  background: var(--accent-gray);
+  transform: translateX(4px);
+}
+
+.flag-emoji {
+  font-size: 16px;
+}
+
+/* Hamburger Menu Tasarımı */
+.mobile-menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle:hover {
+  background: var(--accent-gray);
+}
+
+.hamburger-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.line {
+  width: 24px;
+  height: 3px;
+  background: var(--primary-white);
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+/* Light theme'de hamburger çizgilerini görünür yap */
+body.light-theme .mobile-menu-toggle .line {
+  background: var(--primary-black);
+}
+
+/* Hamburger animasyonu - X'e dönüşüm */
+.mobile-menu-toggle.active .line1 {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mobile-menu-toggle.active .line2 {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.mobile-menu-toggle.active .line3 {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Mobile Navigation Overlay */
+.mobile-nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 99999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.mobile-nav-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+/* Menü overlay'i her koşulda görünür olsun (diğer katmanlar gölgelemeye çalışsa bile) */
+.mobile-nav-overlay {
+  display: none;
+}
+.mobile-nav-overlay.active {
+  display: block;
+}
+
+.mobile-nav-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-50px);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-nav-overlay.active .mobile-nav-content {
+  transform: translateY(0);
+}
+
+.mobile-nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--accent-gray);
+}
+
+.mobile-nav-header h3 {
+  color: var(--primary-white);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.mobile-nav-close {
+  background: none;
+  border: none;
+  color: var(--primary-white);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-close:hover {
+  background: var(--accent-gray);
+  transform: rotate(90deg);
+}
+
+/* Mobile Navigation Links */
+.mobile-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-nav li {
+  margin-bottom: 1rem;
+}
+
+.mobile-nav-link {
+  display: block;
+  color: var(--primary-white);
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 1rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+}
+
+.mobile-nav-link:hover {
+  background: var(--card-bg);
+  border-left-color: var(--primary-white);
+  transform: translateX(8px);
+}
+
+/* Mobile Controls */
+.mobile-nav-controls {
+  margin-top: auto;
+  padding-top: 2rem;
+  border-top: 2px solid var(--accent-gray);
+}
+
+.mobile-theme-control,
+.mobile-lang-control {
+  margin-bottom: 1.5rem;
+}
+
+.control-label {
+  display: block;
+  color: var(--primary-white);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Mobile Theme Toggle */
+.mobile-theme-switch {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-theme-toggle {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.mobile-theme-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.mobile-theme-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #ffd700, #ffb300);
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-theme-slider:before {
+  position: absolute;
+  content: "";
+  height: 19px;
+  width: 19px;
+  left: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.mobile-theme-toggle input:checked + .mobile-theme-slider {
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+}
+
+.mobile-theme-toggle input:checked + .mobile-theme-slider:before {
+  transform: translateX(25px);
+}
+
+.mobile-theme-icon {
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+/* Mobile Language Buttons */
+.mobile-lang-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.mobile-lang-btn {
+  background: var(--card-bg);
+  border: 2px solid var(--accent-gray);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--primary-white);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  justify-content: center;
+}
+
+.mobile-lang-btn:hover,
+.mobile-lang-btn.active {
+  background: var(--primary-white);
+  color: var(--primary-black);
+  border-color: var(--primary-white);
+  transform: translateY(-2px);
+}
+
+/* 📱 MOBİL RESPONSİVE AYARLAR */
+/* Force mobile mode for JavaScript detected mobile devices */
+/* Yeni mobil navbar: desktop-nav'ı mobilde yatay kaydırılabilir chip menü yap */
+body.mobile-mode .desktop-buttons {
+  display: flex !important;
+}
+body.mobile-mode .desktop-nav {
+  display: block !important;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+body.mobile-mode .desktop-nav ul {
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+}
+body.mobile-mode .desktop-nav::-webkit-scrollbar { display: none; }
+body.mobile-mode .mobile-menu-container { display: none !important; }
+body.mobile-mode .mobile-nav-overlay { display: none !important; }
+
+@media (max-width: 768px) {
+  /* Chip tarzı mobil navbar + kompakt kontroller */
+  .desktop-nav { 
+    display: block !important; 
+    width: 100%; 
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch;
+    margin-top: 8px;
+  }
+  .desktop-nav::-webkit-scrollbar { display: none; }
+  .desktop-nav ul { flex-wrap: nowrap; gap: 0.5rem; }
+  .desktop-nav ul li a { 
+    padding: 8px 12px; 
+    border: 1px solid var(--accent-gray); 
+    border-radius: 999px; 
+    background: var(--card-bg);
+    white-space: nowrap;
+  }
+  /* Hamburger tamamen kapalı */
+  .mobile-menu-container, .mobile-nav-overlay { display: none !important; }
+  /* Tema + Dil (kompakt) görünür */
+  .desktop-buttons { display: flex !important; gap: .5rem; }
+  
+  /* Header container düzeni */
+  .header-container {
+    justify-content: space-between !important;
+  }
+  
+  /* Eski navigasyon sistemini tamamen gizle */
+  nav:not(.desktop-nav):not(.mobile-nav) {
+    display: none !important;
+  }
+  
+  /* Eski butonları gizle */
+  .header-buttons:not(.desktop-buttons) {
+    display: none !important;
+  }
+  
+  /* Mobil dil menüsü için daha hızlı animasyonlar */
+  .language-menu {
+    transition: all 0.2s ease !important;
+  }
+  
+  /* Mobil dil değişimi sırasında sayfa geçiş efekti */
+  body.mobile-lang-switching {
+    overflow: hidden;
+  }
+  
+  /* Mobil loading indicator */
+  #mobile-lang-loading {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  /* Hızlı content fade efekti */
+  .mobile-content-fade {
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+  
+  .mobile-content-fade.completed {
+    opacity: 1;
+  }
+}
+
+.dropdown-arrow {
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.language-menu {
+  position: absolute;
+  top: 100%; /* Butonun hemen altına konumlandırır */
+  right: 0;
+  min-width: 150px;
+  background-color: var(--secondary-background);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 5px;
+  margin-top: 8px;
+  z-index: 1000;
+  display: none; /* Başlangıçta gizli */
+  flex-direction: column;
+}
+
+.language-menu.show {
+  display: flex; /* JavaScript ile görünür hale gelecek */
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 0.95rem;
+  padding: 10px 15px;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.lang-btn:hover {
+  background-color: var(--primary-background);
+}
+

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>404</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" />
+  <style>
+    :root {
+      --background-color: #121212;
+      --content-bg-color: rgba(30, 30, 30, 0.65);
+      --text-primary-color: #ffffff; 
+      --text-secondary-color: #b3b3b3;
+      --link-color: #ffffff; 
+      --link-hover-color: #121212;
+      --shadow-color: rgba(0, 0, 0, 0.2); 
+      --triangle-color: #2a2a2a; 
+      --border-color: rgba(255, 255, 255, 0.15); 
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: #4a4a4a transparent;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background-color);
+      color: var(--text-primary-color);
+      overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    body::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background-color: #4a4a4a;
+      border-radius: 20px;
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+      background-color: #6a6a6a;
+    }
+
+    .triangles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .triangles li {
+      position: absolute;
+      display: block;
+      list-style: none;
+      width: 20px;
+      height: 20px;
+      background: var(--triangle-color);
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      animation: triangleAnimate 25s linear infinite;
+      bottom: -180px;
+    }
+
+    .triangles li:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+    .triangles li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+    .triangles li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+    .triangles li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+    .triangles li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+    .triangles li:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
+    .triangles li:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
+    .triangles li:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+    .triangles li:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
+    .triangles li:nth-child(10) { left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
+
+    @keyframes triangleAnimate {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
+      100% { transform: translateY(-120vh) rotate(720deg); opacity: 0; border-radius: 50%; }
+    }
+
+    .container {
+      max-width: 900px;
+      width: 90%;
+      margin: auto;
+      background: var(--content-bg-color);
+      padding: 50px;
+      border-radius: 16px; /* Biraz daha yuvarlak */
+      box-shadow: 0 10px 30px var(--shadow-color);
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s forwards;
+      text-align: center;
+      
+      /* BUZLU CAM EFEKTİ (BLUR) */
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+    }
+
+    h1 {
+      color: var(--text-primary-color);
+      font-weight: 900; /* Daha kalın */
+      letter-spacing: -1.5px;
+      font-size: 7em;
+      margin: 0;
+      line-height: 1;
+    }
+
+    p {
+      color: var(--text-secondary-color);
+      font-size: 1.2em;
+      margin: 20px 0;
+    }
+
+    a {
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 28px;
+      border: 2px solid var(--link-color);
+      color: var(--link-color);
+      border-radius: 8px;
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    }
+
+    a:hover {
+      background-color: var(--link-color);
+      color: var(--link-hover-color);
+      text-decoration: none;
+      transform: translateY(-3px);
+    }
+
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 40px 25px; }
+      h1 { font-size: 5em; }
+      p { font-size: 1.1em; }
+    }
+  </style>
+</head>
+
+<body>
+  <ul class="triangles">
+    <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+  </ul>
+  <div class="container">
+    <h1 id="main-heading">404</h1>
+    <p id="error-message">Oops! The page you are looking for could not be found.</p>
+    <a href="/" id="home-link">Return to Homepage</a>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const translations = {
+        en: {
+          title: "404 - Page Not Found",
+          message: "Oops! The page you are looking for does not exist or has been moved.",
+          link: "Return to Homepage"
+        },
+        tr: {
+          title: "404 - Sayfa Bulunamadı",
+          message: "Hay aksi! Aradığınız sayfa mevcut değil veya taşınmış olabilir.",
+          link: "Ana Sayfaya Dön"
+        }
+      };
+
+      const userLang = navigator.language.substring(0, 2);
+      const lang = translations[userLang] ? userLang : 'en';
+      const content = translations[lang];
+
+      document.title = content.title;
+      document.getElementById('error-message').textContent = content.message;
+      document.getElementById('home-link').textContent = content.link;
+      document.documentElement.lang = lang;
+    });
+  </script>
+</body>
+
+</html>

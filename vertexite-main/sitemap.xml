@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 🗺️ VERTEX CORPORATION - ANA SITEMAP -->
+<!-- Google için süper SEO sitemap! -->
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- Ana dil sitemapleri -->
+  <sitemap>
+    <loc>https://vertexishere.com/sitemap-tr.xml</loc>
+    <lastmod>2024-01-15T00:00:00Z</lastmod>
+  </sitemap>
+  
+  <sitemap>
+    <loc>https://vertexishere.com/sitemap-en.xml</loc>
+    <lastmod>2024-01-15T00:00:00Z</lastmod>
+  </sitemap>
+  
+  <sitemap>
+    <loc>https://vertexishere.com/sitemap-hi.xml</loc>
+    <lastmod>2024-01-15T00:00:00Z</lastmod>
+  </sitemap>
+
+</sitemapindex>
