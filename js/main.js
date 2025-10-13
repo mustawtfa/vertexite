@@ -287,17 +287,46 @@ function updateCurrentLanguageText(allTranslations, currentLanguage) {
 
 // 🍔 MOBİL HAMBURGER MENU SİSTEMİ
 function initializeMobileMenu() {
+    console.log('🍔 Initializing mobile menu...');
+    
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
     const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
     const mobileNavClose = document.getElementById('mobile-nav-close');
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-    if (!mobileMenuToggle || !mobileNavOverlay) return;
+    console.log('🍔 Mobile menu toggle:', mobileMenuToggle);
+    console.log('🍔 Mobile nav overlay:', mobileNavOverlay);
+    console.log('🍔 Mobile nav close:', mobileNavClose);
+    console.log('🍔 Mobile nav links:', mobileNavLinks);
+
+    if (!mobileMenuToggle || !mobileNavOverlay) {
+        console.error('🍔 Mobile menu elements not found!');
+        return;
+    }
+    
+    console.log('🍔 Mobile menu initialized successfully');
 
     // Hamburger menu toggle
-    mobileMenuToggle.addEventListener('click', function() {
+    mobileMenuToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        
+        // Debounce to prevent double-click issues
+        if (mobileMenuToggle.dataset.processing === 'true') {
+            console.log('🍔 Click ignored - already processing');
+            return;
+        }
+        
+        mobileMenuToggle.dataset.processing = 'true';
+        setTimeout(() => {
+            mobileMenuToggle.dataset.processing = 'false';
+        }, 300);
+        
         const isActive = mobileMenuToggle.classList.contains('active');
         console.log('🍔 Mobile menu toggle clicked. Active?', isActive);
+        console.log('🍔 Mobile nav overlay:', mobileNavOverlay);
+        console.log('🍔 Mobile nav overlay classes:', mobileNavOverlay.classList.toString());
 
         if (isActive) {
             closeMobileMenu();
@@ -306,21 +335,66 @@ function initializeMobileMenu() {
         }
     });
 
-    // Close button
+    // Close button - with debounce
     if (mobileNavClose) {
-        mobileNavClose.addEventListener('click', closeMobileMenu);
+        mobileNavClose.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            if (mobileNavClose.dataset.processing === 'true') {
+                console.log('🍔 Close button click ignored - already processing');
+                return;
+            }
+            
+            mobileNavClose.dataset.processing = 'true';
+            setTimeout(() => {
+                mobileNavClose.dataset.processing = 'false';
+            }, 300);
+            
+            console.log('🍔 Close button clicked - closing menu');
+            closeMobileMenu();
+        });
     }
 
-    // Close on overlay click
+    // Close on overlay click - with debounce
     mobileNavOverlay.addEventListener('click', function(e) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        
+        if (mobileNavOverlay.dataset.processing === 'true') {
+            console.log('🍔 Overlay click ignored - already processing');
+            return;
+        }
+        
+        mobileNavOverlay.dataset.processing = 'true';
+        setTimeout(() => {
+            mobileNavOverlay.dataset.processing = 'false';
+        }, 300);
+        
         if (e.target === mobileNavOverlay) {
+            console.log('🍔 Overlay clicked - closing menu');
             closeMobileMenu();
         }
     });
 
-    // Close on navigation link click
+    // Close on navigation link click - with debounce
     mobileNavLinks.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function(e) {
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            if (link.dataset.processing === 'true') {
+                console.log('🍔 Nav link click ignored - already processing');
+                return;
+            }
+            
+            link.dataset.processing = 'true';
+            setTimeout(() => {
+                link.dataset.processing = 'false';
+            }, 300);
+            
+            console.log('🍔 Nav link clicked - closing menu');
             closeMobileMenu();
             // Smooth scroll için delay
             setTimeout(() => {
@@ -393,16 +467,46 @@ function openMobileMenu() {
     const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
     const headerEl = document.querySelector('header');
 
+    console.log('🍔 Opening mobile menu...');
+    console.log('🍔 Toggle element:', mobileMenuToggle);
+    console.log('🍔 Overlay element:', mobileNavOverlay);
+    console.log('🍔 Overlay current classes:', mobileNavOverlay.classList.toString());
+    console.log('🍔 Overlay current style:', mobileNavOverlay.style.cssText);
+
+    if (!mobileMenuToggle || !mobileNavOverlay) {
+        console.error('🍔 Missing mobile menu elements!');
+        return;
+    }
+
     mobileMenuToggle.classList.add('active');
     mobileNavOverlay.classList.add('active');
-    // Fail-safe: force display in case of CSS specificity issues
-    mobileNavOverlay.style.display = 'block';
+    
+    // Force all styles to ensure visibility
+    mobileNavOverlay.style.cssText = `
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: all !important;
+      z-index: 999999 !important;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: rgba(10, 10, 10, 0.98) !important;
+    `;
+    
     document.body.style.overflow = 'hidden';
     if (headerEl) headerEl.classList.add('menu-open');
 
-    // Accessibility
+    // Accessibility - Fix aria-hidden
     mobileNavOverlay.setAttribute('aria-hidden', 'false');
     mobileMenuToggle.setAttribute('aria-expanded', 'true');
+    
+    console.log('🍔 Mobile menu opened successfully');
+    console.log('🍔 Final overlay classes:', mobileNavOverlay.classList.toString());
+    console.log('🍔 Final overlay style:', mobileNavOverlay.style.cssText);
+    console.log('🍔 Final aria-hidden:', mobileNavOverlay.getAttribute('aria-hidden'));
 }
 
 function closeMobileMenu() {
@@ -410,35 +514,56 @@ function closeMobileMenu() {
     const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
     const headerEl = document.querySelector('header');
 
+    console.log('🍔 Closing mobile menu...');
+
+    if (!mobileMenuToggle || !mobileNavOverlay) {
+        console.error('🍔 Missing mobile menu elements!');
+        return;
+    }
+
     mobileMenuToggle.classList.remove('active');
     mobileNavOverlay.classList.remove('active');
-    // Revert inline style display if set
-    mobileNavOverlay.style.display = '';
+    
+    // Reset all inline styles
+    mobileNavOverlay.style.cssText = '';
     document.body.style.overflow = '';
     if (headerEl) headerEl.classList.remove('menu-open');
 
-    // Accessibility
+    // Accessibility - Fix aria-hidden
     mobileNavOverlay.setAttribute('aria-hidden', 'true');
     mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    
+    console.log('🍔 Mobile menu closed successfully');
 }
 
 function changeMobileLanguage(newLang) {
     // Mobile için optimize edilmiş dil değişimi
     console.log('📱 Changing mobile language to:', newLang);
 
-    currentLanguage = newLang;
+    // currentLanguage değişkenini tanımla
+    let currentLanguage = newLang;
     localStorage.setItem('selectedLanguage', currentLanguage);
 
-    // URL güncelle
-    const newUrl = window.location.origin + `/vertexite-main/${newLang}/`;
-    window.history.pushState({language: newLang}, '', newUrl);
-
-    // Çevirileri uygula
-    if (allTranslations && allTranslations[currentLanguage]) {
-        applyTranslations(allTranslations, currentLanguage);
+    // URL güncelle - doğru path formatı
+    const currentPath = window.location.pathname;
+    const pathParts = currentPath.split('/');
+    
+    // Mevcut dil klasörünü yeni dil ile değiştir
+    if (pathParts.length > 2 && (pathParts[1] === 'tr' || pathParts[1] === 'en' || pathParts[1] === 'hi')) {
+        pathParts[1] = newLang;
+        const newUrl = pathParts.join('/');
+        window.history.pushState({language: newLang}, '', newUrl);
+    } else {
+        // Eğer dil klasörü yoksa, yeni dil klasörü ekle
+        const newUrl = `/${newLang}/`;
+        window.history.pushState({language: newLang}, '', newUrl);
     }
-    updateCurrentLanguageText(allTranslations, currentLanguage);
 
+    // Sayfayı yönlendir - çeviri işlemi sayfa yenilendikten sonra otomatik olacak
+    console.log('📱 Redirecting to new language page...');
+    setTimeout(() => {
+        window.location.href = window.location.href.replace(/\/[a-z]{2}\//, `/${newLang}/`);
+    }, 100);
     console.log('📱 Mobile language changed to:', newLang);
 }
 

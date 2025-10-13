@@ -77,98 +77,14 @@ function updateCurrentLanguageText(allTranslations, currentLanguage) {
 
 // 🚀 MOBİL OPTİMİZE EDİLMİŞ DİL DEĞİŞTİRME SİSTEMİ
 function changeLanguage(newLanguage, allTranslations, newsDataCache, fetchNews, renderNews) {
-    const isMobile = window.innerWidth <= 768;
-    
-    // Dropdown menüsünü kapat
-    const languageMenu = document.getElementById('language-menu');
-    if (languageMenu) {
-        languageMenu.classList.remove('show');
-    }
-    
-    // Mobilde hızlı geçiş, desktop'ta yönlendirme
-    if (isMobile) {
-        // 📱 MOBİL: Sayfa yenileme OLMADAN hızlı dil değişimi
-        if (typeof showLanguageLoadingIndicator === 'function') {
-            showLanguageLoadingIndicator();
-        }
-        
-        // Dil değişikliğini hemen uygula
-        currentLanguage = newLanguage;
-        localStorage.setItem('selectedLanguage', currentLanguage);
-        
-        // URL'i güncelle (sayfa yenileme olmadan)
-        const baseUrl = window.location.origin;
-        const newUrl = baseUrl + `/vertexite-main/${newLanguage}/`;
-        window.history.pushState({language: newLanguage}, '', newUrl);
-        
-        // Çevirileri anında uygula
-        applyTranslations(currentLanguage);
-        updateCurrentLanguageText(allTranslations, currentLanguage);
-        
-        // Haberleri yeniden render et
-        if (newsDataCache) {
-            renderNews(newsDataCache, currentLanguage, allTranslations);
-        } else {
-            fetchNews(currentLanguage, allTranslations);
-        }
-        
-        // Loading indicator'ı kaldır
-        setTimeout(() => {
-            if (typeof hideLanguageLoadingIndicator === 'function') {
-                hideLanguageLoadingIndicator();
-            }
-        }, 300);
-        
-    } else {
-        // 🖥️ DESKTOP: Geleneksel yönlendirme (daha az kritik)
-        setTimeout(() => {
-            const currentPath = window.location.pathname;
-            const baseUrl = window.location.origin;
-            
-            // Mevcut dil klasörü kontrolü
-            if (currentPath.includes('/tr/') || currentPath.includes('/en/') || currentPath.includes('/hi/')) {
-                // Zaten bir dil klasöründeyse, o klasöre yönlendir
-                switch(newLanguage) {
-                    case 'tr':
-                        window.location.href = baseUrl + '/vertexite-main/tr/';
-                        break;
-                    case 'en':
-                        window.location.href = baseUrl + '/vertexite-main/en/';
-                        break;
-                    case 'hi':
-                        window.location.href = baseUrl + '/vertexite-main/hi/';
-                        break;
-                }
-                return;
-            }
-            
-            // Ana sayfadaysa da dil klasörlerine yönlendir
-            switch(newLanguage) {
-                case 'tr':
-                    window.location.href = baseUrl + '/vertexite-main/tr/';
-                    break;
-                case 'en':
-                    window.location.href = baseUrl + '/vertexite-main/en/';
-                    break;
-                case 'hi':
-                    window.location.href = baseUrl + '/vertexite-main/hi/';
-                    break;
-                default:
-                    // Eski davranış (sayfa yenileme olmadan)
-                    currentLanguage = newLanguage;
-                    localStorage.setItem('selectedLanguage', currentLanguage);
-                    applyTranslations(currentLanguage);
-                    updateCurrentLanguageText(allTranslations, currentLanguage);
+    // Dil değişikliğini hemen uygula
+    currentLanguage = newLanguage;
+    localStorage.setItem('selectedLanguage', currentLanguage);
 
-                    // Dil değiştiğinde haberleri yeniden render et
-                    if (newsDataCache) {
-                        renderNews(newsDataCache, currentLanguage, allTranslations);
-                    } else {
-                        fetchNews(currentLanguage, allTranslations);
-                    }
-            }
-        }, 100);
-    }
+    // URL'i güncelle (sayfa yenileme ile)
+    const basePath = window.location.pathname.includes('/vertexite-main/') ? '/vertexite-main' : '';
+    const redirectUrl = `${window.location.origin}${basePath}/${newLanguage}/`;
+    window.location.href = redirectUrl; // Tam sayfa yenileme ile yönlendir
 }
 
 // Dil bilgilerini al
