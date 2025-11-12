@@ -1,0 +1,47 @@
+name: Generate and Commit Attributions
+
+on:
+  # This allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+  # This allows triggering the workflow via a repository dispatch event
+  # We will use this later for the button in the admin panel.
+  repository_dispatch:
+    types: [generate-attributions]
+
+jobs:
+  build-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository's code into the runner
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up the Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      # Step 3: Run the script that generates the attributions file
+      # We assume the script is located at 'scripts/generateAttributions.js'
+      - name: Run Generation Script
+        run: node scripts/generateAttributions.js
+
+      # Step 4: Commit and push the changes if the file was modified
+      - name: Commit and Push if changed
+        run: |
+          git config --global user.name "Cortex Attributions Bot"
+          git config --global user.email "actions@github.com"
+          git add .
+          # Only commit if there are actual changes to the tracked files
+          if ! git diff --staged --quiet; then
+            git commit -m "docs: Auto-generate attributions.html"
+            git push
+          else
+            echo "No changes to commit. The attributions file is already up-to-date."
+          fi
+        env:
+          # Use the Personal Access Token we stored in repository secrets
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
