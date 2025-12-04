@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Vertex | Support Center</title>
-  <meta name="description" content="Get support for Vertex products including Cortex, Solar Browser, and All Star game. Contact our team for assistance.">
+  <title>Vertex | Contact & Support</title>
+  <meta name="description" content="Get support for Vertex products. Contact us via email, phone, or LinkedIn.">
   
   <!-- Fonts and Styles -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="assets/favicon.png">
 
@@ -20,7 +20,6 @@
         try {
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const savedTheme = localStorage.getItem('selectedTheme');
-            
             if (savedTheme) return savedTheme;
             return prefersDark ? 'dark' : 'light';
         } catch (error) {
@@ -45,7 +44,6 @@
     document.addEventListener('DOMContentLoaded', function() {
         const detectedTheme = detectSystemTheme();
         applyTheme(detectedTheme);
-        
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
             if (!localStorage.getItem('selectedTheme')) {
                 applyTheme(e.matches ? 'dark' : 'light');
@@ -55,18 +53,40 @@
   </script>
 
   <style>
-    /* Support Page Specific Styles */
+    /* --- Support Page Specific Styles --- */
+    
     .support-hero {
-      padding-top: 150px;
-      padding-bottom: 50px;
-      text-align: center;
       position: relative;
+      padding-top: 180px;
+      padding-bottom: 100px;
+      text-align: center;
+      background-color: var(--hero-bg);
+      overflow: hidden;
+    }
+
+    .hero-fade-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 150px;
+      background: linear-gradient(to bottom, transparent, var(--primary-black));
+      z-index: 2;
+      pointer-events: none;
     }
     
+    .hero-content-wrapper {
+      position: relative;
+      z-index: 3;
+    }
+
     .support-container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 0 auto;
       padding: 0 20px;
+      position: relative;
+      z-index: 4;
+      margin-top: -60px;
     }
 
     .support-grid {
@@ -76,34 +96,80 @@
       margin-bottom: 4rem;
     }
 
-    @media(min-width: 768px) {
+    @media(min-width: 992px) {
       .support-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1.5fr;
       }
     }
 
-    .faq-section {
-      margin-top: 4rem;
+    /* Contact Info Cards */
+    .contact-card-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
     }
 
-    .faq-item {
+    .contact-card {
       background-color: var(--card-bg);
-      border-radius: 8px;
       padding: 1.5rem;
-      margin-bottom: 1rem;
+      border-radius: 12px;
       border: 1px solid var(--shadow-color);
-      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: inherit;
     }
 
-    .faq-item h4 {
-      color: var(--primary-white);
-      margin-bottom: 0.5rem;
-      font-size: 1.1rem;
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      border-color: var(--primary-white);
     }
 
-    .faq-item p {
+    .icon-box {
+      width: 50px;
+      height: 50px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-box img {
+      width: 24px;
+      height: 24px;
+      filter: invert(1); 
+    }
+    
+    /* Light Mode Icon Fix */
+    body.light-theme .icon-box img {
+        filter: invert(0);
+    }
+
+    .card-info h4 {
       color: var(--accent-gray);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      margin-bottom: 0.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .card-info p {
+      color: var(--primary-white);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    /* Form Styles Override */
+    .contact-form {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
   </style>
 </head>
@@ -120,7 +186,8 @@
         <ul>
           <li><a href="index.html#home">Home</a></li>
           <li><a href="index.html#projects">Products</a></li>
-          <li><a href="support.html" style="color: var(--primary-white); font-weight: 600;">Support</a></li>
+          <li><a href="index.html#team">Team</a></li>
+          <li><a href="support.html" style="color: var(--primary-white); font-weight: 700; border-bottom: 2px solid var(--primary-white);">Contact</a></li>
         </ul>
       </nav>
       
@@ -159,7 +226,8 @@
         <nav class="mobile-nav">
           <ul>
             <li><a href="index.html" class="mobile-nav-link">Home</a></li>
-            <li><a href="support.html" class="mobile-nav-link">Support</a></li>
+            <li><a href="index.html#projects" class="mobile-nav-link">Products</a></li>
+            <li><a href="support.html" class="mobile-nav-link">Contact & Support</a></li>
           </ul>
         </nav>
       </div>
@@ -169,45 +237,73 @@
   <main>
     <!-- Hero Section -->
     <section class="support-hero">
-      <!-- Arkaplan Üçgen Animasyonu (Mevcut CSS'ten gelir) -->
-      <ul class="triangles" aria-hidden="true" style="z-index: -1;">
+      <!-- Arkaplan Üçgen Animasyonu -->
+      <ul class="triangles" aria-hidden="true" style="z-index: 1;">
         <li></li><li></li><li></li><li></li><li></li>
         <li></li><li></li><li></li><li></li><li></li>
       </ul>
       
-      <div class="container">
-        <h1 style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary-white);">Support Center</h1>
-        <p style="color: var(--accent-gray); max-width: 600px; margin: 0 auto;">
-          Need help with Cortex, All Star, or Solar Browser? We are here to assist you.
+      <!-- Gölge Efekti (Fade) -->
+      <div class="hero-fade-overlay"></div>
+
+      <div class="container hero-content-wrapper">
+        <h1 style="font-size: 3.5rem; margin-bottom: 1rem; color: var(--primary-white); font-weight: 700;">Get in Touch</h1>
+        <p style="color: var(--secondary-white); font-size: 1.2rem; max-width: 600px; margin: 0 auto; opacity: 0.9;">
+          Have a question, a project in mind, or just want to say hello?<br>We are here to help.
         </p>
       </div>
     </section>
 
-    <!-- Contact Form & Info -->
-    <section class="section" style="padding-top: 0;">
-      <div class="container support-container">
+    <!-- Main Content Grid -->
+    <section class="section" style="padding-top: 0; padding-bottom: 6rem;">
+      <div class="support-container">
         
         <div class="support-grid">
-          <!-- Direct Contact Info -->
-          <div class="contact-info">
-            <h3>Get in Touch</h3>
-            <p>For urgent inquiries or business partnerships, you can reach us directly via email.</p>
+          
+          <!-- LEFT COLUMN: Contact Cards -->
+          <div class="contact-card-container">
             
-            <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
-              <div class="info-item">
-                <img src="assets/email.svg" alt="Email">
-                <span>contact@vertexishere.com</span>
+            <!-- Email Card -->
+            <a href="mailto:contact@vertexishere.com" class="contact-card">
+              <div class="icon-box">
+                <img src="assets/email.svg" alt="Email Icon">
               </div>
-              <div class="info-item">
-                <img src="assets/email.svg" alt="Support">
-                <span>support@vertexishere.com</span>
+              <div class="card-info">
+                <h4>Email Us</h4>
+                <p>contact@vertexishere.com</p>
               </div>
-            </div>
+            </a>
+
+            <!-- Phone Card -->
+            <a href="tel:+905511988191" class="contact-card">
+              <div class="icon-box">
+                <!-- SVG Phone Icon Embedded for simplicity if assets/phone.svg missing -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22 16.92V19.92C22.0011 20.1986 21.9441 20.4742 21.8325 20.7294C21.7209 20.9846 21.5573 21.2137 21.3521 21.402C21.1468 21.5902 20.9046 21.7336 20.6407 21.8228C20.3769 21.912 20.0974 21.9452 19.82 21.92C16.7428 21.5857 13.787 20.5342 11.19 18.85C8.77382 17.2436 6.72159 15.161 5.15 12.71C3.49475 10.0811 2.47648 7.08985 2.18 3.97999C2.15509 3.7037 2.18803 3.42548 2.27665 3.16374C2.36527 2.90201 2.50756 2.6627 2.69415 2.4614C2.88075 2.26009 3.10738 2.10129 3.3592 1.9954C3.61101 1.8895 3.88226 1.83896 4.155 1.84999H7.155C7.63351 1.84652 8.09677 2.01691 8.46197 2.33061C8.82717 2.64431 9.07096 3.08129 9.15 3.55999C9.29828 4.68593 9.57416 5.79051 9.97 6.84999C10.0841 7.14815 10.1086 7.47283 10.0406 7.78491C9.97258 8.09699 9.81504 8.38312 9.587 8.60999L7.81 10.39C9.80934 13.9069 12.7135 16.7645 16.28 18.72L18.08 16.92C18.3093 16.6908 18.5991 16.5323 18.9149 16.4636C19.2307 16.395 19.5592 16.419 19.86 16.533C20.9348 16.9213 22.0556 17.1896 23.197 17.331" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="card-info">
+                <h4>Call Us</h4>
+                <p>+90 551 198 81 91</p>
+              </div>
+            </a>
+
+            <!-- LinkedIn Card -->
+            <a href="https://www.linkedin.com/company/106897671/" target="_blank" rel="noopener noreferrer" class="contact-card">
+              <div class="icon-box">
+                <img src="assets/linkedin.svg" alt="LinkedIn Icon">
+              </div>
+              <div class="card-info">
+                <h4>LinkedIn</h4>
+                <p>Vertex Corporation</p>
+              </div>
+            </a>
+
           </div>
 
-          <!-- Contact Form -->
-          <form class="contact-form" action="mailto:support@vertexishere.com" method="post" enctype="text/plain">
-            <h3>Send a Message</h3>
+          <!-- RIGHT COLUMN: Contact Form -->
+          <form class="contact-form" action="mailto:contact@vertexishere.com" method="post" enctype="text/plain">
+            <h3 style="margin-top: 0;">Send a Message</h3>
             
             <div class="form-group">
               <label for="name">Name</label>
@@ -221,45 +317,18 @@
 
             <div class="form-group">
               <label for="subject">Subject</label>
-              <input type="text" id="subject" name="subject" class="form-input" required placeholder="Product Issue / Feedback">
+              <input type="text" id="subject" name="subject" class="form-input" required placeholder="Project Inquiry / Feedback">
             </div>
 
             <div class="form-group">
               <label for="message">Message</label>
-              <textarea id="message" name="message" class="form-input" required placeholder="How can we help you?"></textarea>
+              <textarea id="message" name="message" class="form-input" required placeholder="Tell us how we can help..."></textarea>
             </div>
 
             <button type="submit">Send Message</button>
           </form>
+
         </div>
-
-        <!-- FAQ Section -->
-        <div class="faq-section">
-          <div class="section-header">
-            <h2>Frequently Asked Questions</h2>
-          </div>
-          
-          <div class="faq-item">
-            <h4>How do I delete my account?</h4>
-            <p>You can delete your account directly from within our apps (Settings > Account > Delete Account) or email us at support@vertexishere.com with your username.</p>
-          </div>
-
-          <div class="faq-item">
-            <h4>Is Cortex AI free to use?</h4>
-            <p>Yes, Cortex offers a free tier for everyone. We also offer premium plans for advanced features and higher limits.</p>
-          </div>
-
-          <div class="faq-item">
-            <h4>Where can I download All Star?</h4>
-            <p>All Star is available on the Google Play Store. An iOS version is currently in development.</p>
-          </div>
-          
-          <div class="faq-item">
-            <h4>How can I report a bug?</h4>
-            <p>Please use the contact form above and select "Bug Report" as your subject. Include screenshots if possible.</p>
-          </div>
-        </div>
-
       </div>
     </section>
   </main>
@@ -281,7 +350,7 @@
         <div class="footer-col">
             <h3>Contact</h3>
             <ul class="footer-links">
-              <li><a href="mailto:support@vertexishere.com">support@vertexishere.com</a></li>
+              <li><a href="mailto:contact@vertexishere.com">contact@vertexishere.com</a></li>
             </ul>
           </div>
       </div>
@@ -299,8 +368,13 @@
     const closeBtn = document.getElementById('mobile-nav-close');
 
     function toggleMenu() {
-        navOverlay.classList.toggle('active');
-        document.body.style.overflow = navOverlay.classList.contains('active') ? 'hidden' : '';
+        if(navOverlay.classList.contains('active')) {
+            navOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        } else {
+            navOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
     }
 
     if(menuToggle) menuToggle.addEventListener('click', toggleMenu);
@@ -312,6 +386,21 @@
         if(checkbox) {
             checkbox.checked = document.body.classList.contains('dark-theme');
         }
+        
+        // Icon renklerini düzeltme (inline SVG için)
+        const svgIcons = document.querySelectorAll('svg path');
+        function updateSvgColors() {
+            const isDark = document.body.classList.contains('dark-theme') || 
+                          (document.body.classList.contains('theme-loading') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            svgIcons.forEach(path => {
+                path.setAttribute('stroke', isDark ? '#ffffff' : '#000000');
+            });
+        }
+        
+        // Tema değişimini dinle
+        const observer = new MutationObserver(updateSvgColors);
+        observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+        updateSvgColors();
     });
   </script>
 </body>
