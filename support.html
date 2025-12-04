@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Vertex | Support Center</title>
+  <meta name="description" content="Get support for Vertex products including Cortex, Solar Browser, and All Star game. Contact our team for assistance.">
+  
+  <!-- Fonts and Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+
+  <!-- AUTOMATIC THEME DETECTION SYSTEM -->
+  <script>
+    function detectSystemTheme() {
+        try {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('selectedTheme');
+            
+            if (savedTheme) return savedTheme;
+            return prefersDark ? 'dark' : 'light';
+        } catch (error) {
+            return 'light';
+        }
+    }
+    
+    function applyTheme(theme) {
+        const body = document.body;
+        if (theme === 'dark') {
+            body.classList.remove('light-theme');
+            body.classList.add('dark-theme');
+        } else {
+            body.classList.remove('dark-theme');
+            body.classList.add('light-theme');
+        }
+        localStorage.setItem('selectedTheme', theme);
+    }
+    
+    window.applyTheme = applyTheme;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const detectedTheme = detectSystemTheme();
+        applyTheme(detectedTheme);
+        
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+            if (!localStorage.getItem('selectedTheme')) {
+                applyTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+    });
+  </script>
+
+  <style>
+    /* Support Page Specific Styles */
+    .support-hero {
+      padding-top: 150px;
+      padding-bottom: 50px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .support-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .support-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    @media(min-width: 768px) {
+      .support-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .faq-section {
+      margin-top: 4rem;
+    }
+
+    .faq-item {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--shadow-color);
+      text-align: left;
+    }
+
+    .faq-item h4 {
+      color: var(--primary-white);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .faq-item p {
+      color: var(--accent-gray);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body class="theme-loading">
+
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <h3><a href="index.html" id="main-link">Vertex</a></h3>
+      </div>
+      
+      <!-- Desktop Nav -->
+      <nav class="desktop-nav">
+        <ul>
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#projects">Products</a></li>
+          <li><a href="support.html" style="color: var(--primary-white); font-weight: 600;">Support</a></li>
+        </ul>
+      </nav>
+      
+      <!-- Header Buttons -->
+      <div class="header-buttons desktop-buttons">
+        <div class="theme-switch-container">
+          <label class="theme-switch" for="theme-toggle-checkbox">
+            <input type="checkbox" id="theme-toggle-checkbox" onclick="const newTheme = this.checked ? 'dark' : 'light'; applyTheme(newTheme);">
+            <div class="theme-slider">
+              <div class="theme-slider-icon sun-icon">☀️</div>
+              <div class="theme-slider-icon moon-icon">🌙</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <div class="mobile-menu-container">
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+          <div class="hamburger-lines">
+            <span class="line line1"></span>
+            <span class="line line2"></span>
+            <span class="line line3"></span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay">
+      <div class="mobile-nav-content">
+        <div class="mobile-nav-header">
+          <h3>Menu</h3>
+          <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
+        </div>
+        <nav class="mobile-nav">
+          <ul>
+            <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+            <li><a href="support.html" class="mobile-nav-link">Support</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="support-hero">
+      <!-- Arkaplan Üçgen Animasyonu (Mevcut CSS'ten gelir) -->
+      <ul class="triangles" aria-hidden="true" style="z-index: -1;">
+        <li></li><li></li><li></li><li></li><li></li>
+        <li></li><li></li><li></li><li></li><li></li>
+      </ul>
+      
+      <div class="container">
+        <h1 style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary-white);">Support Center</h1>
+        <p style="color: var(--accent-gray); max-width: 600px; margin: 0 auto;">
+          Need help with Cortex, All Star, or Solar Browser? We are here to assist you.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Form & Info -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container support-container">
+        
+        <div class="support-grid">
+          <!-- Direct Contact Info -->
+          <div class="contact-info">
+            <h3>Get in Touch</h3>
+            <p>For urgent inquiries or business partnerships, you can reach us directly via email.</p>
+            
+            <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+              <div class="info-item">
+                <img src="assets/email.svg" alt="Email">
+                <span>contact@vertexishere.com</span>
+              </div>
+              <div class="info-item">
+                <img src="assets/email.svg" alt="Support">
+                <span>support@vertexishere.com</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <form class="contact-form" action="mailto:support@vertexishere.com" method="post" enctype="text/plain">
+            <h3>Send a Message</h3>
+            
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" class="form-input" required placeholder="Your Name">
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" class="form-input" required placeholder="your@email.com">
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" class="form-input" required placeholder="Product Issue / Feedback">
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" class="form-input" required placeholder="How can we help you?"></textarea>
+            </div>
+
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+          <div class="section-header">
+            <h2>Frequently Asked Questions</h2>
+          </div>
+          
+          <div class="faq-item">
+            <h4>How do I delete my account?</h4>
+            <p>You can delete your account directly from within our apps (Settings > Account > Delete Account) or email us at support@vertexishere.com with your username.</p>
+          </div>
+
+          <div class="faq-item">
+            <h4>Is Cortex AI free to use?</h4>
+            <p>Yes, Cortex offers a free tier for everyone. We also offer premium plans for advanced features and higher limits.</p>
+          </div>
+
+          <div class="faq-item">
+            <h4>Where can I download All Star?</h4>
+            <p>All Star is available on the Google Play Store. An iOS version is currently in development.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h4>How can I report a bug?</h4>
+            <p>Please use the contact form above and select "Bug Report" as your subject. Include screenshots if possible.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>Vertex</h3>
+          <p>Peak of Technology. Founded in 2023 by Turkiye's youngest tech entrepreneurs.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <ul class="footer-links">
+            <li><a href="https://vertexishere.com/privacy-policy">Privacy Policy</a></li>
+            <li><a href="https://vertexishere.com/terms-of-service">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+            <h3>Contact</h3>
+            <ul class="footer-links">
+              <li><a href="mailto:support@vertexishere.com">support@vertexishere.com</a></li>
+            </ul>
+          </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="copyright">© 2024 Vertex Corporation. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Basic Interaction Scripts -->
+  <script>
+    // Mobile Menu Logic
+    const menuToggle = document.getElementById('mobile-menu-toggle');
+    const navOverlay = document.getElementById('mobile-nav-overlay');
+    const closeBtn = document.getElementById('mobile-nav-close');
+
+    function toggleMenu() {
+        navOverlay.classList.toggle('active');
+        document.body.style.overflow = navOverlay.classList.contains('active') ? 'hidden' : '';
+    }
+
+    if(menuToggle) menuToggle.addEventListener('click', toggleMenu);
+    if(closeBtn) closeBtn.addEventListener('click', toggleMenu);
+
+    // Initialize Theme Switcher State
+    document.addEventListener('DOMContentLoaded', () => {
+        const checkbox = document.getElementById('theme-toggle-checkbox');
+        if(checkbox) {
+            checkbox.checked = document.body.classList.contains('dark-theme');
+        }
+    });
+  </script>
+</body>
+</html>

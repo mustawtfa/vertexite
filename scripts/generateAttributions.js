@@ -3,7 +3,7 @@ const path = require('path');
 
 // --- CONFIGURATION ---
 const MODELS_JSON_URL = 'https://cortexishere.com/models.json';
-// [MODIFIED] We now read from and write to the same file.
+// We now read from and write to the same file.
 const ATTRIBUTIONS_FILE_PATH = path.join(__dirname, '..', 'cortex-attributions.html');
 const INSERTION_POINT_START = '<!-- DYNAMIC_MODELS_INSERTION_POINT_START -->';
 const INSERTION_POINT_END = '<!-- DYNAMIC_MODELS_INSERTION_POINT_END -->';

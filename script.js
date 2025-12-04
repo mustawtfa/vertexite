@@ -1102,7 +1102,6 @@ document.addEventListener('DOMContentLoaded', function () {
         initBirthdayQuiz();
     }
 
-    // ... (Haberler ve doğum günü kodu aynı kalıyor)
     // ===================================================================
     // == MEHTAP'S BIRTHDAY QUIZ LOGIC
     // ===================================================================
